@@ -60,6 +60,7 @@ public class storySetPanel : BasePanel {
         //    backButton = transform.Find("backButton").GetComponent<Button>();
         //    backButton.onClick.AddListener(OnBack);
         //}
+        Time.timeScale = 1;
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 1;
@@ -109,6 +110,7 @@ public class storySetPanel : BasePanel {
     }
     public void OnBack()
     {
+        Time.timeScale = 1;
         //进入下一个场景前将所有面板出栈
         int count = uiMng.getStackCount();
         for (int i = 0; i < count; i++)
