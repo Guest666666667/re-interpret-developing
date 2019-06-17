@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//test
+//testtest
 public class UnitySingleton<T> : MonoBehaviour
         where T : Component
 {
