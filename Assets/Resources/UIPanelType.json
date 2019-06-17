@@ -1,0 +1,29 @@
+{
+"infoList":
+[
+  {
+    "panelTypeString": "begin",
+    "path": "UIPanel/beginPanel"
+  },
+  {
+    "panelTypeString": "select",
+    "path": "UIPanel/selectPanel"
+  },
+  {
+    "panelTypeString": "selectStory",
+    "path": "UIPanel/selectStoryPanel"
+  },
+  {
+    "panelTypeString": "set",
+    "path": "UIPanel/setPanel"
+  },
+  {
+    "panelTypeString": "storyMain",
+    "path": "UIPanel/storyMainPanel"
+  },
+  {
+    "panelTypeString": "storySet",
+    "path": "UIPanel/storySetPanel"
+  }
+]
+}
