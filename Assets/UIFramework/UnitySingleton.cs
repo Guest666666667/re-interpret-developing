@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//test
-//testtest
+//testadasndasklm
+//testtestaosjidaosj
 public class UnitySingleton<T> : MonoBehaviour
         where T : Component
 {
@@ -36,5 +36,5 @@ public class UnitySingleton<T> : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }//my test ooooooooooooook.mamamam
+    }//my test ooooooooooooook.mamamamaskdlsalkdm
 }

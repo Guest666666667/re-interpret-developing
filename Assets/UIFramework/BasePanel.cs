@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//test
+//testtesttea，sdl
 public class BasePanel : MonoBehaviour {
 
     protected UIManager uiMng;
