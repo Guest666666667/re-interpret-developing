@@ -12,14 +12,14 @@ public class afterBone : MonoBehaviour
     private float needCoverLast = 10000f;//距离需要复原剩余时间
     private float coverTimeLast = 10000f;//复原到正常位置需要的剩余时间*/
     public GameObject model;//对应残影部位模型对象
-    private bool hasAcc = false;//是否已加速
+    private bool hasAcc = true;//是否已加速
     private float timeLast = 10000f;//加速到完美位置需要的剩余时间
     private bool showing = false;//是否正在展示残影
     private float showingLast = 10000f;//展示剩余时间
 
     void Start()
     {
-        hasAcc = false;
+        hasAcc = true;
     }
 
     void Update()
@@ -60,7 +60,10 @@ public class afterBone : MonoBehaviour
         if (timeLast <= 0f)
         {
             timeLast = 10000f;
-            GetComponent<Animator>().speed = 1f;
+            //GetComponent<Animator>().speed = 1f;
+            showing = true;
+            showingLast = 0.5f;
+            GetComponent<Animator>().speed = 0f;
         }
         /*if (showing)
         {
@@ -68,7 +71,7 @@ public class afterBone : MonoBehaviour
         }*/
         if (showingLast <= 0f)
         {
-            hasAcc = false;
+            GetComponent<Animator>().speed = 1f;
             showing = false;
             showingLast = 10000f;
             Color temp = model.GetComponent<SpriteMeshInstance>().color;
@@ -83,9 +86,10 @@ public class afterBone : MonoBehaviour
     public void Change()//前景人改变姿势事件对应调用的残影脚本方法
     {
         //GetComponent<Animator>().Play(stateName, -1, 0.75f);
-        showing = true;
+        /*showing = true;
         showingLast = 0.5f;
-        GetComponent<Animator>().speed = 0f;
+        GetComponent<Animator>().speed = 0f;*/
+        hasAcc = false;
         Color temp = model.GetComponent<SpriteMeshInstance>().color;
         model.GetComponent<SpriteMeshInstance>().color = new Color(temp.r, temp.g, temp.b, 1f);
         foreach (SpriteMeshInstance tmp in model.GetComponentsInChildren<SpriteMeshInstance>())
