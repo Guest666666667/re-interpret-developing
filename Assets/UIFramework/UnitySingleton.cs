@@ -36,5 +36,5 @@ public class UnitySingleton<T> : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    }//my test ooooooooooooook.mamamam
 }
