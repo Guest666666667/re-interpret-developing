@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using Anima2D;
 
-public class fightMainPanel : BasePanel
+public class fightSelectPartPanel : BasePanel
 {
     public GameObject head;
-    private Button checkButton;
+
     // Start is called before the first frame update
     void Start()
     {
-        checkButton = transform.Find("Button").GetComponent<Button>();
-        checkButton.onClick.AddListener(changLayer);
+        //checkButton = transform.Find("Button").GetComponent<Button>();
+        //checkButton.onClick.AddListener(changLayer);
     }
 
     // Update is called once per frame
