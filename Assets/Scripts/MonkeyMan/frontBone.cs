@@ -10,16 +10,37 @@ public class frontBone : MonoBehaviour
     private bool hasAcc = true;//是否已加速
     private float timeLast = 10000f;//加速到完美位置需要的剩余时间
     private float accTime = 0f;//距离正常进度的时间差
+    private int No = -1;//正在进行判定的骨骼编号
+    private int perfectSum = 0;//完美按键总次数
+    private string[] Keys = null;//所有需要按下的键值
 
     void Start()
     {
         hasAcc = true;
+        Keys = null;
     }
 
     void Update()
     {
         perfectLast -= Time.deltaTime;
-        if (Input.GetButtonDown("q"))//假设左臂对应q键控制，按下q键时根据时间差得出判定结果
+        transLast -= Time.deltaTime;
+        bool judge = true;
+        if (Keys == null) 
+        {
+            judge = false;
+        }
+        else
+        {
+            foreach (string t in Keys)
+            {
+                if (!Input.GetButton(t))
+                {
+                    judge = false;
+                    break;
+                }
+            }
+        }
+        if (judge) //假设左臂对应q键控制，按下q键时根据时间差得出判定结果
         {
             if (perfectLast > (-0.1f) && perfectLast < 0.1f)//0.1为最大完美判定允许误差，误差小于0.1则判定为完美
             {
@@ -40,7 +61,6 @@ public class frontBone : MonoBehaviour
                 Debug.Log("miss");
             }
         }
-        transLast -= Time.deltaTime;
         if (transLast < 0f)//停顿时间结束之后开始加速到正常进度
         {
             hasAcc = false;
@@ -73,9 +93,55 @@ public class frontBone : MonoBehaviour
         GameObject.Find(objectName).GetComponent<afterBone>().Change();
     }
 
-    public void begin()//判定起始点触发的事件，用于显示判定蓝圈并开始缩小
+    public void begin(int No)//判定起始点触发的事件，用于显示判定蓝圈并开始缩小
     {
-        GameObject.Find("runTimeUI/hint").GetComponent<hint>().begin();
+        this.No = No;
+        GameObject tmp = Resources.Load("UIPanel/hint") as GameObject;
+        GameObject gen = Instantiate(tmp, GameObject.Find("runTimeUI").transform, false);
+        if (No == 0 || No == 7)
+        {
+            GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
+            GameObject gen2 = Instantiate(tmp2, GameObject.Find("runTimeUI").transform, false);
+            gen.GetComponent<hint>().setUp("q");
+            gen2.GetComponent<hint>().setUp("e");
+            Keys = new string[2];
+            Keys[0] = "q";
+            Keys[1] = "e";
+        }
+        else if (No >= 1 && No <= 3)
+        {
+            gen.GetComponent<hint>().setUp("e");
+            Keys = new string[1];
+            Keys[0] = "e";
+        }
+        else if (No >= 4 && No <= 6)
+        {
+            gen.GetComponent<hint>().setUp("q");
+            Keys = new string[1];
+            Keys[0] = "q";
+        }
+        else if (No == 8)
+        {
+            GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
+            GameObject gen2 = Instantiate(tmp2, GameObject.Find("runTimeUI").transform, false);
+            gen.GetComponent<hint>().setUp("a");
+            gen2.GetComponent<hint>().setUp("d");
+            Keys = new string[2];
+            Keys[0] = "a";
+            Keys[1] = "d";
+        }
+        else if (No == 9)
+        {
+            gen.GetComponent<hint>().setUp("a");
+            Keys = new string[1];
+            Keys[0] = "a";
+        }
+        else if (No == 10)
+        {
+            gen.GetComponent<hint>().setUp("d");
+            Keys = new string[1];
+            Keys[0] = "d";
+        }
         perfectLast = 0.5f;
         callChange();
     }

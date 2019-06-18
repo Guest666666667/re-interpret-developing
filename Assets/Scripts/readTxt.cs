@@ -54,7 +54,11 @@ public class readTxt : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        totalTime -= Time.unscaledDeltaTime;
+        if (Time.timeScale > 0.001f)
+        {
+            totalTime -= Time.unscaledDeltaTime;
+        }
+        
 
         for (int i = 0; i < musicPoint.Count; i++)
         {
@@ -64,7 +68,8 @@ public class readTxt : MonoBehaviour {
                 singal = true;
                 Debug.Log(singal);
                 singal = false;*/
-                boneList[Mathf.FloorToInt(Random.value * boneList.Length)].GetComponent<frontBone>().begin();//随机骨骼判定完美动作
+                int tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                boneList[tmp].GetComponent<frontBone>().begin(tmp);//随机骨骼判定完美动作
                 musicJudge[i] = true;
             }
 
