@@ -51,4 +51,5 @@ public class hint : MonoBehaviour
         transform.DOScale(new Vector3(2f, 2f, 2f), 0.5f);
         GetComponent<CanvasGroup>().DOFade(0, 0.4f);
     }
+    
 }
