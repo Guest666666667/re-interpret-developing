@@ -7,10 +7,10 @@ public class readTxt : MonoBehaviour {
     public string text;//txt文本的内容
     public bool singal = false;//触发信号
     public List<string> sentences = new List<string>();//存放时间点的数组
-    public GameObject[] boneList;
+    public GameObject[] boneList;//骨骼列表
     private double totalTime = 110.00;//110s音乐的时间
     private List<double> musicPoint = new List<double>();//存放时间点的数组
-    private bool[] musicJudge;
+    private bool[] musicJudge;//音乐判定点
 
     // Use this for initialization
     void Start()
@@ -54,17 +54,22 @@ public class readTxt : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        totalTime -= Time.deltaTime;
+        if (Time.timeScale > 0.001f)
+        {
+            totalTime -= Time.unscaledDeltaTime;
+        }
+        
 
         for (int i = 0; i < musicPoint.Count; i++)
         {
-            if (totalTime <= (musicPoint[i] + 0.5f) && musicJudge[i] == false)
+            if (totalTime <= (musicPoint[i] + 5f/3f) && musicJudge[i] == false)
             {
                 /*Debug.Log(musicPoint[i]);
                 singal = true;
                 Debug.Log(singal);
                 singal = false;*/
-                boneList[Mathf.FloorToInt(Random.value * boneList.Length)].GetComponent<frontBone>().begin();//随机骨骼判定完美动作
+                int tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                boneList[tmp].GetComponent<frontBone>().begin(tmp);//随机骨骼判定完美动作
                 musicJudge[i] = true;
             }
 
