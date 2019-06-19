@@ -24,7 +24,7 @@ public class frontBone : MonoBehaviour
     {
         perfectLast -= Time.deltaTime;
         transLast -= Time.deltaTime;
-        bool judge = true;
+        bool judge = true;//判定多个键是否同时按下
         if (Keys == null) 
         {
             judge = false;
@@ -45,6 +45,10 @@ public class frontBone : MonoBehaviour
             if (perfectLast > (-0.1f) && perfectLast < 0.1f)//0.1为最大完美判定允许误差，误差小于0.1则判定为完美
             {
                 perfectLast = 10000f;
+                foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())
+                {
+                    t.complete(true, true);
+                }
                 Debug.Log("perfect!");
             }
             else if (perfectLast >= 0.1f && perfectLast < 0.5f)//完美范围外则判定为miss，动画停顿并计时
@@ -52,14 +56,23 @@ public class frontBone : MonoBehaviour
                 transLast = perfectLast;
                 accTime = perfectLast;
                 perfectLast = 10000f;
+                foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())
+                {
+                    t.complete(true, false);
+                }
                 GetComponent<Animator>().speed = 0f;
                 Debug.Log("miss");
             }
-            else if (perfectLast <= (-0.1f))
+            
+        }
+        if (perfectLast <= (-0.1f))//超时自动结束判定
+        {
+            perfectLast = 10000f;
+            foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())
             {
-                perfectLast = 10000f;
-                Debug.Log("miss");
+                t.complete(false, false);
             }
+            Debug.Log("miss");
         }
         if (transLast < 0f)//停顿时间结束之后开始加速到正常进度
         {
@@ -78,8 +91,8 @@ public class frontBone : MonoBehaviour
         if (!hasAcc)
         {
             hasAcc = true;
-            GetComponent<Animator>().speed = (accTime / Time.fixedDeltaTime / 2f) + 1f;
-            timeLast = 2f * Time.fixedDeltaTime - 0.001f;
+            GetComponent<Animator>().speed = (accTime / Time.fixedDeltaTime / 3f) + 1f;
+            timeLast = 3f * Time.fixedDeltaTime - 0.001f;//0.001用于补正细微误差
         }
         if (timeLast <= 0f)
         {

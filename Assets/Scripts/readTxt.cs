@@ -62,13 +62,17 @@ public class readTxt : MonoBehaviour {
 
         for (int i = 0; i < musicPoint.Count; i++)
         {
-            if (totalTime <= (musicPoint[i] + 5f/3f) && musicJudge[i] == false)
+            if (totalTime <= (musicPoint[i] + 0.5f/0.3f) && musicJudge[i] == false)//0.5代表慢镜头放慢前计划持续时间，0.3代表放慢倍率
             {
                 /*Debug.Log(musicPoint[i]);
                 singal = true;
                 Debug.Log(singal);
                 singal = false;*/
                 int tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                while(tmp < 1 || tmp == 7 || tmp == 8 || tmp == 3 || tmp == 6)//暂时设定只能选中运动幅度较大的四肢
+                {
+                    tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                }
                 boneList[tmp].GetComponent<frontBone>().begin(tmp);//随机骨骼判定完美动作
                 musicJudge[i] = true;
             }
