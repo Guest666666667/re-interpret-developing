@@ -54,8 +54,8 @@ public class afterBone : MonoBehaviour
         if (!hasAcc)
         {
             hasAcc = true;
-            GetComponent<Animator>().speed = (0.5f / Time.fixedDeltaTime / 2f) + 1f;
-            timeLast = 2f * Time.fixedDeltaTime - 0.001f;
+            GetComponent<Animator>().speed = (0.5f / Time.fixedDeltaTime / 3f) + 1f;
+            timeLast = 3f * Time.fixedDeltaTime - 0.001f;//0.001用于补正细微误差
         }
         if (timeLast <= 0f)
         {

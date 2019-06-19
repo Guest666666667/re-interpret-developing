@@ -26,7 +26,7 @@ public class hint : MonoBehaviour
         }*/
         if (isProcessing)//若正在显示过程中则蓝圈随时间逐渐缩小
         {
-            transform.Find("process").localScale -= new Vector3(1.2f * Time.deltaTime, 1.2f * Time.deltaTime, 1.2f * Time.deltaTime);
+            transform.Find("process").localScale -= new Vector3(0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime, 0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime, 0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime);//3个fixedDeltaTime为残影加速所耗时间，在0.5f+残影加速时间内缩小0.6f算出来的速度即为精确缩小速度
         }
         if (transform.Find("process").localScale.x < 0.4f)//蓝圈缩小到一定程度则自动消失
         {
