@@ -69,6 +69,10 @@ public class readTxt : MonoBehaviour {
                 Debug.Log(singal);
                 singal = false;*/
                 int tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                while(tmp < 1 || tmp == 7 || tmp == 8 || tmp == 3 || tmp == 6)//暂时设定只能选中运动幅度较大的四肢
+                {
+                    tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                }
                 boneList[tmp].GetComponent<frontBone>().begin(tmp);//随机骨骼判定完美动作
                 musicJudge[i] = true;
             }

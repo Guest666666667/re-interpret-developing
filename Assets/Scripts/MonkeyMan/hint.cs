@@ -20,10 +20,10 @@ public class hint : MonoBehaviour
     void Update()
     {
         timeLast -= Time.deltaTime;
-        if (Input.GetButtonDown(Key) && isProcessing)//按下对应按键且蓝圈在显示过程中则结束判定
+        /*if (Input.GetButtonDown(Key) && isProcessing)//按下对应按键且蓝圈在显示过程中则结束判定
         {
             complete(true);
-        }
+        }*/
         if (isProcessing)//若正在显示过程中则蓝圈随时间逐渐缩小
         {
             transform.Find("process").localScale -= new Vector3(1.2f * Time.deltaTime, 1.2f * Time.deltaTime, 1.2f * Time.deltaTime);
@@ -34,10 +34,10 @@ public class hint : MonoBehaviour
             transform.Find("process").GetComponent<CanvasGroup>().interactable = false;
             transform.Find("process").GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
-        if (timeLast < (-0.1f))//超过最晚完美判定点则自动结束判定
+        /*if (timeLast < (-0.1f))//超过最晚完美判定点则自动结束判定
         {
             complete(false);
-        }
+        }*/
     }
 
     public void begin()//开始出现蓝圈
@@ -52,7 +52,7 @@ public class hint : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
-    public void complete(bool isKeyDown)//结束判定，隐藏蓝圈，参数为消失是否为按键触发
+    public void complete(bool isKeyDown, bool isPerfect)//结束判定，隐藏蓝圈，参数为消失是否为按键触发，按键是否完美
     {
         isProcessing = false;
         transform.Find("process").GetComponent<CanvasGroup>().alpha = 0;
@@ -63,6 +63,7 @@ public class hint : MonoBehaviour
         {
             transform.DOScale(new Vector3(2f, 2f, 2f), 0.5f);
         }
+        transform.Find("keyHint/Text").GetComponent<Text>().text = (isPerfect ? "善" : "负");
         Tweener tweener = GetComponent<CanvasGroup>().DOFade(0, 0.4f);
         tweener.onComplete = drop;
     }
