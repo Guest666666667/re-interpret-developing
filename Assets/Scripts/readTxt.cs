@@ -62,7 +62,7 @@ public class readTxt : MonoBehaviour {
 
         for (int i = 0; i < musicPoint.Count; i++)
         {
-            if (totalTime <= (musicPoint[i] + 5f/3f) && musicJudge[i] == false)
+            if (totalTime <= (musicPoint[i] + 0.5f/0.3f) && musicJudge[i] == false)//0.5代表慢镜头放慢前计划持续时间，0.3代表放慢倍率
             {
                 /*Debug.Log(musicPoint[i]);
                 singal = true;
