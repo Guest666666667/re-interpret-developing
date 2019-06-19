@@ -24,7 +24,7 @@ public class frontBone : MonoBehaviour
     {
         perfectLast -= Time.deltaTime;
         transLast -= Time.deltaTime;
-        bool judge = true;
+        bool judge = true;//判定多个键是否同时按下
         if (Keys == null) 
         {
             judge = false;
@@ -55,11 +55,12 @@ public class frontBone : MonoBehaviour
                 GetComponent<Animator>().speed = 0f;
                 Debug.Log("miss");
             }
-            else if (perfectLast <= (-0.1f))
-            {
-                perfectLast = 10000f;
-                Debug.Log("miss");
-            }
+            
+        }
+        if (perfectLast <= (-0.1f))
+        {
+            perfectLast = 10000f;
+            Debug.Log("miss");
         }
         if (transLast < 0f)//停顿时间结束之后开始加速到正常进度
         {
