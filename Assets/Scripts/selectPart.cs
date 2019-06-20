@@ -35,7 +35,7 @@ public class selectPart : MonoBehaviour
         bottomMessage = transform.Find("middleShow").Find("message").GetComponent<Text>();
         upMessage = transform.Find("upShow").Find("message").GetComponent<Text>();
         downMessage = transform.Find("downShow").Find("message").GetComponent<Text>();
-        anim = transform.parent.GetChild(2).GetComponent<Animator>();
+        anim = transform.parent.GetChild(1).GetComponent<Animator>();
 
         buttonUp = transform.Find("Button").Find("up").GetComponent<CanvasGroup>();
         buttonDown = transform.Find("Button").Find("down").GetComponent<CanvasGroup>();
@@ -56,10 +56,10 @@ public class selectPart : MonoBehaviour
     void Update()
     {
         //接收按键事件
-        if (Input.GetKey("w")) OnEnterUp();
-        else if (Input.GetKey("s")) OnEnterDown();
-        else if (Input.GetKey("a")) OnEnterLeft();
-        else if (Input.GetKey("d")) OnEnterRight();
+        if (Input.GetButtonDown("w")) OnEnterUp();
+        else if (Input.GetButtonDown("s")) OnEnterDown();
+        else if (Input.GetButtonDown("a")) OnEnterLeft();
+        else if (Input.GetButtonDown("d")) OnEnterRight();
     }
     public void OnEnterUp()
     {
@@ -75,6 +75,7 @@ public class selectPart : MonoBehaviour
         if (anim.GetFloat("state") < 2.0f)
         {
             anim.SetFloat("state", anim.GetFloat("state") + 1);
+            Debug.Log("++ in");
         }
         else//状态机状态改变
         {
@@ -95,6 +96,14 @@ public class selectPart : MonoBehaviour
             default: break;
         }
         dir = Direction.DOWN;
+        if (anim.GetFloat("state") > 1.0f) 
+        {
+            anim.SetFloat("state", anim.GetFloat("state") - 1);
+        }
+        else//状态机状态改变
+        {
+            anim.SetFloat("state", anim.GetFloat("state") + 2);
+        }
     }
     public void OnEnterLeft()
     {

@@ -475,7 +475,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1440, y: 810}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -674,6 +674,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0.65882355
+      objectReference: {fileID: 0}
+    - target: {fileID: 224655826556595332, guid: 31b35f7710a14304495d24429102f06e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -786
+      objectReference: {fileID: 0}
+    - target: {fileID: 224655826556595332, guid: 31b35f7710a14304495d24429102f06e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 379
+      objectReference: {fileID: 0}
+    - target: {fileID: 224045826873055996, guid: 31b35f7710a14304495d24429102f06e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 802
+      objectReference: {fileID: 0}
+    - target: {fileID: 224045826873055996, guid: 31b35f7710a14304495d24429102f06e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 379
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31b35f7710a14304495d24429102f06e, type: 3}
