@@ -98,6 +98,8 @@ public class storySetPanel : BasePanel {
     {
         uiMng.PopPanel();
         Time.timeScale = 1;
+
+        AudioManager.Instance.Resume();
         //Debug.Log("pop already");
     }
     public void OnMusic()

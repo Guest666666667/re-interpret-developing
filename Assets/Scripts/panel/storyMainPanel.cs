@@ -37,5 +37,7 @@ public class storyMainPanel : BasePanel {
         //uiMng.PushPanel(UIPanelType.select);
         UIManager.Instance2.PushPanel(UIPanelType. storySet);
         Time.timeScale = 0;
+        //GameObject.Find("AudioManager").GetComponent<AudioManager>().Pause();
+        AudioManager.Instance.Pause();
     }
 }

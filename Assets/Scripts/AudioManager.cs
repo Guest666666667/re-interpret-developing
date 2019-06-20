@@ -31,6 +31,14 @@ public class AudioManager : UnitySingleton<AudioManager>
             MusicPlayer.Play();
         }
     }
+    public void Pause()
+    {
+        MusicPlayer.Pause();
+    }
+    public void Resume()
+    {
+        MusicPlayer.Play();
+    }
     public void PlaySound(string name)
     {
         AudioClip clip = Resources.Load<AudioClip>(name);
