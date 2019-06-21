@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class selectPart : MonoBehaviour
+public class selectUnitPart : MonoBehaviour
 {
+    //图片及文字改变
     private RawImage bottom;
     private RawImage up;
     private RawImage down;
@@ -18,6 +19,7 @@ public class selectPart : MonoBehaviour
     private Animator anim_up;
     private Animator anim_down;
     private bool ifFirstIn = true;
+    private int upOrdown = 0;//用于标明上一个上下操作的是上还是下，无0，上1，下2
     private bool changeAlready = false;
 
     //控制button透明度反馈，实际上是四个rawimage
@@ -32,7 +34,7 @@ public class selectPart : MonoBehaviour
 
     public float defalutAlpha = 0.8f;
     enum Direction {UP,DOWN,LEFT,RIGHT};
-    private Direction dir = Direction.LEFT;//初始为向下
+    private Direction dir = Direction.LEFT;//初始
 
     private void Awake()
     {
@@ -66,22 +68,39 @@ public class selectPart : MonoBehaviour
     void Update()
     {
         //接收按键事件
-        if (Input.GetButtonDown("w")) OnEnterUp();
-        else if (Input.GetButtonDown("s")) OnEnterDown();
-        else if (Input.GetButtonDown("a")) OnEnterLeft();
-        else if (Input.GetButtonDown("d")) OnEnterRight();
+        if (gameObject.name == "P1Child")
+        {
+            if (Input.GetKeyDown(KeyCode.W)) OnEnterUp();
+            else if (Input.GetKeyDown(KeyCode.S)) OnEnterDown();
+            else if (Input.GetKeyDown(KeyCode.A)) OnEnterLeft();
+            else if (Input.GetKeyDown(KeyCode.D)) OnEnterRight();
+        }
+        else//P2复用代码
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow)) OnEnterUp();
+            else if (Input.GetKeyDown(KeyCode.DownArrow)) OnEnterDown();
+            else if (Input.GetKeyDown(KeyCode.LeftArrow)) OnEnterLeft();
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight();//if(Input.GetButtonDown())
+        }
     }
     public void OnEnterUp()
     {
         buttonUp.alpha = 1.0f;
+        if (upOrdown == 2)//如果上一次上下操作为下
+        {
+            anim_m.SetFloat("state", anim_m.GetFloat("state") - 5);
+            anim_up.SetFloat("state", anim_up.GetFloat("state") - 5);
+            anim_down.SetFloat("state", anim_down.GetFloat("state") - 5);
+            changeAlready = true;
+        }upOrdown = 1;//更新标记值
         switch (dir)
         {
             case Direction.UP:break;
             case Direction.DOWN:
-                anim_m.SetFloat("state", anim_m.GetFloat("state") - 5);
-                anim_up.SetFloat("state", anim_up.GetFloat("state") - 5);
-                anim_down.SetFloat("state", anim_down.GetFloat("state") - 5);
-                changeAlready = true;
+                //anim_m.SetFloat("state", anim_m.GetFloat("state") - 5);
+                //anim_up.SetFloat("state", anim_up.GetFloat("state") - 5);
+                //anim_down.SetFloat("state", anim_down.GetFloat("state") - 5);
+                //changeAlready = true;
                 buttonDown.alpha = defalutAlpha;break;
             case Direction.LEFT:buttonLeft.alpha = defalutAlpha;break;
             case Direction.RIGHT: buttonRight.alpha = defalutAlpha; break;
@@ -120,17 +139,28 @@ public class selectPart : MonoBehaviour
         }
         else changeAlready = false;
 
+        //TODO chang showImage/message/playerImage
+        //确定选中的是哪一个并进行替换
+
     }
     public void OnEnterDown()
     {
         buttonDown.alpha = 1.0f;
+        if (upOrdown == 1)//上一个操作为上
+        {
+            anim_m.SetFloat("state", anim_m.GetFloat("state") + 5);
+            anim_up.SetFloat("state", anim_up.GetFloat("state") + 5);
+            anim_down.SetFloat("state", anim_down.GetFloat("state") + 5);
+            changeAlready = true;
+        }upOrdown = 2;//标记值
         switch (dir)
         {
+            //判断上一个选择的按键
             case Direction.UP:
-                anim_m.SetFloat("state", anim_m.GetFloat("state") + 5);
-                anim_up.SetFloat("state", anim_up.GetFloat("state") + 5);
-                anim_down.SetFloat("state", anim_down.GetFloat("state") + 5);
-                changeAlready = true;
+                //anim_m.SetFloat("state", anim_m.GetFloat("state") + 5);
+                //anim_up.SetFloat("state", anim_up.GetFloat("state") + 5);
+                //anim_down.SetFloat("state", anim_down.GetFloat("state") + 5);
+                //changeAlready = true;
                 buttonUp.alpha = defalutAlpha;break;
             case Direction.DOWN:  break;
             case Direction.LEFT: buttonLeft.alpha = defalutAlpha; break;
@@ -170,6 +200,10 @@ public class selectPart : MonoBehaviour
             }
         }
         else changeAlready = false;
+
+        //TODO chang showImage/message/playerImage
+        //确定选中的是哪一个并进行替换
+
     }
     public void OnEnterLeft()
     {
@@ -183,7 +217,8 @@ public class selectPart : MonoBehaviour
             default: break;
         }
         dir = Direction.LEFT;
-        //anim_m.SetTrigger("left");
+
+        //TODO chang showImage/message
     }
     public void OnEnterRight()
     {
@@ -197,5 +232,8 @@ public class selectPart : MonoBehaviour
             default: break;
         }
         dir = Direction.RIGHT;
+
+        //TODO chang showImage/message
     }
+
 }
