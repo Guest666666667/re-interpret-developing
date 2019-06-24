@@ -10,5 +10,8 @@ public enum UIPanelType
     selectStory,
     set,
     storyMain,
-    storySet
+    gameSet,
+    fightMain,
+    fightSelectPart,
+    fightSelectBg
 }

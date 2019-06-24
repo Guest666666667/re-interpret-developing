@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Anima2D;
 
-public class fightSelectPartPanel : BasePanel
+public class fightSelectBgPanel : BasePanel
 {
     private CanvasGroup canvasGroup;
 
@@ -17,8 +16,8 @@ public class fightSelectPartPanel : BasePanel
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        P1anim_m = transform.Find("P1").Find("P1Child").Find("middleShow").GetComponent<Animator>();
-        P2anim_m = transform.Find("P2").Find("P2Child").Find("middleShow").GetComponent<Animator>();
+        P1anim_m = transform.Find("farBG").Find("middleImage").GetComponent<Animator>();
+        P2anim_m = transform.Find("nearBG").Find("middleImage").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -29,7 +28,7 @@ public class fightSelectPartPanel : BasePanel
         if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1)) P2Enter = true;
         if (P1Enter && P2Enter) OnMakeSure();
     }
-    public override void OnEnter()//不用enter，一开始就在   
+    public override void OnEnter()
     {
         base.OnEnter();
     }
@@ -51,8 +50,6 @@ public class fightSelectPartPanel : BasePanel
     }
     public void OnMakeSure()
     {
-        //TODO change the position of player
-        UIManager.Instance3.PushPanel(UIPanelType.fightSelectBg);
+        uiMng.PushPanel(UIPanelType.fightMain);
     }
-
 }

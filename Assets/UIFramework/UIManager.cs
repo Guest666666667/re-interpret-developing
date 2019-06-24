@@ -27,8 +27,9 @@ public class UIManager : MonoBehaviour {
     /// 1，定义一个静态的对象 在外界访问 在内部构造
     /// 2，构造方法私有化
 
-    private static UIManager _instance;//场景一的静态实例
-    private static UIManager _instance2;//场景二的静态实例
+    private static UIManager _instance;//主场景的静态实例
+    private static UIManager _instance2;//志异场景的静态实例
+    private static UIManager _instance3;//演艺场景的静态实例
 
     public static UIManager Instance
     {
@@ -50,6 +51,17 @@ public class UIManager : MonoBehaviour {
                 _instance2 = new UIManager();
             }
             return _instance2;
+        }
+    }
+    public static UIManager Instance3
+    {
+        get
+        {
+            if (_instance3 == null)
+            {
+                _instance3 = new UIManager();
+            }
+            return _instance3;
         }
     }
 

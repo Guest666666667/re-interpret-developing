@@ -1,18 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 using UnityEngine.UI;
 
-public class storyMainPanel : BasePanel {
+public class fightMainPanel : BasePanel
+{
     private Button stopButton;
     private CanvasGroup canvasGroup;
-
-    // Use this for initialization
-    private void Start () {
+    // Start is called before the first frame update
+    void Start()
+    {
         canvasGroup = GetComponent<CanvasGroup>();
         stopButton = transform.Find("stopButton").GetComponent<Button>();
         stopButton.onClick.AddListener(OnStopClick);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
     public override void OnPause()
     {
@@ -35,7 +41,7 @@ public class storyMainPanel : BasePanel {
     public void OnStopClick()
     {
         //uiMng.PushPanel(UIPanelType.select);
-        UIManager.Instance2.PushPanel(UIPanelType. gameSet);
+        uiMng.PushPanel(UIPanelType.gameSet);
         Time.timeScale = 0;
         //GameObject.Find("AudioManager").GetComponent<AudioManager>().Pause();
         AudioManager.Instance.Pause();
