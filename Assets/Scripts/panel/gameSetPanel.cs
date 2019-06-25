@@ -41,6 +41,10 @@ public class gameSetPanel : BasePanel {
             settingMessage.Instance.setMusicVolume(musicSlider.value);
             settingMessage.Instance.setSoundVolume(soundSlider.value);
         }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    OnClose();
+        //}
     }
     public override void OnEnter()
     {
