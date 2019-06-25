@@ -42,17 +42,20 @@ public class hint : MonoBehaviour
 
     public void begin()//开始出现蓝圈
     {
+        //Debug.Log(transform.localScale);
         timeLast = 0.5f;
         isProcessing = true;
         transform.Find("process").GetComponent<CanvasGroup>().alpha = 1;
         transform.Find("process").GetComponent<CanvasGroup>().interactable = true;
         transform.Find("process").GetComponent<CanvasGroup>().blocksRaycasts = true;
         transform.Find("process").localScale = new Vector3(1f,1f,1f);
+        //transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f);
         //GetComponent<CanvasGroup>().DOFade(1, 0.2f);
         DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_AlphaScale"), x => GetComponentInChildren<Image>().material.SetFloat("_AlphaScale", x), 1f, 0.2f);
         GetComponentInChildren<Image>().material.SetFloat("_Offset", 0.05f);
         DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_Offset"), x => GetComponentInChildren<Image>().material.SetFloat("_Offset",x), 0f, 0.5f);
-        transform.localScale = new Vector3(1f, 1f, 1f);
+        //transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void complete(bool isKeyDown, bool isPerfect)//结束判定，隐藏蓝圈，参数为消失是否为按键触发，按键是否完美
@@ -67,6 +70,7 @@ public class hint : MonoBehaviour
             transform.DOScale(new Vector3(2f, 2f, 2f), 0.5f);
         }*/
         //Tweener tweener = GetComponent<CanvasGroup>().DOFade(0, 0.4f);
+        transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f);
         DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_Offset"), x => GetComponentInChildren<Image>().material.SetFloat("_Offset", x), 0.05f, 0.4f);
         Tweener tweener = DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_AlphaScale"), x => GetComponentInChildren<Image>().material.SetFloat("_AlphaScale", x), 0f, 0.4f);
         transform.Find("keyHint/Text").GetComponent<Text>().text = (isPerfect ? "善" : "负");
