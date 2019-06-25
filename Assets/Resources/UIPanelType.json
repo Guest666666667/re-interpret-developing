@@ -22,8 +22,12 @@
     "path": "UIPanel/storyMainPanel"
   },
   {
-    "panelTypeString": "storySet",
-    "path": "UIPanel/storySetPanel"
+    "panelTypeString": "gameSet",
+    "path": "UIPanel/gameSetPanel"
+  },
+    {
+    "panelTypeString": "fightMain",
+    "path": "UIPanel/fightMainPanel"
   }
 ]
 }

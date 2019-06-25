@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class storySetPanel : BasePanel {
+public class gameSetPanel : BasePanel {
     private CanvasGroup canvasGroup;
     private Button returnButton;
     private Button musicOnButton;

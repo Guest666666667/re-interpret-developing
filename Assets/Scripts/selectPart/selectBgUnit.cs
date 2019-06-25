@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class selectTotalPart : MonoBehaviour
+public class selectBgUnit : MonoBehaviour
 {
     //控制UI动画
     private Animator anim_m;
@@ -11,7 +11,6 @@ public class selectTotalPart : MonoBehaviour
     private bool ifFirstIn = true;
     private int LeftOrRight = 0;//用于标明上一个上下操作的是上还是下，无0，上1，下2
     private bool changeAlready = false;
-    private selectUnitPart unitPartCrt;
     //private GameObject child;
 
     private void Awake()
@@ -19,7 +18,6 @@ public class selectTotalPart : MonoBehaviour
         anim_m = transform.Find("middleImage").GetComponent<Animator>();
         anim_left = transform.Find("leftImage").GetComponent<Animator>();
         anim_right = transform.Find("rightImage").GetComponent<Animator>();
-        unitPartCrt = transform.Find(gameObject.name + "Child").GetComponent<selectUnitPart>();//动态找儿子
 
     }
     // Start is called before the first frame update
@@ -32,31 +30,27 @@ public class selectTotalPart : MonoBehaviour
     void Update()
     {
         //接收按键事件
-        if(!anim_left.IsInTransition(0))
+        if (!anim_left.IsInTransition(0))
         {
-            if (gameObject.name == "P1")
+            if (gameObject.name == "farBG")
             {
-                if (Input.GetKeyDown(KeyCode.Q)) OnEnterLeft();
-                else if (Input.GetKeyDown(KeyCode.E)) OnEnterRight();
+                if (Input.GetKeyDown(KeyCode.A)) OnEnterLeft();
+                else if (Input.GetKeyDown(KeyCode.D)) OnEnterRight();
             }
-            else//P2复用代码
+            else//nearBG复用代码
             {
-                if (Input.GetKeyDown(KeyCode.Keypad2)) OnEnterLeft();
-                else if (Input.GetKeyDown(KeyCode.Keypad3)) OnEnterRight();
+                if (Input.GetKeyDown(KeyCode.LeftArrow)) OnEnterLeft();
+                else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight();
             }
-            //lockTime = 0.7f;
         }
     }
     public void OnEnterUp()
     {
 
-        //TODO chang showImage/message/playerImage
-        //确定选中的是哪一个并进行替换
     }
     public void OnEnterDown()
     {
-        //TODO chang showImage/message/playerImage
-        //确定选中的是哪一个并进行替换
+
     }
     public void OnEnterLeft()
     {
@@ -102,7 +96,7 @@ public class selectTotalPart : MonoBehaviour
         }
         else changeAlready = false;
 
-        //TODO chang child's showImage
+        //TODO chang showImage
     }
     public void OnEnterRight()
     {
@@ -147,6 +141,6 @@ public class selectTotalPart : MonoBehaviour
         }
         else changeAlready = false;
 
-        //TODO chang child's showImage
+        //TODO chang showImage
     }
 }

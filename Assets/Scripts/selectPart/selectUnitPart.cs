@@ -7,12 +7,13 @@ using UnityEngine.UI;
 public class selectUnitPart : MonoBehaviour
 {
     //图片及文字改变
-    private RawImage bottom;
+    private RawImage mid;
     private RawImage up;
     private RawImage down;
-    private Text bottomMessage;
+    private Text midMessage;
     private Text upMessage;
     private Text downMessage;//响应按键
+    public Texture temp;
 
     //控制UI动画
     private Animator anim_m;
@@ -21,6 +22,7 @@ public class selectUnitPart : MonoBehaviour
     private bool ifFirstIn = true;
     private int upOrdown = 0;//用于标明上一个上下操作的是上还是下，无0，上1，下2
     private bool changeAlready = false;
+    private bool UIlock = false;
 
     //控制button透明度反馈，实际上是四个rawimage
     private CanvasGroup buttonUp;
@@ -38,10 +40,10 @@ public class selectUnitPart : MonoBehaviour
 
     private void Awake()
     {
-        bottom = transform.Find("middleShow").Find("showImage").GetComponent<RawImage>();
+        mid = transform.Find("middleShow").Find("showImage").GetComponent<RawImage>();
         up= transform.Find("upShow").Find("showImage").GetComponent<RawImage>();
         down = transform.Find("downShow").Find("showImage").GetComponent<RawImage>();
-        bottomMessage = transform.Find("middleShow").Find("message").GetComponent<Text>();
+        midMessage = transform.Find("middleShow").Find("message").GetComponent<Text>();
         upMessage = transform.Find("upShow").Find("message").GetComponent<Text>();
         downMessage = transform.Find("downShow").Find("message").GetComponent<Text>();
 
@@ -67,24 +69,30 @@ public class selectUnitPart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //接收按键事件
-        if (gameObject.name == "P1Child")
+        if (!anim_m.IsInTransition(0))//如果没有在切换状态
         {
-            if (Input.GetKeyDown(KeyCode.W)) OnEnterUp();
-            else if (Input.GetKeyDown(KeyCode.S)) OnEnterDown();
-            else if (Input.GetKeyDown(KeyCode.A)) OnEnterLeft();
-            else if (Input.GetKeyDown(KeyCode.D)) OnEnterRight();
-        }
-        else//P2复用代码
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow)) OnEnterUp();
-            else if (Input.GetKeyDown(KeyCode.DownArrow)) OnEnterDown();
-            else if (Input.GetKeyDown(KeyCode.LeftArrow)) OnEnterLeft();
-            else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight();//if(Input.GetButtonDown())
+            //接收按键事件
+            if (gameObject.name == "P1Child")
+            {
+                if (Input.GetKeyDown(KeyCode.W)) OnEnterUp();
+                else if (Input.GetKeyDown(KeyCode.S)) OnEnterDown();
+                else if (Input.GetKeyDown(KeyCode.A)) OnEnterLeft();
+                else if (Input.GetKeyDown(KeyCode.D)) OnEnterRight();
+            }
+            else//P2复用代码
+            {
+                if (Input.GetKeyDown(KeyCode.UpArrow)) OnEnterUp();
+                else if (Input.GetKeyDown(KeyCode.DownArrow)) OnEnterDown();
+                else if (Input.GetKeyDown(KeyCode.LeftArrow)) OnEnterLeft();
+                else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight();//if(Input.GetButtonDown())
+            }
         }
     }
     public void OnEnterUp()
     {
+        //TODO chang showImage/message/playerImage
+        //确定选中的是哪一个并进行替换
+
         buttonUp.alpha = 1.0f;
         if (upOrdown == 2)//如果上一次上下操作为下
         {
@@ -96,12 +104,7 @@ public class selectUnitPart : MonoBehaviour
         switch (dir)
         {
             case Direction.UP:break;
-            case Direction.DOWN:
-                //anim_m.SetFloat("state", anim_m.GetFloat("state") - 5);
-                //anim_up.SetFloat("state", anim_up.GetFloat("state") - 5);
-                //anim_down.SetFloat("state", anim_down.GetFloat("state") - 5);
-                //changeAlready = true;
-                buttonDown.alpha = defalutAlpha;break;
+            case Direction.DOWN:buttonDown.alpha = defalutAlpha;break;
             case Direction.LEFT:buttonLeft.alpha = defalutAlpha;break;
             case Direction.RIGHT: buttonRight.alpha = defalutAlpha; break;
             default:break;
@@ -139,12 +142,14 @@ public class selectUnitPart : MonoBehaviour
         }
         else changeAlready = false;
 
-        //TODO chang showImage/message/playerImage
-        //确定选中的是哪一个并进行替换
 
     }
     public void OnEnterDown()
     {
+        //TODO chang showImage/message/playerImage
+        //确定选中的是哪一个并进行替换
+
+
         buttonDown.alpha = 1.0f;
         if (upOrdown == 1)//上一个操作为上
         {
@@ -156,12 +161,7 @@ public class selectUnitPart : MonoBehaviour
         switch (dir)
         {
             //判断上一个选择的按键
-            case Direction.UP:
-                //anim_m.SetFloat("state", anim_m.GetFloat("state") + 5);
-                //anim_up.SetFloat("state", anim_up.GetFloat("state") + 5);
-                //anim_down.SetFloat("state", anim_down.GetFloat("state") + 5);
-                //changeAlready = true;
-                buttonUp.alpha = defalutAlpha;break;
+            case Direction.UP:buttonUp.alpha = defalutAlpha;break;
             case Direction.DOWN:  break;
             case Direction.LEFT: buttonLeft.alpha = defalutAlpha; break;
             case Direction.RIGHT: buttonRight.alpha = defalutAlpha; break;
@@ -201,8 +201,6 @@ public class selectUnitPart : MonoBehaviour
         }
         else changeAlready = false;
 
-        //TODO chang showImage/message/playerImage
-        //确定选中的是哪一个并进行替换
 
     }
     public void OnEnterLeft()
@@ -219,6 +217,17 @@ public class selectUnitPart : MonoBehaviour
         dir = Direction.LEFT;
 
         //TODO chang showImage/message
+        if (anim_m.GetFloat("state") == 0.0f) mid.texture = temp;
+        else
+        {
+            if (anim_m.GetFloat("state") == 2.1f || anim_m.GetFloat("state") == 5.1f)
+                anim_m.transform.Find("showImage").GetComponent<RawImage>().texture = temp;
+            else if (anim_up.GetFloat("state") == 2.1f || anim_up.GetFloat("state") == 5.1f)
+                anim_up.transform.Find("showImage").GetComponent<RawImage>().texture = temp;
+            else if (anim_down.GetFloat("state") == 2.1f || anim_down.GetFloat("state") == 5.1f)
+                anim_down.transform.Find("showImage").GetComponent<RawImage>().texture = temp;
+        }
+
     }
     public void OnEnterRight()
     {
