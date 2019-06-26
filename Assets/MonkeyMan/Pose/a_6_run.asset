@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: a_6_run
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: Skeleton/rootBone
+    localPosition: {x: 0.22800002, y: -0.45800003, z: 0}
+    localRotation: {x: 0.00000000372529, y: -0, z: -0.816794, w: -0.5769295}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/rootBone/rightArm
+    localPosition: {x: 2.138, y: -0.26399994, z: 0}
+    localRotation: {x: 0, y: -0, z: 0.8870109, w: -0.46174863}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/rootBone/rightArm/rightArm2
+    localPosition: {x: 1.1439997, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.21643952, w: 0.97629607}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/rootBone/rightArm/rightArm2/rightHand
+    localPosition: {x: 1.1637733, y: 0, z: 0}
+    localRotation: {x: 9.62276e-10, y: -8.000415e-11, z: -0.061878636, w: 0.9980837}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/rootBone/leftArm
+    localPosition: {x: 2.1299274, y: -0.26048827, z: 0}
+    localRotation: {x: 0.006839282, y: -0.016331604, z: -0.88688385, w: -0.46165317}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/rootBone/leftArm/leftArm2
+    localPosition: {x: 1.158499, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.42261827, w: 0.9063079}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/rootBone/leftArm/leftArm2/leftHand
+    localPosition: {x: 1.1970003, y: 0.00000007636845, z: 0}
+    localRotation: {x: 2.9738254e-11, y: -3.1205658e-10, z: 0.095853105, w: 0.9953955}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/rootBone/head
+    localPosition: {x: 2.480184, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.06975647, w: 0.9975641}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/buttock
+    localPosition: {x: 0.228, y: -0.458, z: 0}
+    localRotation: {x: 0.000000007450581, y: 0.0000000018626451, z: -0.5735542, w: 0.8191676}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/buttock/leftLeg
+    localPosition: {x: 1.0450956, y: -0.40781796, z: 0}
+    localRotation: {x: -0.000000003172587, y: 0.0000000035416, z: -0.38572988, w: 0.92261183}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Skeleton/buttock/rightLeg
+    localPosition: {x: 1.1543245, y: 0.60144824, z: 0}
+    localRotation: {x: 9.874723e-10, y: -0.0000000017363219, z: 0.34292123, w: 0.9393642}
+    localScale: {x: 1, y: 1, z: 1}

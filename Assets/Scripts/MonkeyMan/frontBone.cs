@@ -13,9 +13,11 @@ public class frontBone : MonoBehaviour
     private int No = -1;//正在进行判定的骨骼编号
     private int perfectSum = 0;//完美按键总次数
     private string[] Keys = null;//所有需要按下的键值
+    private List<GameObject> buttons;
 
     void Start()
     {
+        buttons = new List<GameObject>();
         hasAcc = true;
         Keys = null;
     }
@@ -45,10 +47,11 @@ public class frontBone : MonoBehaviour
             if (perfectLast > (-0.1f) && perfectLast < 0.1f)//0.1为最大完美判定允许误差，误差小于0.1则判定为完美
             {
                 perfectLast = 10000f;
-                foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())
+                buttons.ForEach(t =>
                 {
-                    t.complete(true, true);
-                }
+                    t.GetComponent<hint>().complete(true, true);
+                });
+                buttons.Clear();
                 Debug.Log("perfect!");
             }
             else if (perfectLast >= 0.1f && perfectLast < 0.5f)//完美范围外则判定为miss，动画停顿并计时
@@ -56,10 +59,11 @@ public class frontBone : MonoBehaviour
                 transLast = perfectLast;
                 accTime = perfectLast;
                 perfectLast = 10000f;
-                foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())
+                buttons.ForEach(t =>
                 {
-                    t.complete(true, false);
-                }
+                    t.GetComponent<hint>().complete(true, false);
+                });
+                buttons.Clear();
                 GetComponent<Animator>().speed = 0f;
                 Debug.Log("miss");
             }
@@ -68,10 +72,11 @@ public class frontBone : MonoBehaviour
         if (perfectLast <= (-0.1f))//超时自动结束判定
         {
             perfectLast = 10000f;
-            foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())
+            buttons.ForEach(t =>
             {
-                t.complete(false, false);
-            }
+                t.GetComponent<hint>().complete(false, false);
+            });
+            buttons.Clear();
             Debug.Log("miss");
         }
         if (transLast < 0f)//停顿时间结束之后开始加速到正常进度
@@ -111,10 +116,12 @@ public class frontBone : MonoBehaviour
         this.No = No;
         GameObject tmp = Resources.Load("UIPanel/hint") as GameObject;
         GameObject gen = Instantiate(tmp, GameObject.Find("runTimeUI").transform, false);
+        buttons.Add(gen);
         if (No == 0 || No == 7)
         {
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
             GameObject gen2 = Instantiate(tmp2, GameObject.Find("runTimeUI").transform, false);
+            buttons.Add(gen2);
             gen.GetComponent<hint>().setUp("q");
             gen2.GetComponent<hint>().setUp("e");
             Keys = new string[2];
@@ -137,6 +144,7 @@ public class frontBone : MonoBehaviour
         {
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
             GameObject gen2 = Instantiate(tmp2, GameObject.Find("runTimeUI").transform, false);
+            buttons.Add(gen2);
             gen.GetComponent<hint>().setUp("a");
             gen2.GetComponent<hint>().setUp("d");
             Keys = new string[2];

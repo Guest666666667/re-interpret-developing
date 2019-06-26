@@ -64,7 +64,7 @@ public class afterBone : MonoBehaviour
             showing = true;
             showingLast = 0.5f;
             GetComponent<Animator>().speed = 0f;
-            Time.timeScale = 0.3f;
+            GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
         }
         /*if (showing)
         {
@@ -72,7 +72,7 @@ public class afterBone : MonoBehaviour
         }*/
         if (showingLast <= 0f)
         {
-            Time.timeScale = 1f;
+            GameObject.Find("afterImage").GetComponent<timeScaleManagement>().delSlow();
             GetComponent<Animator>().speed = 1f;
             showing = false;
             showingLast = 10000f;

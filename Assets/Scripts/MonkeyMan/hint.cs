@@ -9,11 +9,18 @@ public class hint : MonoBehaviour
     private bool isProcessing = false;
     private string Key;
     private float timeLast = 10000f;
+    private float expectScale = 1f;
+    private Material mat;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        expectScale = 1f ;
+        mat = new Material(GetComponentInChildren<Image>().material);
+        transform.Find("bg").GetComponent<Image>().material = mat;
+        transform.Find("miss").GetComponent<Image>().material = mat;
+        transform.Find("keyHint").GetComponent<Image>().material = mat;
+        transform.Find("keyHint/Text").GetComponent<Text>().material = mat;
     }
 
     // Update is called once per frame
@@ -26,7 +33,8 @@ public class hint : MonoBehaviour
         }*/
         if (isProcessing)//若正在显示过程中则蓝圈随时间逐渐缩小
         {
-            transform.Find("process").localScale -= new Vector3(0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime, 0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime, 0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime);//3个fixedDeltaTime为残影加速所耗时间，在0.5f+残影加速时间内缩小0.6f算出来的速度即为精确缩小速度
+            expectScale -= 0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime;//3个fixedDeltaTime为残影加速所耗时间，在0.5f+残影加速时间内缩小0.6f算出来的速度即为精确缩小速度
+            transform.Find("process").localScale = new Vector3(expectScale/transform.localScale.x, expectScale / transform.localScale.y, expectScale / transform.localScale.z);
         }
         if (transform.Find("process").localScale.x < 0.4f)//蓝圈缩小到一定程度则自动消失
         {
@@ -42,13 +50,14 @@ public class hint : MonoBehaviour
 
     public void begin()//开始出现蓝圈
     {
-        //Debug.Log(transform.localScale);
+        
         timeLast = 0.5f;
         isProcessing = true;
         transform.Find("process").GetComponent<CanvasGroup>().alpha = 1;
         transform.Find("process").GetComponent<CanvasGroup>().interactable = true;
         transform.Find("process").GetComponent<CanvasGroup>().blocksRaycasts = true;
-        transform.Find("process").localScale = new Vector3(1f,1f,1f);
+        expectScale = 1f;
+        //Debug.Log(transform.localScale);
         //transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f);
         //GetComponent<CanvasGroup>().DOFade(1, 0.2f);
@@ -64,7 +73,7 @@ public class hint : MonoBehaviour
         transform.Find("process").GetComponent<CanvasGroup>().alpha = 0;
         transform.Find("process").GetComponent<CanvasGroup>().interactable = false;
         transform.Find("process").GetComponent<CanvasGroup>().blocksRaycasts = false;
-        transform.Find("process").localScale = new Vector3(1f, 1f, 1f);
+        expectScale = 1f;
         /*if (isKeyDown)
         {
             transform.DOScale(new Vector3(2f, 2f, 2f), 0.5f);

@@ -8,7 +8,7 @@ public class readTxt : MonoBehaviour {
     public bool singal = false;//触发信号
     public List<string> sentences = new List<string>();//存放时间点的数组
     public GameObject[] boneList;//骨骼列表
-    private double totalTime = 110.00;//110s音乐的时间
+    private double totalTime = 0.00;
     private List<double> musicPoint = new List<double>();//存放时间点的数组
     private bool[] musicJudge;//音乐判定点
 
@@ -56,13 +56,14 @@ public class readTxt : MonoBehaviour {
     {
         if (Time.timeScale > 0.001f)
         {
-            totalTime -= Time.unscaledDeltaTime;
+            //totalTime += Time.unscaledDeltaTime;
+            totalTime = GameObject.Find("AudioManager").GetComponent<AudioManager>().MusicPlayer.time;
         }
         
 
         for (int i = 0; i < musicPoint.Count; i++)
         {
-            if (totalTime <= (musicPoint[i] + 0.5f/0.3f) && musicJudge[i] == false)//0.5代表慢镜头放慢前计划持续时间，0.3代表放慢倍率
+            if (totalTime >= (musicPoint[i] - 0.5f/0.3f) && musicJudge[i] == false)//0.5代表慢镜头放慢前计划持续时间，0.3代表放慢倍率
             {
                 /*Debug.Log(musicPoint[i]);
                 singal = true;
