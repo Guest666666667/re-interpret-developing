@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class selectTotalPart : MonoBehaviour
 {
@@ -11,14 +12,23 @@ public class selectTotalPart : MonoBehaviour
     private bool ifFirstIn = true;
     private int LeftOrRight = 0;//用于标明上一个上下操作的是上还是下，无0，上1，下2
     private bool changeAlready = false;
+    private string[] actorName = {  "大乔","关羽", "孙悟空", "自定义" };
+    private int index = 1;//中间的那个的下标
     private selectUnitPart unitPartCrt;
     //private GameObject child;
 
+    //文字及缩略图改变
+    private Text midMessage;
+    private Text leftMessage;
+    private Text rightMessage;
     private void Awake()
     {
         anim_m = transform.Find("middleImage").GetComponent<Animator>();
         anim_left = transform.Find("leftImage").GetComponent<Animator>();
         anim_right = transform.Find("rightImage").GetComponent<Animator>();
+        midMessage = transform.Find("middleImage").Find("message").GetComponent<Text>();
+        leftMessage = transform.Find("leftImage").Find("message").GetComponent<Text>();
+        rightMessage = transform.Find("rightImage").Find("message").GetComponent<Text>();
         unitPartCrt = transform.Find(gameObject.name + "Child").GetComponent<selectUnitPart>();//动态找儿子
 
     }
@@ -62,9 +72,9 @@ public class selectTotalPart : MonoBehaviour
     {
         if (LeftOrRight == 2)//如果上一次上下操作为右
         {
-            anim_m.SetFloat("state", anim_m.GetFloat("state") - 5);
-            anim_left.SetFloat("state", anim_left.GetFloat("state") - 5);
-            anim_right.SetFloat("state", anim_right.GetFloat("state") - 5);
+            anim_m.SetInteger("state", anim_m.GetInteger("state") - 5);
+            anim_left.SetInteger("state", anim_left.GetInteger("state") - 5);
+            anim_right.SetInteger("state", anim_right.GetInteger("state") - 5);
             changeAlready = true;
         }
         LeftOrRight = 1;//更新标记值
@@ -75,42 +85,60 @@ public class selectTotalPart : MonoBehaviour
             if (ifFirstIn)
             {
                 ifFirstIn = false;
-                anim_m.SetFloat("state", 0.1f);
-                anim_left.SetFloat("state", 1.1f);
-                anim_right.SetFloat("state", 2.1f);
+                anim_m.SetInteger("state", 1);
+                anim_left.SetInteger("state", 2);
+                anim_right.SetInteger("state", 3);
             }
             else
             {
                 //middleeeeeeeeeeeeeeeeeeeee
-                if (anim_m.GetFloat("state") < 2.0f)
-                    anim_m.SetFloat("state", anim_m.GetFloat("state") + 1);
+                if (anim_m.GetInteger("state") < 3)
+                    anim_m.SetInteger("state", anim_m.GetInteger("state") + 1);
                 else//状态机状态改变
-                    anim_m.SetFloat("state", anim_m.GetFloat("state") - 2);
+                    anim_m.SetInteger("state", anim_m.GetInteger("state") - 2);
 
                 //lefttttttttttttttttttttttt
-                if (anim_left.GetFloat("state") < 2.0f)
-                    anim_left.SetFloat("state", anim_left.GetFloat("state") + 1);
+                if (anim_left.GetInteger("state") < 3)
+                    anim_left.SetInteger("state", anim_left.GetInteger("state") + 1);
                 else//状态机状态改变
-                    anim_left.SetFloat("state", anim_left.GetFloat("state") - 2);
+                    anim_left.SetInteger("state", anim_left.GetInteger("state") - 2);
 
                 //rightttttttttttttttttttttt
-                if (anim_right.GetFloat("state") < 2.0f)
-                    anim_right.SetFloat("state", anim_right.GetFloat("state") + 1);
+                if (anim_right.GetInteger("state") < 3)
+                    anim_right.SetInteger("state", anim_right.GetInteger("state") + 1);
                 else//状态机状态改变
-                    anim_right.SetFloat("state", anim_right.GetFloat("state") - 2);
+                    anim_right.SetInteger("state", anim_right.GetInteger("state") - 2);
             }
         }
         else changeAlready = false;
 
         //TODO chang child's showImage
+        //更换字
+        int changeIndex = 0;//应该换成的字的下标
+        if (index + 2 < 4) changeIndex = index + 2;
+        else
+        {
+            changeIndex = index + 2 - 4;
+        }
+        if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为下面位置
+        { midMessage.text = actorName[changeIndex]; }
+        else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
+        { leftMessage.text = actorName[changeIndex]; }
+        else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
+        { rightMessage.text = actorName[changeIndex]; }
+        //更新index
+        index = changeIndex - 1 >= 0 ? changeIndex - 1 : changeIndex - 1 + 4;
+
+        //改变图片
+        unitPartCrt.changeTotally(index);
     }
     public void OnEnterRight()
     {
         if (LeftOrRight == 1)//上一个操作为左
         {
-            anim_m.SetFloat("state", anim_m.GetFloat("state") + 5);
-            anim_left.SetFloat("state", anim_left.GetFloat("state") + 5);
-            anim_right.SetFloat("state", anim_right.GetFloat("state") + 5);
+            anim_m.SetInteger("state", anim_m.GetInteger("state") + 5);
+            anim_left.SetInteger("state", anim_left.GetInteger("state") + 5);
+            anim_right.SetInteger("state", anim_right.GetInteger("state") + 5);
             changeAlready = true;
         }
         LeftOrRight = 2;//标记值
@@ -120,33 +148,51 @@ public class selectTotalPart : MonoBehaviour
             if (ifFirstIn)
             {
                 ifFirstIn = false;
-                anim_m.SetFloat("state", 7.1f);
-                anim_left.SetFloat("state", 5.1f);
-                anim_right.SetFloat("state", 6.1f);
+                anim_m.SetInteger("state", 8);
+                anim_left.SetInteger("state", 6);
+                anim_right.SetInteger("state", 7);
             }
             else
             {
                 //middleeeeeeeeeee
-                if (anim_m.GetFloat("state") > 6.0f)
-                    anim_m.SetFloat("state", anim_m.GetFloat("state") - 1);
+                if (anim_m.GetInteger("state") > 6)
+                    anim_m.SetInteger("state", anim_m.GetInteger("state") - 1);
                 else//状态机状态改变
-                    anim_m.SetFloat("state", anim_m.GetFloat("state") + 2);
+                    anim_m.SetInteger("state", anim_m.GetInteger("state") + 2);
 
                 //lefttttttttttttt
-                if (anim_left.GetFloat("state") > 6.0f)
-                    anim_left.SetFloat("state", anim_left.GetFloat("state") - 1);
+                if (anim_left.GetInteger("state") > 6)
+                    anim_left.SetInteger("state", anim_left.GetInteger("state") - 1);
                 else//状态机状态改变
-                    anim_left.SetFloat("state", anim_left.GetFloat("state") + 2);
+                    anim_left.SetInteger("state", anim_left.GetInteger("state") + 2);
 
                 //rightttttttttttt
-                if (anim_right.GetFloat("state") > 6.0f)
-                    anim_right.SetFloat("state", anim_right.GetFloat("state") - 1);
+                if (anim_right.GetInteger("state") > 6)
+                    anim_right.SetInteger("state", anim_right.GetInteger("state") - 1);
                 else//状态机状态改变
-                    anim_right.SetFloat("state", anim_right.GetFloat("state") + 2);
+                    anim_right.SetInteger("state", anim_right.GetInteger("state") + 2);
             }
         }
         else changeAlready = false;
 
         //TODO chang child's showImage
+        //更换字
+        int changeIndex = 0;//应该换成的字的下标
+        if (index - 2 >= 0) changeIndex = index - 2;
+        else
+        {
+            changeIndex = index -2 + 4;
+        }
+        if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为下面位置
+        { midMessage.text = actorName[changeIndex]; }
+        else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
+        { leftMessage.text = actorName[changeIndex]; }
+        else if (anim_right.GetInteger("state") == 1 || anim_right.GetInteger("state") == 7)
+        { rightMessage.text = actorName[changeIndex]; }
+        //更新index
+        index = changeIndex + 1 < 4 ? changeIndex + 1 : changeIndex + 1 - 4;
+
+        //改变图片
+        unitPartCrt.changeTotally(index);
     }
 }

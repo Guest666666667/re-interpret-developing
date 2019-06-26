@@ -86,7 +86,7 @@ Material:
     m_Floats:
     - PixelSnap: 0
     - _Alpha: 0
-    - _AlphaScale: 0.40132165
+    - _AlphaScale: 0.69219
     - _BumpScale: 1
     - _ColorMask: 15
     - _Cutoff: 0.5
@@ -101,7 +101,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OffSet: 0
-    - _Offset: 0.029933918
+    - _Offset: 0.0393222
     - _Parallax: 0.02
     - _Power: 1
     - _Radius: 2
