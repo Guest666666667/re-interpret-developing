@@ -22,6 +22,7 @@ public class selectStoryPanel : BasePanel
         beginButton = transform.Find("beginButton").GetComponent<Button>();
         beginButton.gameObject.SetActive(false);//未选择前不可用
 
+        firstStoryButton.Select();
         //绑定响应函数
         firstStoryButton.onClick.AddListener(OnTurnFirstClick);
         secondStoryButton.onClick.AddListener(OnTurnSecondClick);
@@ -30,10 +31,9 @@ public class selectStoryPanel : BasePanel
     }
     void Update()
     {
-        if (Input.GetKey("escape"))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            //Debug.Log("esc enter");
-            Application.Quit();
+            OnBackClick();
         }
     }
     public override void OnEnter()
@@ -54,6 +54,7 @@ public class selectStoryPanel : BasePanel
     }
     public override void OnResume()
     {
+        firstStoryButton.Select();
         canvasGroup.blocksRaycasts = true;
     }
 
@@ -91,25 +92,24 @@ public class selectStoryPanel : BasePanel
         {
             Debug.Log("first in");
             //进入下一个场景前将所有面板出栈
-            //for (int i = 0; i < count; i++)
-            //{
-            //    uiMng.PopPanel(); uiMng.clearDict();
-            //    Debug.Log("pop successfully!!!");
-            //}
-            //SceneManager.LoadScene("Fight");
-        }               //选择了夸父逐日
-        else
-        {
-            Debug.Log("second in");
-            //DontDestroyOnLoad(this);
-            //进入下一个场景前将所有面板出栈
-            Debug.Log(count);
             for (int i = 0; i < count; i++)
             {
                 uiMng.PopPanel(); uiMng.clearDict();
                 Debug.Log("pop successfully!!!");
             }
             SceneManager.LoadScene(1, LoadSceneMode.Single);
+        }               //选择了夸父逐日
+        else
+        {
+            Debug.Log("second in");
+            //进入下一个场景前将所有面板出栈
+            //Debug.Log(count);
+            //for (int i = 0; i < count; i++)
+            //{
+            //    uiMng.PopPanel(); uiMng.clearDict();
+            //    Debug.Log("pop successfully!!!");
+            //}
+            //SceneManager.LoadScene(1, LoadSceneMode.Single);
         }               //选择了大闹天宫
     }
 }

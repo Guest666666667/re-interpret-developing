@@ -14,6 +14,13 @@ public class storyMainPanel : BasePanel {
         stopButton = transform.Find("stopButton").GetComponent<Button>();
         stopButton.onClick.AddListener(OnStopClick);
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnStopClick();
+        }
+    }
     public override void OnPause()
     {
         canvasGroup.blocksRaycasts = false;//当弹出新的面板的时候，让主菜单面板不再和鼠标交互

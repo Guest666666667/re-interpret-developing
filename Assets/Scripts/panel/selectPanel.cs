@@ -25,6 +25,7 @@ public class selectPanel : BasePanel {
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
         //beginButton.gameObject.SetActive(false);//未选择前不可用
 
+        fightButton.Select();//设置最上面的为选中状态
         //绑定响应函数
         fightButton.onClick.AddListener(OnTurnFightClick);
         storyButton.onClick.AddListener(OnTurnStoryClick);
@@ -34,7 +35,7 @@ public class selectPanel : BasePanel {
     }
     void Update()
     {
-        if (Input.GetKey("escape"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             //Debug.Log("esc enter");
             Application.Quit();
@@ -58,6 +59,7 @@ public class selectPanel : BasePanel {
     }
     public override void OnResume()
     {
+        fightButton.Select();//设置最上面的为选中状态
         canvasGroup.blocksRaycasts = true;
     }
 
@@ -77,6 +79,7 @@ public class selectPanel : BasePanel {
         fightOrStory = true;
         //beginButton.gameObject.SetActive(true);
         //uiMng.PushPanel(UIPanelType.selectChild);
+        Debug.Log("我选择打架");
     }
 
     public void OnTurnStoryClick()

@@ -15,6 +15,13 @@ public class beginPanel : BasePanel {
         firstButton = transform.Find("Button").GetComponent<Button>();
         firstButton.onClick.AddListener(OnSelectClick);
     }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.J))
+    //    {
+    //        OnSelectClick();
+    //    }//键盘操作
+    //}
     public override void OnEnter()//不用enter，一开始就在   
     {
         base.OnEnter();
@@ -27,11 +34,13 @@ public class beginPanel : BasePanel {
     public override void OnPause()
     {
         canvasGroup.blocksRaycasts = false;//当弹出新的面板的时候，让主菜单面板不再和鼠标交互
+        canvasGroup.interactable = false;
         base.OnPause();
     }
     public override void OnResume()
     {
         canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = true;
         base.OnResume();
     }
     public override void OnExit()
@@ -43,8 +52,8 @@ public class beginPanel : BasePanel {
     public void OnSelectClick()
     {
         //uiMng.PushPanel(UIPanelType.select);
+        gameObject.SetActive(false);
         UIManager.Instance.PushPanel(UIPanelType.select);
-
     }
     public void PushPanel(string panelTypeString)
     {
