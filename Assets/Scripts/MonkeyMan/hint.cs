@@ -13,10 +13,10 @@ public class hint : MonoBehaviour
     private Material mat;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         expectScale = 1f ;
-        mat = new Material(GetComponentInChildren<Image>().material);
+        mat = new Material(Resources.Load<Material>("UI source/blurMaterial"));
         //transform.Find("bg").GetComponent<Image>().material = mat;
         transform.Find("miss").GetComponent<Image>().material = mat;
         transform.Find("keyHint").GetComponent<Image>().material = mat;
