@@ -42,7 +42,7 @@ public class storyMainPanel : BasePanel {
     public void OnStopClick()
     {
         //uiMng.PushPanel(UIPanelType.select);
-        UIManager.Instance2.PushPanel(UIPanelType. gameSet);
+        UIManager.Instance.PushPanel(UIPanelType. gameSet);
         Time.timeScale = 0;
         //GameObject.Find("AudioManager").GetComponent<AudioManager>().Pause();
         AudioManager.Instance.Pause();

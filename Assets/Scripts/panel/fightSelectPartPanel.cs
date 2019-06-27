@@ -16,9 +16,11 @@ public class fightSelectPartPanel : BasePanel
     // Start is called before the first frame update
     void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup = transform.GetComponent<CanvasGroup>();
         P1anim_m = transform.Find("P1").Find("P1Child").Find("middleShow").GetComponent<Animator>();
         P2anim_m = transform.Find("P2").Find("P2Child").Find("middleShow").GetComponent<Animator>();
+        transform.Find("P1").gameObject.SetActive(true);
+        transform.Find("P2").gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -51,8 +53,10 @@ public class fightSelectPartPanel : BasePanel
     }
     public void OnMakeSure()
     {
+        P1Enter = false;
+        P2Enter = false;
         //TODO change the position of player
-        UIManager.Instance3.PushPanel(UIPanelType.fightSelectBg);
+        UIManager.Instance.PushPanel(UIPanelType.fightSelectBg);
     }
 
 }

@@ -80,6 +80,7 @@ public class selectPanel : BasePanel {
         //beginButton.gameObject.SetActive(true);
         //uiMng.PushPanel(UIPanelType.selectChild);
         Debug.Log("我选择打架");
+        SceneManager.LoadScene(2);
     }
 
     public void OnTurnStoryClick()

@@ -28,8 +28,8 @@ public class UIManager : MonoBehaviour {
     /// 2，构造方法私有化
 
     private static UIManager _instance;//主场景的静态实例
-    private static UIManager _instance2;//志异场景的静态实例
-    private static UIManager _instance3;//演艺场景的静态实例
+    //private static UIManager _instance2;//志异场景的静态实例
+    //private static UIManager _instance3;//演艺场景的静态实例
 
     public static UIManager Instance
     {
@@ -42,28 +42,28 @@ public class UIManager : MonoBehaviour {
             return _instance;
         }
     }
-    public static UIManager Instance2
-    {
-        get
-        {
-            if (_instance2 == null)
-            {
-                _instance2 = new UIManager();
-            }
-            return _instance2;
-        }
-    }
-    public static UIManager Instance3
-    {
-        get
-        {
-            if (_instance3 == null)
-            {
-                _instance3 = new UIManager();
-            }
-            return _instance3;
-        }
-    }
+    //public static UIManager Instance2
+    //{
+    //    get
+    //    {
+    //        if (_instance2 == null)
+    //        {
+    //            _instance2 = new UIManager();
+    //        }
+    //        return _instance2;
+    //    }
+    //}
+    //public static UIManager Instance3
+    //{
+    //    get
+    //    {
+    //        if (_instance3 == null)
+    //        {
+    //            _instance3 = new UIManager();
+    //        }
+    //        return _instance3;
+    //    }
+    //}
 
     private Transform canvasTransform;
     private Transform CanvasTransform

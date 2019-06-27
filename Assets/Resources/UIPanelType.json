@@ -25,9 +25,17 @@
     "panelTypeString": "gameSet",
     "path": "UIPanel/gameSetPanel"
   },
-    {
+  {
     "panelTypeString": "fightMain",
     "path": "UIPanel/fightMainPanel"
+  },
+  {
+    "panelTypeString": "fightSelectPart",
+    "path": "UIPanel/fightSelectPartPanel"
+  },
+    {
+    "panelTypeString": "fightSelectBg",
+    "path": "UIPanel/fightSelectBgPanel"
   }
 ]
 }

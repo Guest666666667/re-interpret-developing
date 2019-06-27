@@ -41,8 +41,136 @@ public class selectTotalPart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //更改至自定义
+        if (unitPartCrt.getIfChange() == 1)
+        {
+            if (ifFirstIn)
+            {
+                leftMessage.text = actorName[2];
+                midMessage.text = actorName[3];
+                rightMessage.text = actorName[0];
+            }
+            if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为左面位置
+            { midMessage.text = actorName[2]; }
+            else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
+            { leftMessage.text = actorName[2]; }
+            else if (anim_right.GetInteger("state") == 1 || anim_right.GetInteger("state") == 7)
+            { rightMessage.text = actorName[2]; }
+
+            if (anim_m.GetInteger("state") == 3 || anim_m.GetInteger("state") == 6)//此状态为中间位置
+            { midMessage.text = actorName[3]; }
+            else if (anim_left.GetInteger("state") == 3 || anim_left.GetInteger("state") == 6)
+            { leftMessage.text = actorName[3]; }
+            else if (anim_right.GetInteger("state") == 3 || anim_right.GetInteger("state") == 6)
+            { rightMessage.text = actorName[3]; }
+
+            if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为右面位置
+            { midMessage.text = actorName[0]; }
+            else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
+            { leftMessage.text = actorName[0]; }
+            else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
+            { rightMessage.text = actorName[0]; }
+
+            index = 3;unitPartCrt.setIfChange(2);
+        }
+        //更改至指定角色
+        if (unitPartCrt.ifAActor() != -1)
+        {
+            unitPartCrt.setIfChange(0);
+            //012---102
+            switch (unitPartCrt.ifAActor())
+            {
+                case 0:
+                    if (ifFirstIn)
+                    {
+                        leftMessage.text = actorName[0];
+                        midMessage.text = actorName[1];
+                        rightMessage.text = actorName[2];
+                    }
+                    if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为左面位置
+                    { midMessage.text = actorName[0]; }
+                    else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
+                    { leftMessage.text = actorName[0]; }
+                    else if (anim_right.GetInteger("state") == 1 || anim_right.GetInteger("state") == 7)
+                    { rightMessage.text = actorName[0]; }
+
+                    if (anim_m.GetInteger("state") == 3 || anim_m.GetInteger("state") == 6)//此状态为中间位置
+                    { midMessage.text = actorName[1]; }
+                    else if (anim_left.GetInteger("state") == 3 || anim_left.GetInteger("state") == 6)
+                    { leftMessage.text = actorName[1]; }
+                    else if (anim_right.GetInteger("state") == 3 || anim_right.GetInteger("state") == 6)
+                    { rightMessage.text = actorName[1]; }
+
+                    if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为右面位置
+                    { midMessage.text = actorName[2]; }
+                    else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
+                    { leftMessage.text = actorName[2]; }
+                    else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
+                    { rightMessage.text = actorName[2]; }
+                    index = 1;break;
+                case 1:
+                    if (ifFirstIn)
+                    {
+                        leftMessage.text = actorName[3];
+                        midMessage.text = actorName[0];
+                        rightMessage.text = actorName[1];
+                    }
+                    if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为左面位置
+                    { midMessage.text = actorName[3]; }
+                    else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
+                    { leftMessage.text = actorName[3]; }
+                    else if (anim_right.GetInteger("state") == 1 || anim_right.GetInteger("state") == 7)
+                    { rightMessage.text = actorName[3]; }
+
+                    if (anim_m.GetInteger("state") == 3 || anim_m.GetInteger("state") == 6)//此状态为中间位置
+                    { midMessage.text = actorName[0]; }
+                    else if (anim_left.GetInteger("state") == 3 || anim_left.GetInteger("state") == 6)
+                    { leftMessage.text = actorName[0]; }
+                    else if (anim_right.GetInteger("state") == 3 || anim_right.GetInteger("state") == 6)
+                    { rightMessage.text = actorName[0]; }
+
+                    if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为右面位置
+                    { midMessage.text = actorName[1]; }
+                    else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
+                    { leftMessage.text = actorName[1]; }
+                    else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
+                    { rightMessage.text = actorName[1]; }
+                    index = 1; break;
+                case 2:
+                    if (ifFirstIn)
+                    {
+                        leftMessage.text = actorName[1];
+                        midMessage.text = actorName[2];
+                        rightMessage.text = actorName[3];
+                    }
+                    if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为左面位置
+                    { midMessage.text = actorName[1]; }
+                    else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
+                    { leftMessage.text = actorName[1]; }
+                    else if (anim_right.GetInteger("state") == 1 || anim_right.GetInteger("state") == 7)
+                    { rightMessage.text = actorName[1]; }
+
+                    if (anim_m.GetInteger("state") == 3 || anim_m.GetInteger("state") == 6)//此状态为中间位置
+                    { midMessage.text = actorName[2]; }
+                    else if (anim_left.GetInteger("state") == 3 || anim_left.GetInteger("state") == 6)
+                    { leftMessage.text = actorName[2]; }
+                    else if (anim_right.GetInteger("state") == 3 || anim_right.GetInteger("state") == 6)
+                    { rightMessage.text = actorName[2]; }
+
+                    if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为右面位置
+                    { midMessage.text = actorName[3]; }
+                    else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
+                    { leftMessage.text = actorName[3]; }
+                    else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
+                    { rightMessage.text = actorName[3]; }
+                    index = 1; break;
+
+                default:break;
+            }
+        }
+
         //接收按键事件
-        if(!anim_left.IsInTransition(0))
+        if (!anim_left.IsInTransition(0))
         {
             if (gameObject.name == "P1")
             {
@@ -120,7 +248,7 @@ public class selectTotalPart : MonoBehaviour
         {
             changeIndex = index + 2 - 4;
         }
-        if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为下面位置
+        if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为右面位置
         { midMessage.text = actorName[changeIndex]; }
         else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
         { leftMessage.text = actorName[changeIndex]; }
@@ -183,7 +311,7 @@ public class selectTotalPart : MonoBehaviour
         {
             changeIndex = index -2 + 4;
         }
-        if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为下面位置
+        if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为左面位置
         { midMessage.text = actorName[changeIndex]; }
         else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
         { leftMessage.text = actorName[changeIndex]; }

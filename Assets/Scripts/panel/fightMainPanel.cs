@@ -20,6 +20,13 @@ public class fightMainPanel : BasePanel
     {
         
     }
+    public override void OnEnter()
+    {
+        if (canvasGroup == null)
+            canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
+    }
     public override void OnPause()
     {
         canvasGroup.blocksRaycasts = false;//当弹出新的面板的时候，让主菜单面板不再和鼠标交互
@@ -44,6 +51,6 @@ public class fightMainPanel : BasePanel
         uiMng.PushPanel(UIPanelType.gameSet);
         Time.timeScale = 0;
         //GameObject.Find("AudioManager").GetComponent<AudioManager>().Pause();
-        AudioManager.Instance.Pause();
+        //AudioManager.Instance.Pause();
     }
 }
