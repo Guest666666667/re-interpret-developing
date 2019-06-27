@@ -115,12 +115,12 @@ public class frontBone : MonoBehaviour
     {
         this.No = No;
         GameObject tmp = Resources.Load("UIPanel/hint") as GameObject;
-        GameObject gen = Instantiate(tmp, GameObject.Find("runTimeUI").transform, false);
+        GameObject gen = Instantiate(tmp, GameObject.Find("Canvas/runTimeUI").transform, false);
         buttons.Add(gen);
         if (No == 0 || No == 7)
         {
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
-            GameObject gen2 = Instantiate(tmp2, GameObject.Find("runTimeUI").transform, false);
+            GameObject gen2 = Instantiate(tmp2, GameObject.Find("Canvas/runTimeUI").transform, false);
             buttons.Add(gen2);
             gen.GetComponent<hint>().setUp("q");
             gen2.GetComponent<hint>().setUp("e");
@@ -143,7 +143,7 @@ public class frontBone : MonoBehaviour
         else if (No == 8)
         {
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
-            GameObject gen2 = Instantiate(tmp2, GameObject.Find("runTimeUI").transform, false);
+            GameObject gen2 = Instantiate(tmp2, GameObject.Find("Canvas/runTimeUI").transform, false);
             buttons.Add(gen2);
             gen.GetComponent<hint>().setUp("a");
             gen2.GetComponent<hint>().setUp("d");
