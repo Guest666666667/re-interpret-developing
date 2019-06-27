@@ -15,7 +15,7 @@ public class fightSelectBgPanel : BasePanel
     // Start is called before the first frame update
     void Start()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup = transform.GetComponent<CanvasGroup>();
         P1anim_m = transform.Find("farBG").Find("middleImage").GetComponent<Animator>();
         P2anim_m = transform.Find("nearBG").Find("middleImage").GetComponent<Animator>();
     }
@@ -30,6 +30,10 @@ public class fightSelectBgPanel : BasePanel
     }
     public override void OnEnter()
     {
+        if (canvasGroup == null)
+        {
+            canvasGroup = transform.GetComponent<CanvasGroup>();
+        }
         base.OnEnter();
     }
     public override void OnPause()
@@ -50,6 +54,8 @@ public class fightSelectBgPanel : BasePanel
     }
     public void OnMakeSure()
     {
+        P1Enter = false;
+        P2Enter = false;
         uiMng.PushPanel(UIPanelType.fightMain);
     }
 }

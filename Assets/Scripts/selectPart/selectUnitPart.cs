@@ -16,9 +16,11 @@ public class selectUnitPart : MonoBehaviour
     public Texture2D[] temp;
     private int[] currPartIndex= { 7,0,1};//1号位为左右改变时需要的参数，部件编号,上中下
     private int[] index = { 0, 0, 0, 0, 0, 0, 0, 0 };//8个部件的人物编号，即部件的序列编号，头一头二
+    //private int[] myStyleIndex = { 0, 2, 1, 1, 2, 0, 1, 1 };//自定义的编号记录
     private string[] message = { "头", "胸", "腹", "前臂", "后臂", "手", "左腿", "右腿" };
     private float delayTime = 0.25f;//延时更改
     private bool delayBegin = false;
+    private int ifChange = 0;//是否修改，给父对象判断其是否需要将目前状态转为“自定义”,1为需要修改，之后按忽略
     //private GameObject select;
 
     //控制UI动画
@@ -162,7 +164,7 @@ public class selectUnitPart : MonoBehaviour
             currPartIndex[1] = currPartIndex[2];
             currPartIndex[2] = tempInt;
         }
-        Debug.Log("index1:" + index[currPartIndex[2]] + "   index2:" + currPartIndex[2]);
+        //Debug.Log("index1:" + index[currPartIndex[2]] + "   index2:" + currPartIndex[2]);
         Sprite temp = transform.Find("select").GetChild(index[currPartIndex[2]]).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
 
         //选择更改的对象并更改
@@ -289,7 +291,10 @@ public class selectUnitPart : MonoBehaviour
             else if (anim_down.GetInteger("state") == 3 || anim_down.GetInteger("state") == 6)
                 down.sprite = temp;
         }
-        //mid.overrideSprite = transform.Find("select").GetChild(1).GetChild(1).GetComponent<SpriteRenderer>().sprite;
+
+        //修改了东西，要叫爸爸改成“自定义”
+        ifChange++;
+        //Debug.Log(ifChange);
     }
     public void OnEnterRight()
     {
@@ -317,7 +322,7 @@ public class selectUnitPart : MonoBehaviour
         }
         Sprite temp = transform.Find("select").GetChild(index1).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;
         //选择更改的对象并更改
-        if (anim_m.GetInteger("state") == 0) mid.overrideSprite = temp;
+        if (anim_m.GetInteger("state") == 0) mid.sprite = temp;
         else
         {
             if (anim_m.GetInteger("state") == 3 || anim_m.GetInteger("state") == 6)
@@ -327,6 +332,8 @@ public class selectUnitPart : MonoBehaviour
             else if (anim_down.GetInteger("state") == 3 || anim_down.GetInteger("state") == 6)
                 down.sprite = temp;
         }
+        //修改了东西，要叫爸爸改成“自定义”
+        ifChange++;
     }
     public Texture2D spriteToTexture(Sprite sprite)
     {
@@ -341,12 +348,24 @@ public class selectUnitPart : MonoBehaviour
         targetTex.Apply();
         return targetTex;
     }
+    public int getIfChange()
+    {
+        return ifChange;
+    }
+    public void setIfChange(int a)
+    {
+        ifChange = a;
+    }
     public void changeTotally(int totalIndex)
     {
         Sprite temp;
         switch (totalIndex)
         {
             case 0://大乔
+                //for (int j = 0; j < 8; j++)
+                //{
+                //    myStyleIndex[j] = index[j];//储存好自定义的
+                //}
                 for (int i = 0; i < 8; i++)
                 {
                     index[i] = 1;//大乔下标
@@ -357,6 +376,8 @@ public class selectUnitPart : MonoBehaviour
                 mid.sprite = temp;
                 temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
                 down.sprite = temp;
+                //回到最开始，ifChange改回0
+                ifChange = 0;
                 break;
             case 1://关羽
                 for (int i = 0; i < 8; i++)
@@ -369,6 +390,8 @@ public class selectUnitPart : MonoBehaviour
                 mid.sprite = temp;
                 temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
                 down.sprite = temp;
+                //回到最开始，ifChange改回0
+                ifChange = 0;
                 break;
             case 2://孙悟空
                 for (int i = 0; i < 8; i++)
@@ -381,16 +404,31 @@ public class selectUnitPart : MonoBehaviour
                 mid.sprite = temp;
                 temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
                 down.sprite = temp;
+                //回到最开始，ifChange改回0
+                ifChange = 0;
                 break;
             case 3://自定义
-                temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
-                up.sprite = temp;
-                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;
-                mid.sprite = temp;
-                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
-                down.sprite = temp;
+                //TODO 维护一个自定义的index，在之后回到自定义时能显示之前自定义的样子
+                //temp = transform.Find("select").GetChild(index[currPartIndex[0]]).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
+                //up.sprite = temp;
+                //temp = transform.Find("select").GetChild(index[currPartIndex[1]]).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;
+                //mid.sprite = temp;
+                //temp = transform.Find("select").GetChild(index[currPartIndex[2]]).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
+                //down.sprite = temp;
                 break;
             default:break;
         }
+    }
+    public int ifAActor()
+    {
+        int temp = index[0];
+        for (int i = 1; i < 8; i++)
+        {
+            if (index[i] != temp)
+            {
+                return -1;//表明没有
+            }
+        }
+        return temp;//一致的序号
     }
 }
