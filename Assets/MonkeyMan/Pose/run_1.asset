@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
-  m_Name: a_5_run
+  m_Name: run_1
   m_EditorClassIdentifier: 
   m_PoseEntries:
   - path: Skeleton/rootBone
@@ -19,11 +19,11 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Skeleton/rootBone/rightArm
     localPosition: {x: 2.138, y: -0.26399994, z: 0}
-    localRotation: {x: 0, y: -0, z: 0.9848078, w: -0.17364809}
+    localRotation: {x: 0.013071405, y: 0.00059475284, z: 0.9847197, w: 0.17365491}
     localScale: {x: 1, y: 1, z: 1}
   - path: Skeleton/rootBone/rightArm/rightArm2
     localPosition: {x: 1.1439997, y: 0, z: 0}
-    localRotation: {x: 2.8730093e-10, y: -3.3280798e-10, z: -0.24072167, w: 0.9705942}
+    localRotation: {x: -0.0000000043881974, y: -5.4231772e-11, z: -0.19128935, w: 0.98153377}
     localScale: {x: 1, y: 1, z: 1}
   - path: Skeleton/rootBone/rightArm/rightArm2/rightHand
     localPosition: {x: 1.1637733, y: 0, z: 0}
@@ -31,11 +31,11 @@ MonoBehaviour:
     localScale: {x: 1, y: 1, z: 1}
   - path: Skeleton/rootBone/leftArm
     localPosition: {x: 2.1299274, y: -0.26048827, z: 0}
-    localRotation: {x: -0, y: 0, z: -0.9848078, w: -0.17364807}
+    localRotation: {x: -0.004516085, y: -0.017120225, z: -0.9846489, w: 0.17364666}
     localScale: {x: 1, y: 1, z: 1}
   - path: Skeleton/rootBone/leftArm/leftArm2
     localPosition: {x: 1.158499, y: 0, z: 0}
-    localRotation: {x: -4.8832494e-10, y: 4.4542814e-10, z: -0.16242889, w: 0.98672026}
+    localRotation: {x: 0.0000000014988469, y: 0.0000000055297265, z: -0.2889151, w: 0.9573548}
     localScale: {x: 1, y: 1, z: 1}
   - path: Skeleton/rootBone/leftArm/leftArm2/leftHand
     localPosition: {x: 1.1970003, y: 0.00000007636845, z: 0}

@@ -16,6 +16,11 @@ public class timeScaleManagement : MonoBehaviour
         level++;
     }
 
+    public int getLevel()
+    {
+        return level;
+    }
+
     public void delSlow()
     {
         if (--level <= 0)
