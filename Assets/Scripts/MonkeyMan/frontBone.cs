@@ -122,21 +122,21 @@ public class frontBone : MonoBehaviour
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
             GameObject gen2 = Instantiate(tmp2, GameObject.Find("Canvas/runTimeUI").transform, false);
             buttons.Add(gen2);
-            gen.GetComponent<hint>().setUp("q");
-            gen2.GetComponent<hint>().setUp("e");
+            gen.GetComponent<hint>().setUp("q",1);
+            gen2.GetComponent<hint>().setUp("e",1);
             Keys = new string[2];
             Keys[0] = "q";
             Keys[1] = "e";
         }
         else if (No >= 1 && No <= 3)
         {
-            gen.GetComponent<hint>().setUp("e");
+            gen.GetComponent<hint>().setUp("e",0);
             Keys = new string[1];
             Keys[0] = "e";
         }
         else if (No >= 4 && No <= 6)
         {
-            gen.GetComponent<hint>().setUp("q");
+            gen.GetComponent<hint>().setUp("q",0);
             Keys = new string[1];
             Keys[0] = "q";
         }
@@ -145,21 +145,21 @@ public class frontBone : MonoBehaviour
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
             GameObject gen2 = Instantiate(tmp2, GameObject.Find("Canvas/runTimeUI").transform, false);
             buttons.Add(gen2);
-            gen.GetComponent<hint>().setUp("a");
-            gen2.GetComponent<hint>().setUp("d");
+            gen.GetComponent<hint>().setUp("a",1);
+            gen2.GetComponent<hint>().setUp("d",1);
             Keys = new string[2];
             Keys[0] = "a";
             Keys[1] = "d";
         }
         else if (No == 9)
         {
-            gen.GetComponent<hint>().setUp("a");
+            gen.GetComponent<hint>().setUp("a",0);
             Keys = new string[1];
             Keys[0] = "a";
         }
         else if (No == 10)
         {
-            gen.GetComponent<hint>().setUp("d");
+            gen.GetComponent<hint>().setUp("d",0);
             Keys = new string[1];
             Keys[0] = "d";
         }

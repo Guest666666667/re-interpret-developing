@@ -80,7 +80,12 @@ public class readTxt : MonoBehaviour {
                 {
                     foreach (Text t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<Text>())
                     {
-                        while (t.text == "Q" && (tmp == 0 || tmp == 7 || (tmp >= 4 && tmp <= 6))) 
+                        if (t.text == "Q") temp[0] = true;
+                        if (t.text == "E") temp[1] = true;
+                        if (t.text == "A") temp[2] = true;
+                        if (t.text == "D") temp[3] = true;
+                        
+                        /*while (t.text == "Q" && (tmp == 0 || tmp == 7 || (tmp >= 4 && tmp <= 6))) 
                         {
                             tmp = Mathf.FloorToInt(Random.value * boneList.Length);
                         }
@@ -93,6 +98,17 @@ public class readTxt : MonoBehaviour {
                             tmp = Mathf.FloorToInt(Random.value * boneList.Length);
                         }
                         while (t.text == "D" && (tmp == 8 || tmp == 10)) 
+                        {
+                            tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                        }*/
+                    }
+                    if (temp[0] && temp[1] && temp[2] && temp[3])
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        while ((temp[0] && (tmp == 0 || tmp == 7 || (tmp >= 4 && tmp <= 6))) || (temp[1] && (tmp == 0 || tmp == 7 || (tmp >= 1 && tmp <= 3))) || ((temp[2] && tmp >= 8 && tmp <= 9)) || (temp[3] && (tmp == 8 || tmp == 10)))
                         {
                             tmp = Mathf.FloorToInt(Random.value * boneList.Length);
                         }

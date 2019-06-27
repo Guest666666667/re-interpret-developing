@@ -17,7 +17,7 @@ public class hint : MonoBehaviour
     {
         expectScale = 1f ;
         mat = new Material(GetComponentInChildren<Image>().material);
-        transform.Find("bg").GetComponent<Image>().material = mat;
+        //transform.Find("bg").GetComponent<Image>().material = mat;
         transform.Find("miss").GetComponent<Image>().material = mat;
         transform.Find("keyHint").GetComponent<Image>().material = mat;
         transform.Find("keyHint/Text").GetComponent<Text>().material = mat;
@@ -26,6 +26,7 @@ public class hint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.Find("miss").RotateAroundLocal(new Vector3(0f, 0f, 1f), Time.deltaTime * 5f);
         timeLast -= Time.deltaTime;
         /*if (Input.GetButtonDown(Key) && isProcessing)//按下对应按键且蓝圈在显示过程中则结束判定
         {
@@ -89,7 +90,7 @@ public class hint : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public void setUp(string Key)
+    public void setUp(string Key,int type)
     {
         this.Key = Key;
         transform.Find("keyHint/Text").GetComponent<Text>().text = Key.ToUpper();
@@ -100,6 +101,10 @@ public class hint : MonoBehaviour
         if (Key == "e" || Key == "d")
         {
             transform.localPosition += new Vector3(540f, 0f, 0f);
+        }
+        if (type == 1)
+        {
+            transform.Find("miss").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/judge1");
         }
         begin();
     }
