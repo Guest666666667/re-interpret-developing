@@ -76,10 +76,10 @@ public class ModelControl : MonoBehaviour
         {
             int index = modelData.ModelList[i].modelIndex;
 
-            map[index].gameObject.GetComponent<SpriteMeshInstance>().spriteMesh = 
+            /*map[index].gameObject.GetComponent<SpriteMeshInstance>().spriteMesh = 
                 AssetDatabase.LoadAssetAtPath<SpriteMesh>
                 (modelData.ModelList[i].modelpath);
-            map[index].gameObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;
+            map[index].gameObject.GetComponent<SkinnedMeshRenderer>().updateWhenOffscreen = true;*/
         }
     }
 

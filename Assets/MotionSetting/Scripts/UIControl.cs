@@ -80,10 +80,7 @@ public class UIControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            head.GetComponent<SpriteMeshInstance>().spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Player/MonkeyMan/SpriteMesh/头.asset");
-        }
+        
 
         if(Input.GetKeyDown(KeyCode.J))
         {

@@ -75,6 +75,7 @@ public class selectUnitPart : MonoBehaviour
             //P2Sprite[i] = transform.parent.parent.parent.Find("player2").Find("model").GetChild(i).GetComponent<SpriteMeshInstance>();
             P2Sprite[i] = GameObject.Find("/player2/model").transform.GetChild(i).GetComponent<SpriteMeshInstance>();
         }
+        //P1Sprite[0].spriteMesh= Resources.Load<SpriteMesh>("Model/DaQiao/SpriteMesh/头");
     }
 
     // Start is called before the first frame update
@@ -316,29 +317,30 @@ public class selectUnitPart : MonoBehaviour
         if (player == 1)
         {
             if (currPartIndex[1] < 3)//小于3的直接对应
-                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                //P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/DaQiao/");
+                P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/"+ modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
             {
-                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
-                P1Sprite[currPartIndex[1]+3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                P1Sprite[currPartIndex[1]+3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
             else if (currPartIndex[1] > 5)
             {
-                P1Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P1Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
         }
         else
         {
             if (currPartIndex[1] < 3)//小于3的直接对应
-                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
             {
-                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
-                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
             else if (currPartIndex[1] > 5)
             {
-                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
         }
     }
@@ -385,29 +387,29 @@ public class selectUnitPart : MonoBehaviour
         if (player == 1)
         {
             if (currPartIndex[1] < 3)//小于3的直接对应
-                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
             {
-                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
-                P1Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                P1Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
             else if (currPartIndex[1] > 5)
             {
-                P1Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P1Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
         }
         else
         {
             if (currPartIndex[1] < 3)//小于3的直接对应
-                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
             {
-                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
-                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
             else if (currPartIndex[1] > 5)
             {
-                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
         }
     }
@@ -458,15 +460,15 @@ public class selectUnitPart : MonoBehaviour
                     for (int i = 0; i < 8; i++)
                     {
                         if (i < 3)//小于3的直接对应
-                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                         else if (i >= 3 && currPartIndex[1] <= 5)
                         {
-                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
-                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
+                            P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                         }
                         else if (i > 5)
                         {
-                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                         }
                     }
                 }
@@ -475,15 +477,15 @@ public class selectUnitPart : MonoBehaviour
                     for (int i = 0; i < 8; i++)
                     {
                         if (i < 3)//小于3的直接对应
-                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                         else if (i >= 3 && currPartIndex[1] <= 5)
                         {
-                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
-                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
+                            P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                         }
                         else if (i > 5)
                         {
-                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                         }
                     }
                 }
@@ -507,15 +509,15 @@ public class selectUnitPart : MonoBehaviour
                     for (int i = 0; i < 8; i++)
                     {
                         if (i < 3)//小于3的直接对应
-                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                         else if (i >= 3 && currPartIndex[1] <= 5)
                         {
-                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
-                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
+                            P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                         }
                         else if (i > 5)
                         {
-                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                         }
                     }
                 }
@@ -524,15 +526,15 @@ public class selectUnitPart : MonoBehaviour
                     for (int i = 0; i < 8; i++)
                     {
                         if (i < 3)//小于3的直接对应
-                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                         else if (i >= 3 && currPartIndex[1] <= 5)
                         {
-                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
-                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
+                            P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                         }
                         else if (i > 5)
                         {
-                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                         }
                     }
                 }
@@ -556,15 +558,15 @@ public class selectUnitPart : MonoBehaviour
                     for (int i = 0; i < 8; i++)
                     {
                         if (i < 3)//小于3的直接对应
-                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                         else if (i >= 3 && currPartIndex[1] <= 5)
                         {
-                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
-                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
+                            P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                         }
                         else if (i > 5)
                         {
-                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                         }
                     }
                 }
@@ -573,15 +575,15 @@ public class selectUnitPart : MonoBehaviour
                     for (int i = 0; i < 8; i++)
                     {
                         if (i < 3)//小于3的直接对应
-                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                         else if (i >= 3 && currPartIndex[1] <= 5)
                         {
-                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
-                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
+                            P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                         }
                         else if (i > 5)
                         {
-                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                         }
                     }
                 }
