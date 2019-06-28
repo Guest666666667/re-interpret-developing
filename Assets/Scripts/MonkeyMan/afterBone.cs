@@ -16,9 +16,11 @@ public class afterBone : MonoBehaviour
     private float timeLast = 10000f;//加速到完美位置需要的剩余时间
     private bool showing = false;//是否正在展示残影
     private float showingLast = 10000f;//展示剩余时间
+    public float existTime = 0.5f;
 
     void Start()
     {
+        existTime = 0.5f;
         hasAcc = true;
     }
 
@@ -54,17 +56,20 @@ public class afterBone : MonoBehaviour
         if (!hasAcc)
         {
             hasAcc = true;
-            GetComponent<Animator>().speed = (0.5f / Time.fixedDeltaTime / 3f) + 1f;
+            GetComponent<Animator>().speed = (existTime / Time.fixedDeltaTime / 3f) + 1f;
             timeLast = 3f * Time.fixedDeltaTime - 0.001f;//0.001用于补正细微误差
+            //AnimatorStateInfo tmp = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+            //GetComponent<Animator>().Play(tmp.fullPathHash, -1, (tmp.normalizedTime + existTime / tmp.length) % 1);
+            
         }
         if (timeLast <= 0f)
         {
             timeLast = 10000f;
             //GetComponent<Animator>().speed = 1f;
             showing = true;
-            showingLast = 0.5f;
+            showingLast = existTime;
             GetComponent<Animator>().speed = 0f;
-            GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
+            //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
         }
         /*if (showing)
         {
@@ -72,7 +77,7 @@ public class afterBone : MonoBehaviour
         }*/
         if (showingLast <= 0f)
         {
-            GameObject.Find("afterImage").GetComponent<timeScaleManagement>().delSlow();
+            //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().delSlow();
             GetComponent<Animator>().speed = 1f;
             showing = false;
             showingLast = 10000f;

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class hint : MonoBehaviour
 {
+    public float existTime = 1.2f;
     private bool isProcessing = false;
     private string Key;
     private float timeLast = 10000f;
@@ -26,7 +27,7 @@ public class hint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Find("miss").RotateAroundLocal(new Vector3(0f, 0f, 1f), Time.deltaTime * 5f);
+        transform.Find("miss").RotateAroundLocal(new Vector3(0f, 0f, 1f), Time.deltaTime * 5f * timeLast);
         timeLast -= Time.deltaTime;
         /*if (Input.GetButtonDown(Key) && isProcessing)//按下对应按键且蓝圈在显示过程中则结束判定
         {
@@ -34,7 +35,7 @@ public class hint : MonoBehaviour
         }*/
         if (isProcessing)//若正在显示过程中则蓝圈随时间逐渐缩小
         {
-            expectScale -= 0.6f / (0.5f + 3 * Time.fixedDeltaTime) * Time.deltaTime;//3个fixedDeltaTime为残影加速所耗时间，在0.5f+残影加速时间内缩小0.6f算出来的速度即为精确缩小速度
+            expectScale -= 0.6f / (existTime+3*Time.fixedDeltaTime) * Time.deltaTime;//在existTime内缩小0.6f算出来的速度即为精确缩小速度
             transform.Find("process").localScale = new Vector3(expectScale/transform.localScale.x, expectScale / transform.localScale.y, expectScale / transform.localScale.z);
         }
         if (transform.Find("process").localScale.x < 0.4f)//蓝圈缩小到一定程度则自动消失
@@ -52,7 +53,7 @@ public class hint : MonoBehaviour
     public void begin()//开始出现蓝圈
     {
         
-        timeLast = 0.5f;
+        timeLast = existTime;
         isProcessing = true;
         transform.Find("process").GetComponent<CanvasGroup>().alpha = 1;
         transform.Find("process").GetComponent<CanvasGroup>().interactable = true;
@@ -60,11 +61,11 @@ public class hint : MonoBehaviour
         expectScale = 1f;
         //Debug.Log(transform.localScale);
         //transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), 0.5f);
+        transform.DOScale(new Vector3(1.0f, 1.0f, 1.0f), existTime);
         //GetComponent<CanvasGroup>().DOFade(1, 0.2f);
         DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_AlphaScale"), x => GetComponentInChildren<Image>().material.SetFloat("_AlphaScale", x), 1f, 0.2f);
         GetComponentInChildren<Image>().material.SetFloat("_Offset", 0.05f);
-        DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_Offset"), x => GetComponentInChildren<Image>().material.SetFloat("_Offset",x), 0f, 0.5f);
+        DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_Offset"), x => GetComponentInChildren<Image>().material.SetFloat("_Offset",x), 0f, existTime);
         //transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
@@ -83,7 +84,7 @@ public class hint : MonoBehaviour
         transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f);
         DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_Offset"), x => GetComponentInChildren<Image>().material.SetFloat("_Offset", x), 0.05f, 0.4f);
         Tweener tweener = DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_AlphaScale"), x => GetComponentInChildren<Image>().material.SetFloat("_AlphaScale", x), 0f, 0.4f);
-        transform.Find("keyHint/Text").GetComponent<Text>().text = (isPerfect ? "善" : "负");
+        transform.Find("keyHint/Text").GetComponent<Text>().text = (isPerfect ? "善" : "误");
         tweener.onComplete = drop;
     }
     public void drop()
@@ -105,6 +106,7 @@ public class hint : MonoBehaviour
         if (type == 1)
         {
             transform.Find("miss").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/judge1");
+            transform.Find("keyHint").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/smallJudge1");
         }
         begin();
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class frontBone : MonoBehaviour
 {
     public string objectName;//残影对应部位骨骼对象的路径
+    public float existTime = 1.2f;//光圈缩小时间
     private float transLast = 10000f;//按键失误时用来计算距离状态转换的剩余时间
     private float perfectLast = 10000f;//距离完美判定点剩余时间
     private bool hasAcc = true;//是否已加速
@@ -13,10 +14,12 @@ public class frontBone : MonoBehaviour
     private int No = -1;//正在进行判定的骨骼编号
     private int perfectSum = 0;//完美按键总次数
     private string[] Keys = null;//所有需要按下的键值
+    private bool hasDel = false;//是否已删除一层慢镜头
     private List<GameObject> buttons;
 
     void Start()
     {
+        hasDel = false;
         buttons = new List<GameObject>();
         hasAcc = true;
         Keys = null;
@@ -54,7 +57,7 @@ public class frontBone : MonoBehaviour
                 buttons.Clear();
                 Debug.Log("perfect!");
             }
-            else if (perfectLast >= 0.1f && perfectLast < 0.5f)//完美范围外则判定为miss，动画停顿并计时
+            else if (perfectLast >= 0.1f && perfectLast < existTime)//完美范围外则判定为miss，动画停顿并计时
             {
                 transLast = perfectLast;
                 accTime = perfectLast;
@@ -69,6 +72,11 @@ public class frontBone : MonoBehaviour
             }
             
         }
+        //if (!hasDel && perfectLast <= 0f)
+        //{
+        //    GameObject.Find("afterImage").GetComponent<timeScaleManagement>().delSlow();
+        //    hasDel = true;
+        //}
         if (perfectLast <= (-0.1f))//超时自动结束判定
         {
             perfectLast = 10000f;
@@ -113,6 +121,8 @@ public class frontBone : MonoBehaviour
 
     public void begin(int No)//判定起始点触发的事件，用于显示判定蓝圈并开始缩小
     {
+        //hasDel = false;
+        //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
         this.No = No;
         GameObject tmp = Resources.Load("UIPanel/hint") as GameObject;
         GameObject gen = Instantiate(tmp, GameObject.Find("Canvas/runTimeUI").transform, false);
@@ -163,7 +173,7 @@ public class frontBone : MonoBehaviour
             Keys = new string[1];
             Keys[0] = "d";
         }
-        perfectLast = 0.5f;
-        callChange();
+        perfectLast = existTime;
+        //callChange();
     }
 }

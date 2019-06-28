@@ -12,6 +12,8 @@ public class readTxt : MonoBehaviour {
     private double totalTime = 0.00;
     private List<double> musicPoint = new List<double>();//存放时间点的数组
     private bool[] musicJudge;//音乐判定点
+    private bool[] actionJudge;//动作判定点
+    private int[] boneSeq;//生成的骨骼编号序列
 
     // Use this for initialization
     void Start()
@@ -41,12 +43,16 @@ public class readTxt : MonoBehaviour {
         }
 
         musicJudge = new bool[sentences.Count];
+        actionJudge = new bool[sentences.Count];
+        boneSeq = new int[sentences.Count];
 
         for (int i = 0; i < sentences.Count; i++)
         {
             //musicPoint[i] = double.Parse(sentences[i]);
             musicPoint.Add(double.Parse(sentences[i]));
             musicJudge[i] = false;
+            actionJudge[i] = false;
+            boneSeq[i] = 0;
         }
 
 
@@ -64,7 +70,7 @@ public class readTxt : MonoBehaviour {
 
         for (int i = 0; i < musicPoint.Count; i++)
         {
-            if (totalTime >= (musicPoint[i] - 0.5f/0.3f) && musicJudge[i] == false)//0.5代表慢镜头放慢前计划持续时间，0.3代表放慢倍率
+            if (totalTime >= (musicPoint[i] - 1.2f) && musicJudge[i] == false)//
             {
                 /*Debug.Log(musicPoint[i]);
                 singal = true;
@@ -76,31 +82,14 @@ public class readTxt : MonoBehaviour {
                     tmp = Mathf.FloorToInt(Random.value * boneList.Length);
                 }*/
                 bool[] temp = new bool[4];
-                if (GameObject.Find("afterImage").GetComponent<timeScaleManagement>().getLevel() > 0)
-                {
-                    foreach (Text t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<Text>())
+                //if (GameObject.Find("afterImage").GetComponent<timeScaleManagement>().getLevel() > 0)
+                //{
+                    foreach (Text t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<Text>())//确定现在屏幕上存在着的按钮
                     {
                         if (t.text == "Q") temp[0] = true;
                         if (t.text == "E") temp[1] = true;
                         if (t.text == "A") temp[2] = true;
                         if (t.text == "D") temp[3] = true;
-                        
-                        /*while (t.text == "Q" && (tmp == 0 || tmp == 7 || (tmp >= 4 && tmp <= 6))) 
-                        {
-                            tmp = Mathf.FloorToInt(Random.value * boneList.Length);
-                        }
-                        while (t.text == "E" && (tmp == 0 || tmp == 7 || (tmp >= 1 && tmp <= 3)))
-                        {
-                            tmp = Mathf.FloorToInt(Random.value * boneList.Length);
-                        }
-                        while (t.text == "A" && tmp >= 8 && tmp <= 9)
-                        {
-                            tmp = Mathf.FloorToInt(Random.value * boneList.Length);
-                        }
-                        while (t.text == "D" && (tmp == 8 || tmp == 10)) 
-                        {
-                            tmp = Mathf.FloorToInt(Random.value * boneList.Length);
-                        }*/
                     }
                     if (temp[0] && temp[1] && temp[2] && temp[3])
                     {
@@ -113,11 +102,16 @@ public class readTxt : MonoBehaviour {
                             tmp = Mathf.FloorToInt(Random.value * boneList.Length);
                         }
                     }
-                }
+                //}
                 boneList[tmp].GetComponent<frontBone>().begin(tmp);//随机骨骼判定完美动作
                 musicJudge[i] = true;
+                boneSeq[i] = tmp;
             }
-
+            if (totalTime >= (musicPoint[i] - 0.5f) && actionJudge[i] == false)
+            {
+                boneList[boneSeq[i]].GetComponent<frontBone>().callChange();
+                actionJudge[i] = true;
+            }
         }
         if (AudioManager.Instance != null)
         {
