@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Anima2D;
+using UnityEditor;
 
 public class selectUnitPart : MonoBehaviour
 {
@@ -17,12 +18,16 @@ public class selectUnitPart : MonoBehaviour
     private int[] currPartIndex= { 7,0,1};//1号位为左右改变时需要的参数，部件编号,上中下
     private int[] index = { 0, 0, 0, 0, 0, 0, 0, 0 };//8个部件的人物编号，即部件的序列编号，头一头二
     //private int[] myStyleIndex = { 0, 2, 1, 1, 2, 0, 1, 1 };//自定义的编号记录
+    private string[] modelName = { "GuanYu","DaQiao", "MonkeyMan" };
     private string[] message = { "头", "胸", "腹", "前臂", "后臂", "手", "左腿", "右腿" };
     private float delayTime = 0.25f;//延时更改
     private bool delayBegin = false;
     private int ifChange = 0;//是否修改，给父对象判断其是否需要将目前状态转为“自定义”,1为需要修改，之后按忽略
     //private GameObject select;
 
+    //人物组件
+    private SpriteMeshInstance[] P1Sprite= new SpriteMeshInstance[11];
+    private SpriteMeshInstance[] P2Sprite = new SpriteMeshInstance[11];
     //控制UI动画
     private Animator anim_m;
     private Animator anim_up;
@@ -60,6 +65,16 @@ public class selectUnitPart : MonoBehaviour
         buttonLeft = transform.Find("Button").Find("left").GetComponent<CanvasGroup>();
         buttonRight = transform.Find("Button").Find("right").GetComponent<CanvasGroup>();
 
+        for (int i = 0; i < 11; i++)
+        {
+            //P1Sprite[i] = transform.parent.parent.parent.Find("player1").Find("model").GetChild(i).GetComponent<SpriteMeshInstance>();
+            P1Sprite[i] = GameObject.Find("/player1/model").transform.GetChild(i).GetComponent<SpriteMeshInstance>();
+        }
+        for (int i = 0; i < 11; i++)
+        {
+            //P2Sprite[i] = transform.parent.parent.parent.Find("player2").Find("model").GetChild(i).GetComponent<SpriteMeshInstance>();
+            P2Sprite[i] = GameObject.Find("/player2/model").transform.GetChild(i).GetComponent<SpriteMeshInstance>();
+        }
     }
 
     // Start is called before the first frame update
@@ -82,20 +97,21 @@ public class selectUnitPart : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.W)) OnEnterUp();
                 else if (Input.GetKeyDown(KeyCode.S)) OnEnterDown();
-                else if (Input.GetKeyDown(KeyCode.A)) OnEnterLeft();
-                else if (Input.GetKeyDown(KeyCode.D)) OnEnterRight();
+                else if (Input.GetKeyDown(KeyCode.A)) OnEnterLeft(1);
+                else if (Input.GetKeyDown(KeyCode.D)) OnEnterRight(1);
             }
             else//P2复用代码
             {
                 if (Input.GetKeyDown(KeyCode.UpArrow)) OnEnterUp();
                 else if (Input.GetKeyDown(KeyCode.DownArrow)) OnEnterDown();
-                else if (Input.GetKeyDown(KeyCode.LeftArrow)) OnEnterLeft();
-                else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight();//if(Input.GetButtonDown())
+                else if (Input.GetKeyDown(KeyCode.LeftArrow)) OnEnterLeft(2);
+                else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight(2);//if(Input.GetButtonDown())
             }
         }
     }
     public void OnEnterUp()
     {
+        //int tempIndex = currPartIndex[1];//上下相当于确定，在执行上下运动之前的中间位置为确定的对象
         buttonUp.alpha = 1.0f;
         if (upOrdown == 2)//如果上一次上下操作为下
         {
@@ -145,7 +161,7 @@ public class selectUnitPart : MonoBehaviour
         }
         else { changeAlready = false; }
 
-        //TODO chang showImage/message/playerImage
+        //TODO chang showImage/message
         //确定选中的是哪一个并进行替换,替换的应该是现在位置在最下面的
         int tempInt = 0;
         if (currPartIndex[0] + 3 <= 7)
@@ -175,6 +191,7 @@ public class selectUnitPart : MonoBehaviour
         { up.sprite = temp; upMessage.text = message[currPartIndex[2]]; }
         else if (anim_down.GetInteger("state") == 2 || anim_down.GetInteger("state") == 8)
         { down.sprite = temp; downMessage.text = message[currPartIndex[2]]; }
+
     }
     public void OnEnterDown()
     {
@@ -255,7 +272,7 @@ public class selectUnitPart : MonoBehaviour
         else if (anim_down.GetInteger("state") == 1 || anim_down.GetInteger("state") == 7)
         { down.sprite = temp; downMessage.text = message[currPartIndex[0]]; }
     }
-    public void OnEnterLeft()
+    public void OnEnterLeft(int player)
     {
         buttonLeft.alpha = 1.0f;
         switch (dir)
@@ -295,8 +312,37 @@ public class selectUnitPart : MonoBehaviour
         //修改了东西，要叫爸爸改成“自定义”
         ifChange++;
         //Debug.Log(ifChange);
+        //更改SpriteMesh
+        if (player == 1)
+        {
+            if (currPartIndex[1] < 3)//小于3的直接对应
+                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
+            {
+                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P1Sprite[currPartIndex[1]+3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+            else if (currPartIndex[1] > 5)
+            {
+                P1Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+        }
+        else
+        {
+            if (currPartIndex[1] < 3)//小于3的直接对应
+                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
+            {
+                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+            else if (currPartIndex[1] > 5)
+            {
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+        }
     }
-    public void OnEnterRight()
+    public void OnEnterRight(int player)
     {
         buttonRight.alpha = 1.0f;
         switch (dir)
@@ -334,6 +380,36 @@ public class selectUnitPart : MonoBehaviour
         }
         //修改了东西，要叫爸爸改成“自定义”
         ifChange++;
+
+        //更改SpriteMesh
+        if (player == 1)
+        {
+            if (currPartIndex[1] < 3)//小于3的直接对应
+                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
+            {
+                P1Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P1Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+            else if (currPartIndex[1] > 5)
+            {
+                P1Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+        }
+        else
+        {
+            if (currPartIndex[1] < 3)//小于3的直接对应
+                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            else if (currPartIndex[1] >= 3 && currPartIndex[1] <= 5)
+            {
+                P2Sprite[currPartIndex[1]].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+            else if (currPartIndex[1] > 5)
+            {
+                P2Sprite[currPartIndex[1] + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]] + ".asset");
+            }
+        }
     }
     public Texture2D spriteToTexture(Sprite sprite)
     {
@@ -356,7 +432,7 @@ public class selectUnitPart : MonoBehaviour
     {
         ifChange = a;
     }
-    public void changeTotally(int totalIndex)
+    public void changeTotally(int totalIndex,int player)
     {
         Sprite temp;
         switch (totalIndex)
@@ -376,6 +452,41 @@ public class selectUnitPart : MonoBehaviour
                 mid.sprite = temp;
                 temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
                 down.sprite = temp;
+
+                if (player == 1)
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (i < 3)//小于3的直接对应
+                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        {
+                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                        else if (i > 5)
+                        {
+                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (i < 3)//小于3的直接对应
+                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        {
+                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                        else if (i > 5)
+                        {
+                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[1] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                    }
+                }
                 //回到最开始，ifChange改回0
                 ifChange = 0;
                 break;
@@ -390,6 +501,41 @@ public class selectUnitPart : MonoBehaviour
                 mid.sprite = temp;
                 temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
                 down.sprite = temp;
+
+                if (player == 1)
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (i < 3)//小于3的直接对应
+                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        {
+                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                        else if (i > 5)
+                        {
+                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (i < 3)//小于3的直接对应
+                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        {
+                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                        else if (i > 5)
+                        {
+                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[0] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                    }
+                }
                 //回到最开始，ifChange改回0
                 ifChange = 0;
                 break;
@@ -404,6 +550,41 @@ public class selectUnitPart : MonoBehaviour
                 mid.sprite = temp;
                 temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
                 down.sprite = temp;
+
+                if (player == 1)
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (i < 3)//小于3的直接对应
+                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        {
+                            P1Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                        else if (i > 5)
+                        {
+                            P1Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (i < 3)//小于3的直接对应
+                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        {
+                            P2Sprite[i].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                        else if (i > 5)
+                        {
+                            P2Sprite[i + 3].spriteMesh = AssetDatabase.LoadAssetAtPath<SpriteMesh>("Assets/Model/" + modelName[2] + "/SpriteMesh/" + message[i] + ".asset");
+                        }
+                    }
+                }
                 //回到最开始，ifChange改回0
                 ifChange = 0;
                 break;
