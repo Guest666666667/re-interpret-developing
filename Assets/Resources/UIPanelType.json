@@ -33,9 +33,13 @@
     "panelTypeString": "fightSelectPart",
     "path": "UIPanel/fightSelectPartPanel"
   },
-    {
+  {
     "panelTypeString": "fightSelectBg",
     "path": "UIPanel/fightSelectBgPanel"
+  },
+      {
+    "panelTypeString": "fightSetPose",
+    "path": "UIPanel/fightSetPosePanel"
   }
 ]
 }

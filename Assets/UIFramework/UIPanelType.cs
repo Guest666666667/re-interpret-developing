@@ -13,5 +13,6 @@ public enum UIPanelType
     gameSet,
     fightMain,
     fightSelectPart,
+    fightSetPose,
     fightSelectBg
 }

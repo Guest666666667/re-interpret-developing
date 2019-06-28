@@ -174,13 +174,13 @@ public class selectTotalPart : MonoBehaviour
         {
             if (gameObject.name == "P1")
             {
-                if (Input.GetKeyDown(KeyCode.Q)) OnEnterLeft();
-                else if (Input.GetKeyDown(KeyCode.E)) OnEnterRight();
+                if (Input.GetKeyDown(KeyCode.Q)) OnEnterLeft(1);
+                else if (Input.GetKeyDown(KeyCode.E)) OnEnterRight(1);
             }
             else//P2复用代码
             {
-                if (Input.GetKeyDown(KeyCode.Keypad2)) OnEnterLeft();
-                else if (Input.GetKeyDown(KeyCode.Keypad3)) OnEnterRight();
+                if (Input.GetKeyDown(KeyCode.Keypad2)) OnEnterLeft(2);
+                else if (Input.GetKeyDown(KeyCode.Keypad3)) OnEnterRight(2);
             }
             //lockTime = 0.7f;
         }
@@ -196,7 +196,7 @@ public class selectTotalPart : MonoBehaviour
         //TODO chang showImage/message/playerImage
         //确定选中的是哪一个并进行替换
     }
-    public void OnEnterLeft()
+    public void OnEnterLeft(int player)
     {
         if (LeftOrRight == 2)//如果上一次上下操作为右
         {
@@ -258,9 +258,9 @@ public class selectTotalPart : MonoBehaviour
         index = changeIndex - 1 >= 0 ? changeIndex - 1 : changeIndex - 1 + 4;
 
         //改变图片
-        unitPartCrt.changeTotally(index);
+        unitPartCrt.changeTotally(index,player);
     }
-    public void OnEnterRight()
+    public void OnEnterRight(int player)
     {
         if (LeftOrRight == 1)//上一个操作为左
         {
@@ -321,6 +321,6 @@ public class selectTotalPart : MonoBehaviour
         index = changeIndex + 1 < 4 ? changeIndex + 1 : changeIndex + 1 - 4;
 
         //改变图片
-        unitPartCrt.changeTotally(index);
+        unitPartCrt.changeTotally(index,player);
     }
 }
