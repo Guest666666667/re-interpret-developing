@@ -19,6 +19,14 @@ public class Player2Control : MonoBehaviour
     private bool isDown = false;
     private State state = State.idle;
 
+    //整合的
+    //private float transiation;
+    public bool isMove = false;
+    private PlayerControl moveScript;//player_1
+    private moveGrounds mG;
+    public int direction = 0;//移动的方向
+    private bool CanCollider = true;//用来判断自身是否碰到便边界
+
     private readonly KeyCode[] KeyCodeSet = new KeyCode[6];
 
     public State GetState()
@@ -50,6 +58,10 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[5] = KeyCode.Keypad2;
         }
         animator = GetComponent<Animator>();
+
+        //整合的
+        moveScript = GameObject.FindWithTag("player").GetComponent<PlayerControl>();//获得脚本的对象
+        mG = GameObject.FindWithTag("grounds").GetComponent<moveGrounds>();
     }
 
     // Update is called once per frame
@@ -78,16 +90,21 @@ public class Player2Control : MonoBehaviour
                 {
                     Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
+                    direction = -1;
                 }
             }
-
-            if (Input.GetKey(KeyCodeSet[3]))
+            else if (Input.GetKey(KeyCodeSet[3]))
             {
                 if (player.name.Equals("player2") || (!isTouch))
                 {
                     Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
+                    direction = 1;
                 }
+            }
+            else
+            {
+                direction = 0;
             }
 
             if (Input.GetKeyDown(KeyCodeSet[0]) && isOnLand && !isDown)
@@ -118,6 +135,41 @@ public class Player2Control : MonoBehaviour
             isDown = false;
         }
         animator.SetBool("isDown", isDown);
+
+        //如果另一个人物在移动
+        if (moveScript.isMove)
+        {
+            //Debug.Log(CanCollider);
+            //如果自己还没有到达边界    那么就做相对运动
+            if (CanCollider)
+            {
+                //如果另一个人往右，那么自己往左
+                if (moveScript.direction == 1)
+                {
+                    Vector2 v = transform.localPosition;
+                    if (mG.canMove)
+                        v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime;
+                    transform.localPosition = v;
+                }
+                //如果另一个人往左，那么自己往右
+                if (moveScript.direction == -1)
+                {
+                    Vector2 v = transform.localPosition;
+                    if (mG.canMove)
+                        v.x += BattlePara.GetMoveSpeed() * Time.deltaTime;
+                    transform.localPosition = v;
+                }
+            }
+
+        }
+        //如果对手没有碰到边界并且还是靠近自己，那么自己要往左移动
+        if ((!moveScript.isMove) && (moveScript.direction == 1))
+        {
+            Vector2 v = transform.localPosition;
+            if (mG.canMove)
+                v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
+            transform.localPosition = v;
+        }
     }
 
     private void FixedUpdate()
@@ -136,6 +188,13 @@ public class Player2Control : MonoBehaviour
         {
             isTouch = true;
         }
+        //如果触碰了界面的碰撞
+        if (collision.collider.tag == "backGround")
+        {
+            //Debug.Log("碰撞！！！");
+            isMove = true;
+            CanCollider = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -147,6 +206,12 @@ public class Player2Control : MonoBehaviour
         if (collision.collider.Equals(other.GetComponent<Collider2D>()))
         {
             isTouch = false;
+        }
+        if (collision.collider.tag == "backGround")
+        {
+            // Debug.Log("离开碰撞！！！");
+            isMove = false;
+            CanCollider = true;
         }
     }
 
