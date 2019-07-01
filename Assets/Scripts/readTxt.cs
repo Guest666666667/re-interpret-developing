@@ -84,12 +84,12 @@ public class readTxt : MonoBehaviour {
                 bool[] temp = new bool[4];
                 //if (GameObject.Find("afterImage").GetComponent<timeScaleManagement>().getLevel() > 0)
                 //{
-                    foreach (Text t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<Text>())//确定现在屏幕上存在着的按钮
+                    foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())//确定现在屏幕上存在着的按钮
                     {
-                        if (t.text == "Q") temp[0] = true;
-                        if (t.text == "E") temp[1] = true;
-                        if (t.text == "A") temp[2] = true;
-                        if (t.text == "D") temp[3] = true;
+                        if (t.Key == "q") temp[0] = true;
+                        if (t.Key == "e") temp[1] = true;
+                        if (t.Key == "a") temp[2] = true;
+                        if (t.Key == "d") temp[3] = true;
                     }
                     if (temp[0] && temp[1] && temp[2] && temp[3])
                     {
@@ -103,7 +103,18 @@ public class readTxt : MonoBehaviour {
                         }
                     }
                 //}
-                boneList[tmp].GetComponent<frontBone>().begin(tmp);//随机骨骼判定完美动作
+                int seq = 0, si = i;
+                while (si - 1 >= 0 && ((musicPoint[si] - musicPoint[--si]) < 1.2f)) //根据1.2s内连续出现的按钮数量设定顺序号
+                {
+                    seq = (seq + 1) % 4;
+                }
+                seq++;
+                if (i + 1 < musicPoint.Count && (seq == 1 && musicPoint[i + 1] - musicPoint[i] > 1.2f))
+                {
+                    seq = 0;
+                }
+                boneList[tmp].GetComponent<frontBone>().begin(tmp,seq);//随机骨骼判定完美动作
+                //Debug.Log(seq);
                 musicJudge[i] = true;
                 boneSeq[i] = tmp;
             }
