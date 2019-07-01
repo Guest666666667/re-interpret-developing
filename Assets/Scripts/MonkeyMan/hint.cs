@@ -88,6 +88,14 @@ public class hint : MonoBehaviour
         Tweener tweener = DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_AlphaScale"), x => GetComponentInChildren<Image>().material.SetFloat("_AlphaScale", x), 0f, 0.4f);
         transform.Find("keyHint/Text").GetComponent<Text>().text = (isPerfect ? "善" : "误");
         tweener.onComplete = drop;
+        transform.Find("process/halo").GetComponent<CanvasGroup>().alpha = 0f;
+        if (isKeyDown&&isPerfect)//按键闪光
+        {
+            transform.Find("miss/halo").GetComponent<CanvasGroup>().alpha = 1f;
+            
+            Sequence flash = DOTween.Sequence();
+            flash.Append(transform.Find("miss/halo").GetComponent<CanvasGroup>().DOFade(0f, 0.5f));
+        }
     }
     public void drop()
     {
