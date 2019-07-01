@@ -10,14 +10,14 @@ public class moveGrounds : MonoBehaviour
     public float speed = 5f;
     public bool isMove = false;//player_1
     public bool isMove_2 = false;//player_2
-    private Move moveScript;//player_1
-    private Move_2 moveScript_2;//player_2
+    private PlayerControl moveScript;//player_1
+    private Player2Control moveScript_2;//player_2
     // Start is called before the first frame update
     void Start()
     {
         //获得两个player的脚本对象
-        moveScript = GameObject.FindWithTag("player").GetComponent<Move>();
-        moveScript_2 = GameObject.FindWithTag("player_2").GetComponent<Move_2>();
+        moveScript = GameObject.FindWithTag("player").GetComponent<PlayerControl>();
+        moveScript_2 = GameObject.FindWithTag("player_2").GetComponent<Player2Control>();
     }
 
     // Update is called once per frame
