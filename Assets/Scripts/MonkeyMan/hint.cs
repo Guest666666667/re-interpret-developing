@@ -8,14 +8,16 @@ public class hint : MonoBehaviour
 {
     public float existTime = 1.2f;
     private bool isProcessing = false;
-    private string Key;
+    public string Key;
     private float timeLast = 10000f;
     private float expectScale = 1f;
     private Material mat;
+    private int coe;
 
     // Start is called before the first frame update
     void Awake()
     {
+        coe = Random.value < 0.5f ? -1 : 1; //速度系数
         expectScale = 1f ;
         mat = new Material(Resources.Load<Material>("UI source/blurMaterial"));
         //transform.Find("bg").GetComponent<Image>().material = mat;
@@ -27,7 +29,7 @@ public class hint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Find("miss").RotateAroundLocal(new Vector3(0f, 0f, 1f), Time.deltaTime * 5f * timeLast);
+        transform.Find("miss").RotateAroundLocal(new Vector3(0f, 0f, 1f), coe * Time.deltaTime * Mathf.PI * 4f / (existTime * existTime) * timeLast);//停止时正好旋转2PI
         timeLast -= Time.deltaTime;
         /*if (Input.GetButtonDown(Key) && isProcessing)//按下对应按键且蓝圈在显示过程中则结束判定
         {
@@ -91,10 +93,10 @@ public class hint : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public void setUp(string Key,int type)
+    public void setUp(string Key,int type, int seq)
     {
         this.Key = Key;
-        transform.Find("keyHint/Text").GetComponent<Text>().text = Key.ToUpper();
+        transform.Find("keyHint/Text").GetComponent<Text>().text = "";//Key.ToUpper();
         if (Key == "a" || Key == "d")
         {
             transform.localPosition -= new Vector3(0f, 165f, 0f);
@@ -107,6 +109,17 @@ public class hint : MonoBehaviour
         {
             transform.Find("miss").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/judge1");
             transform.Find("keyHint").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/smallJudge1");
+        }
+        /*for (int i = 0; i < seq; i++)//代码设置连击提示旋转角度
+        {
+            GameObject gen = Instantiate(Resources.Load("UIPanel/seqHint") as GameObject, transform, false);
+            gen.transform.RotateAroundLocal(new Vector3(0f, 0f, 1f), i*Mathf.PI*2f/seq);
+        }*/
+        if (seq != 0)
+        {
+            GameObject gen = Instantiate(Resources.Load("UIPanel/seqHint") as GameObject, transform, false);
+            gen.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/seqJudge" + seq);
+            //transform.Find("miss").GetChild(0).RotateAroundLocal(new Vector3(0f, 0f, 1f), -0.03f * Mathf.PI);//微调
         }
         begin();
     }
