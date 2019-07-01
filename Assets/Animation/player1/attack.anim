@@ -28,7 +28,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0}
       - serializedVersion: 3
         time: 0.16666667
-        value: {x: 0, y: 0, z: -152.28}
+        value: {x: 0, y: 0, z: -132.28}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -37,7 +37,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0}
       - serializedVersion: 3
         time: 0.33333334
-        value: {x: 0, y: 0, z: -152.28}
+        value: {x: 0, y: 0, z: -132.28}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -284,6 +284,13 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
+      path: 3055377698
+      attribute: 4
+      script: {fileID: 0}
+      typeID: 4
+      customType: 4
+      isPPtrCurve: 0
+    - serializedVersion: 2
       path: 3632796510
       attribute: 4
       script: {fileID: 0}
@@ -292,13 +299,6 @@ AnimationClip:
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 2901542325
-      attribute: 4
-      script: {fileID: 0}
-      typeID: 4
-      customType: 4
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 3055377698
       attribute: 4
       script: {fileID: 0}
       typeID: 4

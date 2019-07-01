@@ -135,7 +135,7 @@ public class selectTotalPart : MonoBehaviour
                     { leftMessage.text = actorName[1]; }
                     else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
                     { rightMessage.text = actorName[1]; }
-                    index = 1; break;
+                    index = 0; break;
                 case 2:
                     if (ifFirstIn)
                     {
@@ -163,7 +163,7 @@ public class selectTotalPart : MonoBehaviour
                     { leftMessage.text = actorName[3]; }
                     else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
                     { rightMessage.text = actorName[3]; }
-                    index = 1; break;
+                    index = 2; break;
 
                 default:break;
             }
