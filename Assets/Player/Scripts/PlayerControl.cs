@@ -24,6 +24,13 @@ public class PlayerControl : MonoBehaviour
     private bool isDown = false;
     private State state = State.idle;
 
+    //整合的
+    public bool isMove = false;
+    private Player2Control moveScript_2;//player_2
+    private moveGrounds mG;
+    public int direction = 0;
+    private bool CanCollider = true;//用来判断自身是否碰到便边界
+
     private readonly KeyCode[] KeyCodeSet = new KeyCode[6];
 
     public State GetState()
@@ -55,24 +62,31 @@ public class PlayerControl : MonoBehaviour
             KeyCodeSet[5] = KeyCode.Keypad2;
         }
         animator = GetComponent<Animator>();
+
+        //整合的(设置Tag)
+        moveScript_2 = GameObject.FindWithTag("player_2").GetComponent<Player2Control>();
+        //riBody = GetComponent<Rigidbody2D>();//用来处理抖动的问题
+        mG = GameObject.FindWithTag("grounds").GetComponent<moveGrounds>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("delay"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idleMotion"))
         {
-            state = State.delay;
+            if(!state.Equals(State.idle))
+            {
+                state = State.idle;
+            }   
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
         {
-            if (state.Equals(State.delay))
-            {
-                animator.SetBool("isAttack", false);
-                animator.SetBool("isGuard", false);
-            }
-            state = State.idle;
+            animator.SetBool("isAttack",false);
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard"))
+        {
+            animator.SetBool("isGuard", false);
         }
 
         if (state.Equals(State.idle))
@@ -83,16 +97,24 @@ public class PlayerControl : MonoBehaviour
                 {
                     Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
+                    //整合的
+                    direction = -1;
                 }
             }
-
-            if (Input.GetKey(KeyCodeSet[3]))
+            else if (Input.GetKey(KeyCodeSet[3]))
             {
                 if (player.name.Equals("player2") || (!isTouch))
                 {
                     Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
+                    //整合的
+                    direction = 1;
                 }
+            }
+            else
+            {
+                //整合的
+                direction = 0;
             }
 
             if (Input.GetKeyDown(KeyCodeSet[0]) && isOnLand && !isDown)
@@ -103,7 +125,7 @@ public class PlayerControl : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCodeSet[4]))
             {
-                animator.SetBool("isAttack",true);
+                animator.SetBool("isAttack", true);
                 state = State.attack;
             }
 
@@ -125,6 +147,39 @@ public class PlayerControl : MonoBehaviour
         }
 
         animator.SetBool("isDown", isDown);
+        animator.SetBool("isOnLand", isOnLand);
+
+        //整合的
+        if (moveScript_2.isMove)
+        {
+            //Debug.Log(CanCollider);
+            if (CanCollider)
+            {
+                if (moveScript_2.direction == 1)
+                {
+                    Vector2 v = transform.localPosition;
+                    if (mG.canMove)
+                        v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime;
+                    transform.localPosition = v;
+                }
+                if (moveScript_2.direction == -1)
+                {
+                    Vector2 v = transform.localPosition;
+                    if (mG.canMove)
+                        v.x += BattlePara.GetMoveSpeed() * Time.deltaTime;
+                    transform.localPosition = v;
+                }
+            }
+
+        }
+
+        if ((!moveScript_2.isMove) && (moveScript_2.direction == -1))
+        {
+            Vector2 v = transform.localPosition;
+            if (mG.canMove)
+                v.x += BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
+            transform.localPosition = v;
+        }
     }
 
     private void FixedUpdate()
@@ -143,6 +198,14 @@ public class PlayerControl : MonoBehaviour
         {
             isTouch = true;
         }
+
+        //如果触碰了界面的碰撞
+        if (collision.collider.tag == "backGround")
+        {
+            //Debug.Log("碰撞！！！");
+            isMove = true;
+            CanCollider = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -154,6 +217,14 @@ public class PlayerControl : MonoBehaviour
         if (collision.collider.Equals(other.GetComponent<Collider2D>()))
         {
             isTouch = false;
+        }
+
+        //离开碰撞
+        if (collision.collider.tag == "backGround")
+        {
+            // Debug.Log("离开碰撞！！！");
+            isMove = false;
+            CanCollider = true;
         }
     }
 
