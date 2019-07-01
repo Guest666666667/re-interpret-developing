@@ -67,19 +67,21 @@ public class Player2Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("delay"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idleMotion"))
         {
-            state = State.delay;
+            if (!state.Equals(State.idle))
+            {
+                state = State.idle;
+            }
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
         {
-            if (state.Equals(State.delay))
-            {
-                animator.SetBool("isAttack", false);
-                animator.SetBool("isGuard", false);
-            }
-            state = State.idle;
+            animator.SetBool("isAttack", false);
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard"))
+        {
+            animator.SetBool("isGuard", false);
         }
 
         if (state.Equals(State.idle))
@@ -90,20 +92,34 @@ public class Player2Control : MonoBehaviour
                 {
                     Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
+                    animator.SetBool("isFront", true);
+                    //整合的
                     direction = -1;
                 }
             }
-            else if (Input.GetKey(KeyCodeSet[3]))
+            if (Input.GetKey(KeyCodeSet[3]))
             {
                 if (player.name.Equals("player2") || (!isTouch))
                 {
                     Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
+                    animator.SetBool("isBack", true);
+                    //整合的
                     direction = 1;
                 }
             }
-            else
+            //同时按下A,D
+            if ((Input.GetKey(KeyCodeSet[3])) && (Input.GetKey(KeyCodeSet[1])))
             {
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+            }
+            //同时没有按A,D
+            if ((!Input.GetKey(KeyCodeSet[3])) && (!Input.GetKey(KeyCodeSet[1])))
+            {
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+                //整合的
                 direction = 0;
             }
 
@@ -115,17 +131,22 @@ public class Player2Control : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCodeSet[4]))
             {
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
                 animator.SetBool("isAttack", true);
                 state = State.attack;
             }
 
             if (Input.GetKeyDown(KeyCodeSet[5]))
             {
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
                 animator.SetBool("isGuard", true);
                 state = State.guard;
             }
 
         }
+
         if (Input.GetKey(KeyCodeSet[2]) && isOnLand && !isDown)
         {
             isDown = true;
@@ -134,7 +155,9 @@ public class Player2Control : MonoBehaviour
         {
             isDown = false;
         }
+
         animator.SetBool("isDown", isDown);
+        animator.SetBool("isOnLand", isOnLand);
 
         //如果另一个人物在移动
         if (moveScript.isMove)
