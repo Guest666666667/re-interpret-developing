@@ -119,7 +119,7 @@ public class frontBone : MonoBehaviour
         GameObject.Find(objectName).GetComponent<afterBone>().Change();
     }
 
-    public void begin(int No)//判定起始点触发的事件，用于显示判定蓝圈并开始缩小
+    public void begin(int No, int seq)//判定起始点触发的事件，用于显示判定蓝圈并开始缩小
     {
         //hasDel = false;
         //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
@@ -132,21 +132,21 @@ public class frontBone : MonoBehaviour
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
             GameObject gen2 = Instantiate(tmp2, GameObject.Find("Canvas/runTimeUI").transform, false);
             buttons.Add(gen2);
-            gen.GetComponent<hint>().setUp("q",1);
-            gen2.GetComponent<hint>().setUp("e",1);
+            gen.GetComponent<hint>().setUp("q",1,seq);
+            gen2.GetComponent<hint>().setUp("e",1,seq);
             Keys = new string[2];
             Keys[0] = "q";
             Keys[1] = "e";
         }
         else if (No >= 1 && No <= 3)
         {
-            gen.GetComponent<hint>().setUp("e",0);
+            gen.GetComponent<hint>().setUp("e",0,seq);
             Keys = new string[1];
             Keys[0] = "e";
         }
         else if (No >= 4 && No <= 6)
         {
-            gen.GetComponent<hint>().setUp("q",0);
+            gen.GetComponent<hint>().setUp("q",0, seq);
             Keys = new string[1];
             Keys[0] = "q";
         }
@@ -155,21 +155,21 @@ public class frontBone : MonoBehaviour
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
             GameObject gen2 = Instantiate(tmp2, GameObject.Find("Canvas/runTimeUI").transform, false);
             buttons.Add(gen2);
-            gen.GetComponent<hint>().setUp("a",1);
-            gen2.GetComponent<hint>().setUp("d",1);
+            gen.GetComponent<hint>().setUp("a",1, seq);
+            gen2.GetComponent<hint>().setUp("d",1, seq);
             Keys = new string[2];
             Keys[0] = "a";
             Keys[1] = "d";
         }
         else if (No == 9)
         {
-            gen.GetComponent<hint>().setUp("a",0);
+            gen.GetComponent<hint>().setUp("a",0, seq);
             Keys = new string[1];
             Keys[0] = "a";
         }
         else if (No == 10)
         {
-            gen.GetComponent<hint>().setUp("d",0);
+            gen.GetComponent<hint>().setUp("d",0, seq);
             Keys = new string[1];
             Keys[0] = "d";
         }

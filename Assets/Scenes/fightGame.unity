@@ -2474,7 +2474,7 @@ GameObject:
   - component: {fileID: 752370305}
   m_Layer: 0
   m_Name: player1
-  m_TagString: Untagged
+  m_TagString: player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2536,6 +2536,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 752370304}
   other: {fileID: 1731857054}
+  isMove: 0
+  direction: 0
 --- !u!61 &752370309
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6911,7 +6913,7 @@ GameObject:
   - component: {fileID: 1731857055}
   m_Layer: 0
   m_Name: player2
-  m_TagString: Untagged
+  m_TagString: player_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6954,6 +6956,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1731857054}
   other: {fileID: 752370304}
+  isMove: 0
+  direction: 0
 --- !u!95 &1731857058
 Animator:
   serializedVersion: 3
