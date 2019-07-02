@@ -12,7 +12,7 @@ public class timeScaleManagement : MonoBehaviour
     }
     public void addSlow()//添加一层时间放慢
     {
-        Time.timeScale = 0.3f;
+        Time.timeScale = 0.5f;
         level++;
     }
 

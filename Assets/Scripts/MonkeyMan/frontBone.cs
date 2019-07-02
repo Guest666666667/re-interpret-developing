@@ -114,15 +114,16 @@ public class frontBone : MonoBehaviour
         }
     }
 
-    public void callChange()//判定起始点触发的事件，用于改变残影姿势
+    public void callChange(bool needSlow)//判定起始点触发的事件，用于改变残影姿势
     {
-        GameObject.Find(objectName).GetComponent<afterBone>().Change();
+        GameObject.Find(objectName).GetComponent<afterBone>().Change(needSlow);
     }
 
     public void begin(int No, int seq)//判定起始点触发的事件，用于显示判定蓝圈并开始缩小
     {
         //hasDel = false;
         //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
+        //bool needSlow = false;
         this.No = No;
         GameObject tmp = Resources.Load("UIPanel/hint") as GameObject;
         GameObject gen = Instantiate(tmp, GameObject.Find("Canvas/runTimeUI").transform, false);
@@ -137,6 +138,7 @@ public class frontBone : MonoBehaviour
             Keys = new string[2];
             Keys[0] = "q";
             Keys[1] = "e";
+            //needSlow = true;
         }
         else if (No >= 1 && No <= 3)
         {
@@ -160,6 +162,7 @@ public class frontBone : MonoBehaviour
             Keys = new string[2];
             Keys[0] = "a";
             Keys[1] = "d";
+            //needSlow = true;
         }
         else if (No == 9)
         {
@@ -174,6 +177,6 @@ public class frontBone : MonoBehaviour
             Keys[0] = "d";
         }
         perfectLast = existTime;
-        //callChange();
+        //callChange(needSlow);
     }
 }
