@@ -436,32 +436,48 @@ public class selectUnitPart : MonoBehaviour
     }
     public void changeTotally(int totalIndex,int player)
     {
+        int sign = 0;//1:up在上，2：mid在上，3：down在上
         Sprite temp;
         switch (totalIndex)
         {
             case 0://大乔
-                //for (int j = 0; j < 8; j++)
-                //{
-                //    myStyleIndex[j] = index[j];//储存好自定义的
-                //}
+                //更改选择位置的图
                 for (int i = 0; i < 8; i++)
                 {
                     index[i] = 1;//大乔下标
                 }
-                temp= transform.Find("select").GetChild(1).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
-                up.sprite = temp;
-                temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;
-                mid.sprite = temp;
-                temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
-                down.sprite = temp;
+                temp= transform.Find("select").GetChild(1).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;//上面
+                if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)
+                { mid.sprite = temp; sign = 2; }
+                else if (anim_up.GetInteger("state") == 1 || anim_up.GetInteger("state") == 7)
+                { up.sprite = temp; sign = 1; }
+                else if (anim_down.GetInteger("state") == 1 || anim_down.GetInteger("state") == 7)
+                { down.sprite = temp; sign = 3; }
 
+                temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;//中间
+                if (sign == 1)
+                    mid.sprite = temp;
+                else if (sign == 3)
+                    up.sprite = temp;
+                else if (sign == 2) 
+                    down.sprite = temp;
+
+                temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;//下面
+                if (sign == 3)
+                    mid.sprite = temp;
+                else if (sign == 2)
+                    up.sprite = temp;
+                else if (sign == 1)
+                    down.sprite = temp;
+
+                //人物骨骼蒙皮更改
                 if (player == 1)
                 {
                     for (int i = 0; i < 8; i++)
                     {
                         if (i < 3)//小于3的直接对应
                             P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
-                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        else if (i >= 3 && i <= 5)
                         {
                             P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                             P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
@@ -478,7 +494,7 @@ public class selectUnitPart : MonoBehaviour
                     {
                         if (i < 3)//小于3的直接对应
                             P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
-                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        else if (i >= 3 && i <= 5)
                         {
                             P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
                             P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[i]);
@@ -497,12 +513,29 @@ public class selectUnitPart : MonoBehaviour
                 {
                     index[i] = 0;//关羽下标
                 }
-                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
-                up.sprite = temp;
-                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;
-                mid.sprite = temp;
-                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
-                down.sprite = temp;
+                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;//上面
+                if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)
+                { mid.sprite = temp; sign = 2; }
+                else if (anim_up.GetInteger("state") == 1 || anim_up.GetInteger("state") == 7)
+                { up.sprite = temp; sign = 1; }
+                else if (anim_down.GetInteger("state") == 1 || anim_down.GetInteger("state") == 7)
+                { down.sprite = temp; sign = 3; }
+
+                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;//中间
+                if (sign == 1)
+                    mid.sprite = temp;
+                else if (sign == 3)
+                    up.sprite = temp;
+                else if (sign == 2)
+                    down.sprite = temp;
+
+                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;//下面
+                if (sign == 3)
+                    mid.sprite = temp;
+                else if (sign == 2)
+                    up.sprite = temp;
+                else if (sign == 1)
+                    down.sprite = temp;
 
                 if (player == 1)
                 {
@@ -510,7 +543,7 @@ public class selectUnitPart : MonoBehaviour
                     {
                         if (i < 3)//小于3的直接对应
                             P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
-                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        else if (i >= 3 && i <= 5)
                         {
                             P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                             P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
@@ -527,7 +560,7 @@ public class selectUnitPart : MonoBehaviour
                     {
                         if (i < 3)//小于3的直接对应
                             P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
-                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        else if (i >= 3 && i <= 5)
                         {
                             P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
                             P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[i]);
@@ -546,12 +579,29 @@ public class selectUnitPart : MonoBehaviour
                 {
                     index[i] = 2;//孙悟空下标
                 }
-                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
-                up.sprite = temp;
-                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;
-                mid.sprite = temp;
-                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
-                down.sprite = temp;
+                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;//上面
+                if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)
+                { mid.sprite = temp; sign = 2; }
+                else if (anim_up.GetInteger("state") == 1 || anim_up.GetInteger("state") == 7)
+                { up.sprite = temp; sign = 1; }
+                else if (anim_down.GetInteger("state") == 1 || anim_down.GetInteger("state") == 7)
+                { down.sprite = temp; sign = 3; }
+
+                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;//中间
+                if (sign == 1)
+                    mid.sprite = temp;
+                else if (sign == 3)
+                    up.sprite = temp;
+                else if (sign == 2)
+                    down.sprite = temp;
+
+                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;//下面
+                if (sign == 3)
+                    mid.sprite = temp;
+                else if (sign == 2)
+                    up.sprite = temp;
+                else if (sign == 1)
+                    down.sprite = temp;
 
                 if (player == 1)
                 {
@@ -559,7 +609,7 @@ public class selectUnitPart : MonoBehaviour
                     {
                         if (i < 3)//小于3的直接对应
                             P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
-                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        else if (i >= 3 && i <= 5)
                         {
                             P1Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                             P1Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
@@ -576,7 +626,7 @@ public class selectUnitPart : MonoBehaviour
                     {
                         if (i < 3)//小于3的直接对应
                             P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
-                        else if (i >= 3 && currPartIndex[1] <= 5)
+                        else if (i >= 3 && i <= 5)
                         {
                             P2Sprite[i].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
                             P2Sprite[i + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[i]);
@@ -591,13 +641,49 @@ public class selectUnitPart : MonoBehaviour
                 ifChange = 0;
                 break;
             case 3://自定义
-                //TODO 维护一个自定义的index，在之后回到自定义时能显示之前自定义的样子
-                //temp = transform.Find("select").GetChild(index[currPartIndex[0]]).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
-                //up.sprite = temp;
-                //temp = transform.Find("select").GetChild(index[currPartIndex[1]]).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;
-                //mid.sprite = temp;
-                //temp = transform.Find("select").GetChild(index[currPartIndex[2]]).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
-                //down.sprite = temp;
+                   //到自定义的时候，选择框改变
+                index[currPartIndex[0]] = 0;
+                index[currPartIndex[1]] = 1;
+                index[currPartIndex[2]] = 2;
+
+                temp = transform.Find("select").GetChild(0).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;//上面
+                if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)
+                { mid.sprite = temp; sign = 2; }
+                else if (anim_up.GetInteger("state") == 1 || anim_up.GetInteger("state") == 7)
+                { up.sprite = temp; sign = 1; }
+                else if (anim_down.GetInteger("state") == 1 || anim_down.GetInteger("state") == 7)
+                { down.sprite = temp; sign = 3; }
+
+                temp = transform.Find("select").GetChild(1).GetChild(currPartIndex[1]).GetComponent<SpriteRenderer>().sprite;//中间
+                if (sign == 1)
+                    mid.sprite = temp;
+                else if (sign == 3)
+                    up.sprite = temp;
+                else if (sign == 2)
+                    down.sprite = temp;
+
+                temp = transform.Find("select").GetChild(2).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;//下面
+                if (sign == 3)
+                    mid.sprite = temp;
+                else if (sign == 2)
+                    up.sprite = temp;
+                else if (sign == 1)
+                    down.sprite = temp;
+
+                //更改人物
+                if (player == 1)
+                {
+                    P1Sprite[currPartIndex[0]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[currPartIndex[0]]);
+                    P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                    P1Sprite[currPartIndex[2]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[currPartIndex[2]]);
+                }
+                else
+                {
+                    P2Sprite[currPartIndex[0]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[currPartIndex[0]]);
+                    P2Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                    P2Sprite[currPartIndex[2]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[currPartIndex[2]]);
+                }
+
                 break;
             default:break;
         }

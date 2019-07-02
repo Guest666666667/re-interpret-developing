@@ -43,16 +43,18 @@ public class fightSelectPartPanel : BasePanel
     }
     public override void OnPause()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(1).gameObject.SetActive(false);
+        //transform.GetChild(0).gameObject.SetActive(false);
+        //transform.GetChild(1).gameObject.SetActive(false);
+        gameObject.SetActive(false);
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;//当弹出新的面板的时候，让主菜单面板不再和鼠标交互
         base.OnPause();
     }
     public override void OnResume()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.SetActive(true);
+        //transform.GetChild(0).gameObject.SetActive(true);
+        //transform.GetChild(1).gameObject.SetActive(true);
+        gameObject.SetActive(true);
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
         base.OnResume();
