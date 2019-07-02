@@ -9,7 +9,7 @@ public class PlayerControl : MonoBehaviour
         idle,
         attack,
         guard,
-        delay
+        turn
     }
 
     public GameObject player;
@@ -22,6 +22,8 @@ public class PlayerControl : MonoBehaviour
     private bool isOnLand = false;
     private bool isHitted = false;
     private bool isDown = false;
+    private bool isTurn = false;
+
     private State state = State.idle;
 
     //整合的
@@ -31,7 +33,7 @@ public class PlayerControl : MonoBehaviour
     public int direction = 0;
     private bool CanCollider = true;//用来判断自身是否碰到便边界
 
-    private readonly KeyCode[] KeyCodeSet = new KeyCode[6];
+    private readonly KeyCode[] KeyCodeSet = new KeyCode[7];
 
     public State GetState()
     {
@@ -51,6 +53,7 @@ public class PlayerControl : MonoBehaviour
             KeyCodeSet[3] = KeyCode.D;
             KeyCodeSet[4] = KeyCode.J;
             KeyCodeSet[5] = KeyCode.K;
+            KeyCodeSet[6] = KeyCode.U;
         }
         if (player.name.Equals("player2"))
         {
@@ -60,6 +63,7 @@ public class PlayerControl : MonoBehaviour
             KeyCodeSet[3] = KeyCode.RightArrow;
             KeyCodeSet[4] = KeyCode.Keypad1;
             KeyCodeSet[5] = KeyCode.Keypad2;
+            KeyCodeSet[6] = KeyCode.Keypad4;
         }
         animator = GetComponent<Animator>();
 
@@ -72,7 +76,9 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idleMotion"))
+        Debug.Log("player 1:"+transform.forward);
+        if ((animator.GetCurrentAnimatorStateInfo(0).IsName("attack")&&animator.GetNextAnimatorStateInfo(0).IsName("idle"))
+            || (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard") && animator.GetNextAnimatorStateInfo(0).IsName("idle")))
         {
             if(!state.Equals(State.idle))
             {
@@ -150,6 +156,14 @@ public class PlayerControl : MonoBehaviour
                 state = State.guard;
             }
 
+            /*if (Input.GetKeyDown(KeyCodeSet[6]) && isOnLand)
+            {
+                isTurn = !isTurn;
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+                animator.SetBool("isTurn", isTurn);
+                state = State.turn;
+            }*/
         }
 
         if (Input.GetKey(KeyCodeSet[2]) && isOnLand && !isDown)

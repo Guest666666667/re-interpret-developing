@@ -67,7 +67,9 @@ public class Player2Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idleMotion"))
+        Debug.Log("player 2:"+transform.forward);
+        if ((animator.GetCurrentAnimatorStateInfo(0).IsName("attack") && animator.GetNextAnimatorStateInfo(0).IsName("idle"))
+            || (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard") && animator.GetNextAnimatorStateInfo(0).IsName("idle")))
         {
             if (!state.Equals(State.idle))
             {
