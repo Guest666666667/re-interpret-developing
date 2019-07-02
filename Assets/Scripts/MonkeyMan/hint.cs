@@ -86,15 +86,26 @@ public class hint : MonoBehaviour
         transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f);
         DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_Offset"), x => GetComponentInChildren<Image>().material.SetFloat("_Offset", x), 0.05f, 0.4f);
         Tweener tweener = DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_AlphaScale"), x => GetComponentInChildren<Image>().material.SetFloat("_AlphaScale", x), 0f, 0.4f);
-        transform.Find("keyHint/Text").GetComponent<Text>().text = (isPerfect ? "善" : "误");
+        /*transform.Find("keyHint/Text").GetComponent<Text>().text = (isPerfect ? "善" : "误");
+        if (!isPerfect)
+        {
+            transform.Find("keyHint/Text").GetComponent<Text>().text = (isKeyDown ? "误" : "弃");
+        }*/
         tweener.onComplete = drop;
         transform.Find("process/halo").GetComponent<CanvasGroup>().alpha = 0f;
-        if (isKeyDown&&isPerfect)//按键闪光
+        if (isKeyDown && isPerfect)//按键闪光
         {
             transform.Find("miss/halo").GetComponent<CanvasGroup>().alpha = 1f;
-            
+            transform.Find("keyHint/Text").GetComponent<Text>().text = "善";
             Sequence flash = DOTween.Sequence();
             flash.Append(transform.Find("miss/halo").GetComponent<CanvasGroup>().DOFade(0f, 0.5f));
+            transform.parent.Find("score").GetComponent<scoreManagement>().addPerfect();
+        }
+        else
+        {
+            transform.parent.Find("score").GetComponent<scoreManagement>().fault(isKeyDown);
+            transform.Find("keyHint/Text").GetComponent<Text>().text = (isKeyDown ? "误" : "弃");
+            transform.parent.Find("health").GetComponent<healthManagement>().substract(isKeyDown ? 1 : 2);
         }
     }
     public void drop()

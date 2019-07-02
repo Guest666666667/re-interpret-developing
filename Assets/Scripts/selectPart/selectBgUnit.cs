@@ -17,7 +17,8 @@ public class selectBgUnit : MonoBehaviour
     private bool changeAlready = false;
 
     private int nearBgindex = 1;//默认中间是peach
-    private string[] nearBg = { "LocustTree", "Peach", "Stone", "Thorns" };
+    //private string[] nearBg = { "LocustTree", "Peach", "Stone", "Thorns" };
+    private string[] nearBg = { "LocustTree", "Peach", "ST" };
     private GameObject BG;
     private GameObject nearBGtemp;
     //private GameObject child;
@@ -37,6 +38,8 @@ public class selectBgUnit : MonoBehaviour
         BG.transform.GetChild(1).gameObject.SetActive(true);//地面
         BG.transform.GetChild(2).gameObject.SetActive(true);//地面
         BG.transform.GetChild(3).gameObject.SetActive(true);//远景
+        BG.transform.Find("Peach").gameObject.SetActive(true);//第一个桃林
+        nearBGtemp = BG.transform.Find("Peach").gameObject;
     }
     // Start is called before the first frame update
     void Start()
@@ -125,27 +128,37 @@ public class selectBgUnit : MonoBehaviour
         else
         {
             if (nearBGtemp != null) nearBGtemp.SetActive(false);
-            //TODO select下放四张图，以松树/桃林/石头/荆棘的顺序
-            int changeIndex = 0;//应该换成的图的下标
-            if (nearBgindex + 2 < 4) changeIndex = nearBgindex + 2;
+            ////TODO select下放四张图，以松树/桃林/石头/荆棘的顺序
+            //int changeIndex = 0;//应该换成的图的下标
+            //if (nearBgindex + 2 < 4) changeIndex = nearBgindex + 2;
+            //else
+            //{
+            //    changeIndex = nearBgindex + 2 - 4;
+            //}
+            ////if (transform.Find("select").GetChild(changeIndex).GetComponent<Sprite>() != null) { Debug.Log("no wrong!!!"); }
+            //if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为右面位置
+            //{ mid.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
+            //else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
+            //{ left.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
+            //else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
+            //{ right.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
+            ////更新index
+            //nearBgindex = changeIndex - 1 >= 0 ? changeIndex - 1 : changeIndex - 1 + 4;
+
+            ////更改背景
+            //nearBGtemp = BG.transform.Find(nearBg[nearBgindex]).gameObject;
+            //BG.transform.Find(nearBg[nearBgindex]).gameObject.SetActive(true);
+
+            if (nearBgindex + 1 < 3)
+            {
+                nearBgindex += 1;
+            }
             else
             {
-                changeIndex = nearBgindex + 2 - 4;
+                nearBgindex = 0;
             }
-            //if (transform.Find("select").GetChild(changeIndex).GetComponent<Sprite>() != null) { Debug.Log("no wrong!!!"); }
-            if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为右面位置
-            { mid.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
-            else if (anim_left.GetInteger("state") == 2 || anim_left.GetInteger("state") == 8)
-            { left.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
-            else if (anim_right.GetInteger("state") == 2 || anim_right.GetInteger("state") == 8)
-            { right.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
-            //更新index
-            nearBgindex = changeIndex - 1 >= 0 ? changeIndex - 1 : changeIndex - 1 + 4;
-
-            //更改背景
             nearBGtemp = BG.transform.Find(nearBg[nearBgindex]).gameObject;
             BG.transform.Find(nearBg[nearBgindex]).gameObject.SetActive(true);
-
         }
     }
     public void OnEnterRight(bool ifFar)
@@ -199,23 +212,33 @@ public class selectBgUnit : MonoBehaviour
         else
         {
             if (nearBGtemp != null) nearBGtemp.SetActive(false);
-            int changeIndex = 0;//应该换成的图的下标
-            if (nearBgindex - 2 >= 0) changeIndex = nearBgindex - 2;
+            //int changeIndex = 0;//应该换成的图的下标
+            //if (nearBgindex - 2 >= 0) changeIndex = nearBgindex - 2;
+            //else
+            //{
+            //    changeIndex = nearBgindex - 2 + 4;
+            //}
+            //if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为zuo面位置
+            //{ mid.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
+            //else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
+            //{ left.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
+            //else if (anim_right.GetInteger("state") == 1 || anim_right.GetInteger("state") == 7)
+            //{ right.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
+            ////更新index
+            //nearBgindex = changeIndex + 1 < 4 ? changeIndex + 1 : changeIndex + 1 - 4;
+
+            ////更改背景
+            //nearBGtemp = BG.transform.Find(nearBg[nearBgindex]).gameObject;
+            //BG.transform.Find(nearBg[nearBgindex]).gameObject.SetActive(true);
+
+            if (nearBgindex - 1 >= 0) 
+            {
+                nearBgindex -= 1;
+            }
             else
             {
-                changeIndex = nearBgindex - 2 + 4;
+                nearBgindex = 2;
             }
-            Debug.Log("suhdfijus"+changeIndex);
-            if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态为zuo面位置
-            { mid.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
-            else if (anim_left.GetInteger("state") == 1 || anim_left.GetInteger("state") == 7)
-            { left.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
-            else if (anim_right.GetInteger("state") == 1 || anim_right.GetInteger("state") == 7)
-            { right.sprite = transform.Find("select").GetChild(changeIndex).GetComponent<SpriteRenderer>().sprite; }
-            //更新index
-            nearBgindex = changeIndex + 1 < 4 ? changeIndex + 1 : changeIndex + 1 - 4;
-
-            //更改背景
             nearBGtemp = BG.transform.Find(nearBg[nearBgindex]).gameObject;
             BG.transform.Find(nearBg[nearBgindex]).gameObject.SetActive(true);
         }

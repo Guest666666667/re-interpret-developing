@@ -9,10 +9,10 @@ public class fightSetPosePanel : BasePanel
     private CanvasGroup canvasGroup;
     private const int paraCount = 6;
 
-    private Text player1Button;//
-    private Text player2Button;//
-    private Text[] player1ParaText = new Text[paraCount];//
-    private Text[] player2ParaText = new Text[paraCount];//
+    private Text player1Button;
+    private Text player2Button;
+    private Text[] player1ParaText = new Text[paraCount];
+    private Text[] player2ParaText = new Text[paraCount];
 
     public Color selectedColor;
     public Color nonSelectedColor;
@@ -20,11 +20,11 @@ public class fightSetPosePanel : BasePanel
     private GameObject[] player1 = new GameObject[paraCount];
     private GameObject[] player2 = new GameObject[paraCount];
 
-    private Text player1Confirm;//
-    private Text player2Confirm;//
+    private Text player1Confirm;
+    private Text player2Confirm;
 
-    private float[][] player1Para = new float[2][];
-    private float[][] player2Para = new float[2][];
+    private int[][] player1Para = new int[2][];
+    private int[][] player2Para = new int[2][];
 
     private int selectIndex1 = 1000000 * (paraCount + 1);
     private int selectIndex2 = 1000000 * (paraCount + 1);
@@ -48,14 +48,14 @@ public class fightSetPosePanel : BasePanel
 
         head = GameObject.Find("/player2/model/头");
 
-        player1Para[0] = new float[paraCount];
-        player1Para[1] = new float[paraCount];
-        player2Para[0] = new float[paraCount];
-        player2Para[1] = new float[paraCount];
-        player1Para[0][0] = -152.28f; player1Para[0][1] = -157.26f; player1Para[0][2] = 96.043f; player1Para[0][3] = -11.204f; player1Para[0][4] = -270.12f; player1Para[0][5] = -0.712f;
-        player1Para[1][0] = -152.28f; player1Para[1][1] = -157.26f; player1Para[1][2] = 89.344f; player1Para[1][3] = -88.005f; player1Para[1][4] = -270.12f; player1Para[1][5] = -0.712f;
-        player2Para[0][0] = -152.28f; player2Para[0][1] = -157.26f; player2Para[0][2] = 96.043f; player2Para[0][3] = -11.204f; player2Para[0][4] = -270.12f; player2Para[0][5] = -0.712f;
-        player2Para[1][0] = -152.28f; player2Para[1][1] = -157.26f; player2Para[1][2] = 89.344f; player2Para[1][3] = -88.005f; player2Para[1][4] = -270.12f; player2Para[1][5] = -0.712f;
+        player1Para[0] = new int[paraCount];
+        player1Para[1] = new int[paraCount];
+        player2Para[0] = new int[paraCount];
+        player2Para[1] = new int[paraCount];
+        player1Para[0][0] = -152; player1Para[0][1] = -157; player1Para[0][2] = 96; player1Para[0][3] = -11; player1Para[0][4] = -270; player1Para[0][5] = -1;
+        player1Para[1][0] = -152; player1Para[1][1] = -157; player1Para[1][2] = 89; player1Para[1][3] = -88; player1Para[1][4] = -270; player1Para[1][5] = -1;
+        player2Para[0][0] = -152; player2Para[0][1] = -157; player2Para[0][2] = 96; player2Para[0][3] = -11; player2Para[0][4] = -270; player2Para[0][5] = -1;
+        player2Para[1][0] = -152; player2Para[1][1] = -157; player2Para[1][2] = 89; player2Para[1][3] = -88; player2Para[1][4] = -270; player2Para[1][5] = -1;
 
         player1[0] = GameObject.Find("/player1/Skeleton/rootBone/leftArm"); player1[1] = GameObject.Find("/player1/Skeleton/rootBone/leftArm/leftArm2");
         player1[2] = GameObject.Find("/player1/Skeleton/rootBone/rightArm"); player1[3] = GameObject.Find("/player1/Skeleton/rootBone/rightArm/rightArm2");
@@ -71,7 +71,7 @@ public class fightSetPosePanel : BasePanel
         {
             player1ParaText[i] = transform.GetChild(0).Find("player1").GetChild(i).Find("angle").GetComponent<Text>();
             player2ParaText[i] = transform.GetChild(1).Find("player2").GetChild(i).Find("angle").GetComponent<Text>();
-            Debug.Log("设置进来了");
+            //Debug.Log("设置进来了");
         }
     }
 
@@ -119,13 +119,13 @@ public class fightSetPosePanel : BasePanel
                 player1Button.color = nonSelectedColor;
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    float angle = player1Para[buttonIndex1 % 2][selectIndex1 % (paraCount + 1) - 1];
+                    int angle = player1Para[buttonIndex1 % 2][selectIndex1 % (paraCount + 1) - 1];
                     angle = Mathf.Max(-360, angle - 10);
                     player1Para[buttonIndex1 % 2][selectIndex1 % (paraCount + 1) - 1] = angle;
                 }
                 if (Input.GetKeyDown(KeyCode.D))
                 {
-                    float angle = player1Para[buttonIndex1 % 2][selectIndex1 % (paraCount + 1) - 1];
+                    int angle = player1Para[buttonIndex1 % 2][selectIndex1 % (paraCount + 1) - 1];
                     angle = Mathf.Min(360, angle + 10);
                     player1Para[buttonIndex1 % 2][selectIndex1 % (paraCount + 1) - 1] = angle;
                 }
@@ -162,13 +162,13 @@ public class fightSetPosePanel : BasePanel
                 player2Button.color = nonSelectedColor;
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
-                    float angle = player2Para[buttonIndex2 % 2][selectIndex2 % (paraCount + 1) - 1];
+                    int angle = player2Para[buttonIndex2 % 2][selectIndex2 % (paraCount + 1) - 1];
                     angle = Mathf.Max(-360, angle - 10);
                     player2Para[buttonIndex2 % 2][selectIndex2 % (paraCount + 1) - 1] = angle;
                 }
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    float angle = player2Para[buttonIndex2 % 2][selectIndex2 % (paraCount + 1) - 1];
+                    int angle = player2Para[buttonIndex2 % 2][selectIndex2 % (paraCount + 1) - 1];
                     angle = Mathf.Min(360, angle + 10);
                     player2Para[buttonIndex2 % 2][selectIndex2 % (paraCount + 1) - 1] = angle;
                 }

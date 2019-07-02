@@ -12,7 +12,7 @@ public class selectTotalPart : MonoBehaviour
     private bool ifFirstIn = true;
     private int LeftOrRight = 0;//用于标明上一个上下操作的是上还是下，无0，上1，下2
     private bool changeAlready = false;
-    private string[] actorName = {  "大乔","关羽", "孙悟空", "自定义" };
+    private string[] actorName = {  "大乔","关羽", "悟空", "自定义" };
     private int index = 1;//中间的那个的下标
     private selectUnitPart unitPartCrt;
     //private GameObject child;

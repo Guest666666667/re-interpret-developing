@@ -204,6 +204,13 @@ public class Player2Control : MonoBehaviour
                 v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
             transform.localPosition = v;
         }
+        if ((!moveScript.isMove) && (moveScript.direction == -1))
+        {
+            Vector2 v = transform.localPosition;
+            if (mG.canMove)
+                v.x += BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
+            transform.localPosition = v;
+        }
     }
 
     private void FixedUpdate()
