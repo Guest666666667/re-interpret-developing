@@ -17,11 +17,13 @@ public class afterBone : MonoBehaviour
     private bool showing = false;//是否正在展示残影
     private float showingLast = 10000f;//展示剩余时间
     public float existTime = 0.5f;
+    private bool needSlow = false;
 
     void Start()
     {
         existTime = 0.5f;
         hasAcc = true;
+        needSlow = false;
     }
 
     void Update()
@@ -69,6 +71,10 @@ public class afterBone : MonoBehaviour
             showing = true;
             showingLast = existTime;
             GetComponent<Animator>().speed = 0f;
+            if (needSlow)
+            {
+                GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
+            }
             //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
         }
         /*if (showing)
@@ -77,6 +83,11 @@ public class afterBone : MonoBehaviour
         }*/
         if (showingLast <= 0f)
         {
+            if (needSlow)
+            {
+                GameObject.Find("afterImage").GetComponent<timeScaleManagement>().delSlow();
+                needSlow = false;
+            }
             //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().delSlow();
             GetComponent<Animator>().speed = 1f;
             showing = false;
@@ -90,7 +101,7 @@ public class afterBone : MonoBehaviour
         }
     }
 
-    public void Change()//前景人改变姿势事件对应调用的残影脚本方法
+    public void Change(bool needSlow)//前景人改变姿势事件对应调用的残影脚本方法
     {
         //GetComponent<Animator>().Play(stateName, -1, 0.75f);
         /*showing = true;
@@ -103,6 +114,7 @@ public class afterBone : MonoBehaviour
         {
             tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, 1f);
         }
+        this.needSlow = needSlow;
     }
 
     public void callChange(string stateName)//空方法，防止残影动画触发相同的事件
