@@ -9,10 +9,10 @@ public class fightSetPosePanel : BasePanel
     private CanvasGroup canvasGroup;
     private const int paraCount = 6;
 
-    private Text player1Button;//
-    private Text player2Button;//
-    private Text[] player1ParaText = new Text[paraCount];//
-    private Text[] player2ParaText = new Text[paraCount];//
+    private Text player1Button;
+    private Text player2Button;
+    private Text[] player1ParaText = new Text[paraCount];
+    private Text[] player2ParaText = new Text[paraCount];
 
     public Color selectedColor;
     public Color nonSelectedColor;
@@ -20,8 +20,8 @@ public class fightSetPosePanel : BasePanel
     private GameObject[] player1 = new GameObject[paraCount];
     private GameObject[] player2 = new GameObject[paraCount];
 
-    private Text player1Confirm;//
-    private Text player2Confirm;//
+    private Text player1Confirm;
+    private Text player2Confirm;
 
     private float[][] player1Para = new float[2][];
     private float[][] player2Para = new float[2][];
@@ -71,7 +71,7 @@ public class fightSetPosePanel : BasePanel
         {
             player1ParaText[i] = transform.GetChild(0).Find("player1").GetChild(i).Find("angle").GetComponent<Text>();
             player2ParaText[i] = transform.GetChild(1).Find("player2").GetChild(i).Find("angle").GetComponent<Text>();
-            Debug.Log("设置进来了");
+            //Debug.Log("设置进来了");
         }
     }
 
