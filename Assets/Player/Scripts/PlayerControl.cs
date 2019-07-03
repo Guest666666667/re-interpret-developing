@@ -76,14 +76,33 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("player 1:"+transform.forward);
-        if ((animator.GetCurrentAnimatorStateInfo(0).IsName("attack")&&animator.GetNextAnimatorStateInfo(0).IsName("idle"))
-            || (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard") && animator.GetNextAnimatorStateInfo(0).IsName("idle")))
+
+        bool isTuring = true;
+        if (animator.GetCurrentAnimatorStateInfo(2).IsName("front") || animator.GetCurrentAnimatorStateInfo(2).IsName("back"))
         {
-            if(!state.Equals(State.idle))
+            isTuring = false;
+        }
+
+        if(isTuring)
+        {
+            if(isTurn)
+            {
+                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                player.transform.Translate(vector3, Space.World);
+            }
+            else
+            {
+                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                player.transform.Translate(vector3, Space.World);
+            }
+        }
+
+        if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle"))
+        {
+            if (!state.Equals(State.idle))
             {
                 state = State.idle;
-            }   
+            }
         }
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
@@ -97,27 +116,37 @@ public class PlayerControl : MonoBehaviour
 
         if (state.Equals(State.idle))
         {
-            if (Input.GetKey(KeyCodeSet[1]))
+            if (Input.GetKey(KeyCodeSet[1]) && !isTuring)
             {
-                if(player.name.Equals("player1")||(!isTouch))
+                /*if(player.name.Equals("player1") || (!isTouch))
                 {
                     Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
                     animator.SetBool("isBack",true);
                     //整合的
                     direction = -1;
-                }
+                }*/
+                Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                rigidbody.transform.Translate(vector3, Space.World);
+                animator.SetBool("isBack", true);
+                //整合的
+                direction = -1;
             }
-            if (Input.GetKey(KeyCodeSet[3]))
+            if (Input.GetKey(KeyCodeSet[3]) && !isTuring)
             {
-                if (player.name.Equals("player2") || (!isTouch))
+                /*if (player.name.Equals("player2") || (!isTouch))
                 {
                     Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
                     animator.SetBool("isFront", true);
                     //整合的
                     direction = 1;
-                }
+                }*/
+                Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                rigidbody.transform.Translate(vector3, Space.World);
+                animator.SetBool("isFront", true);
+                //整合的
+                direction = 1;
             }
             //同时按下A,D
             if((Input.GetKey(KeyCodeSet[3])) && (Input.GetKey(KeyCodeSet[1])))
@@ -156,14 +185,14 @@ public class PlayerControl : MonoBehaviour
                 state = State.guard;
             }
 
-            /*if (Input.GetKeyDown(KeyCodeSet[6]) && isOnLand)
+            //有Bug待修
+            if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring)
             {
                 isTurn = !isTurn;
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
-                state = State.turn;
-            }*/
+            }
         }
 
         if (Input.GetKey(KeyCodeSet[2]) && isOnLand && !isDown)

@@ -67,9 +67,7 @@ public class Player2Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("player 2:"+transform.forward);
-        if ((animator.GetCurrentAnimatorStateInfo(0).IsName("attack") && animator.GetNextAnimatorStateInfo(0).IsName("idle"))
-            || (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard") && animator.GetNextAnimatorStateInfo(0).IsName("idle")))
+        if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle"))
         {
             if (!state.Equals(State.idle))
             {
@@ -90,25 +88,36 @@ public class Player2Control : MonoBehaviour
         {
             if (Input.GetKey(KeyCodeSet[1]))
             {
-                if (player.name.Equals("player1") || (!isTouch))
+                /*if (player.name.Equals("player1") || (!isTouch))
                 {
                     Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
                     animator.SetBool("isFront", true);
                     //整合的
                     direction = -1;
-                }
+                }*/
+                Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                rigidbody.transform.Translate(vector3, Space.World);
+                animator.SetBool("isFront", true);
+                //整合的
+                direction = -1;
+
             }
             if (Input.GetKey(KeyCodeSet[3]))
             {
-                if (player.name.Equals("player2") || (!isTouch))
+                /*if (player.name.Equals("player2") || (!isTouch))
                 {
                     Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                     player.transform.Translate(vector3, Space.World);
                     animator.SetBool("isBack", true);
                     //整合的
                     direction = 1;
-                }
+                }*/
+                Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                rigidbody.transform.Translate(vector3, Space.World);
+                animator.SetBool("isBack", true);
+                //整合的
+                direction = 1;
             }
             //同时按下A,D
             if ((Input.GetKey(KeyCodeSet[3])) && (Input.GetKey(KeyCodeSet[1])))
