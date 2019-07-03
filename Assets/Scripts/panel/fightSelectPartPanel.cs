@@ -15,6 +15,8 @@ public class fightSelectPartPanel : BasePanel
     //双方是否点击了确定
     private bool P1Enter = false;
     private bool P2Enter = false;
+    //确认动画
+    //private Animator confirmAnim;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class fightSelectPartPanel : BasePanel
         canvasGroup = transform.GetComponent<CanvasGroup>();
         P1anim_m = transform.Find("P1").Find("P1Child").Find("middleShow").GetComponent<Animator>();
         P2anim_m = transform.Find("P2").Find("P2Child").Find("middleShow").GetComponent<Animator>();
+        //confirmAnim = GameObject.Find("/成").GetComponent<Animator>();
         transform.Find("P1").gameObject.SetActive(true);
         transform.Find("P2").gameObject.SetActive(true);
     }
@@ -33,9 +36,30 @@ public class fightSelectPartPanel : BasePanel
     void Update()
     {
         //接收按键事件
-        if (!P1anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.J)) P1Enter = true;
-        if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1)) P2Enter = true;
-        if (P1Enter && P2Enter) OnMakeSure();
+        if (!P1anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.J))
+        {
+            P1Enter = true;
+            //confirmAnim.Play("P1confirm");
+            transform.Find("P1confirmMessage").gameObject.SetActive(true);
+            transform.Find("P1").GetComponent<selectTotalPart>().enabled = false;
+            transform.Find("P1").Find("P1Child").GetComponent<selectUnitPart>().enabled = false;
+            transform.Find("P1").GetComponent<CanvasGroup>().alpha = 0.5f;
+        }
+        if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            P2Enter = true;
+            //confirmAnim.Play("P2confirm");
+            transform.Find("P2confirmMessage").gameObject.SetActive(true);
+            transform.Find("P2").GetComponent<selectTotalPart>().enabled = false;
+            transform.Find("P2").Find("P2Child").GetComponent<selectUnitPart>().enabled = false;
+            transform.Find("P2").GetComponent<CanvasGroup>().alpha = 0.5f;
+        }
+        if (P1Enter && P2Enter)
+        {
+            P1Enter = false;
+            P2Enter = false;
+            Invoke("OnMakeSure", 0.6f);
+        }
     }
     public override void OnEnter()//不用enter，一开始就在   
     {
@@ -67,9 +91,6 @@ public class fightSelectPartPanel : BasePanel
     }
     public void OnMakeSure()
     {
-        P1Enter = false;
-        P2Enter = false;
-        //TODO change the position of player
         uiMng.PushPanel(UIPanelType.fightSetPose);
     }
 

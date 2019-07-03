@@ -14,7 +14,7 @@ public class selectUnitPart : MonoBehaviour
     private Text midMessage;
     private Text upMessage;
     private Text downMessage;//响应按键
-    public Texture2D[] temp;
+    private Sprite temp;//需要更换成的图片
     private int[] currPartIndex= { 7,0,1};//1号位为左右改变时需要的参数，部件编号,上中下
     private int[] index = { 0, 0, 0, 0, 0, 0, 0, 0 };//8个部件的人物编号，即部件的序列编号，头一头二
     //private int[] myStyleIndex = { 0, 2, 1, 1, 2, 0, 1, 1 };//自定义的编号记录
@@ -182,17 +182,11 @@ public class selectUnitPart : MonoBehaviour
             currPartIndex[2] = tempInt;
         }
         //Debug.Log("index1:" + index[currPartIndex[2]] + "   index2:" + currPartIndex[2]);
-        Sprite temp = transform.Find("select").GetChild(index[currPartIndex[2]]).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
+        temp = transform.Find("select").GetChild(index[currPartIndex[2]]).GetChild(currPartIndex[2]).GetComponent<SpriteRenderer>().sprite;
 
         //选择更改的对象并更改
         //TODO 给他一个延迟，提高使用体验
-        if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为下面位置
-        { mid.sprite = temp; midMessage.text = message[currPartIndex[2]]; }
-        else if (anim_up.GetInteger("state") == 2 || anim_up.GetInteger("state") == 8)
-        { up.sprite = temp; upMessage.text = message[currPartIndex[2]]; }
-        else if (anim_down.GetInteger("state") == 2 || anim_down.GetInteger("state") == 8)
-        { down.sprite = temp; downMessage.text = message[currPartIndex[2]]; }
-
+        Invoke("changeSprite", delayTime);
     }
     public void OnEnterDown()
     {
@@ -264,14 +258,9 @@ public class selectUnitPart : MonoBehaviour
             currPartIndex[1] = currPartIndex[0];
             currPartIndex[0] = tempInt;
         }
-        Sprite temp = transform.Find("select").GetChild(index[currPartIndex[0]]).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
+        temp = transform.Find("select").GetChild(index[currPartIndex[0]]).GetChild(currPartIndex[0]).GetComponent<SpriteRenderer>().sprite;
         //选择更改的对象并更改图片和信息
-        if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态在上面位置
-        { mid.sprite = temp; midMessage.text = message[currPartIndex[0]]; }
-        else if (anim_up.GetInteger("state") == 1 || anim_up.GetInteger("state") == 7)
-        { up.sprite = temp; upMessage.text = message[currPartIndex[0]]; }
-        else if (anim_down.GetInteger("state") == 1 || anim_down.GetInteger("state") == 7)
-        { down.sprite = temp; downMessage.text = message[currPartIndex[0]]; }
+        Invoke("changeSprite", delayTime);
     }
     public void OnEnterLeft(int player)
     {
@@ -411,6 +400,27 @@ public class selectUnitPart : MonoBehaviour
             {
                 P2Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
+        }
+    }
+    public void changeSprite()
+    {
+        if (upOrdown == 1)
+        {
+            if (anim_m.GetInteger("state") == 2 || anim_m.GetInteger("state") == 8)//此状态为下面位置
+            { mid.sprite = temp; midMessage.text = message[currPartIndex[2]]; }
+            else if (anim_up.GetInteger("state") == 2 || anim_up.GetInteger("state") == 8)
+            { up.sprite = temp; upMessage.text = message[currPartIndex[2]]; }
+            else if (anim_down.GetInteger("state") == 2 || anim_down.GetInteger("state") == 8)
+            { down.sprite = temp; downMessage.text = message[currPartIndex[2]]; }
+        }
+        else if (upOrdown == 2)
+        {
+            if (anim_m.GetInteger("state") == 1 || anim_m.GetInteger("state") == 7)//此状态在上面位置
+            { mid.sprite = temp; midMessage.text = message[currPartIndex[0]]; }
+            else if (anim_up.GetInteger("state") == 1 || anim_up.GetInteger("state") == 7)
+            { up.sprite = temp; upMessage.text = message[currPartIndex[0]]; }
+            else if (anim_down.GetInteger("state") == 1 || anim_down.GetInteger("state") == 7)
+            { down.sprite = temp; downMessage.text = message[currPartIndex[0]]; }
         }
     }
     public Texture2D spriteToTexture(Sprite sprite)

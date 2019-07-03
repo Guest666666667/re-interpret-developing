@@ -11,6 +11,7 @@ public class gameSetPanel : BasePanel {
     private Button musicOnButton;
     private Button soundOnButton;
     private Button backButton;
+    private Button reBeginButton;
     private Slider musicSlider;
     private Slider soundSlider;
     private bool onShow;//用来判断音量是否需要更新
@@ -20,6 +21,7 @@ public class gameSetPanel : BasePanel {
         canvasGroup = GetComponent<CanvasGroup>();
         returnButton = transform.Find("returnButton").GetComponent<Button>();
         backButton = transform.Find("backButton").GetComponent<Button>();
+        reBeginButton = transform.Find("reBeginButton").GetComponent<Button>();
         musicOnButton = transform.Find("music").Find("musicOnButton").GetComponent<Button>();
         soundOnButton = transform.Find("sound").Find("soundOnButton").GetComponent<Button>();
         musicSlider = transform.Find("music").Find("musicSlider").GetComponent<Slider>();
@@ -30,6 +32,7 @@ public class gameSetPanel : BasePanel {
         musicOnButton.onClick.AddListener(OnMusic);
         soundOnButton.onClick.AddListener(OnSound);
         backButton.onClick.AddListener(OnBack);
+        reBeginButton.onClick.AddListener(OnAgain);
         //统一变量
         musicSlider.value = settingMessage.Instance.getMusicVolume();
         soundSlider.value = settingMessage.Instance.getSoundVolume();
@@ -105,6 +108,25 @@ public class gameSetPanel : BasePanel {
 
         AudioManager.Instance.Resume();
         //Debug.Log("pop already");
+    }
+    public void OnAgain()
+    {
+        Time.timeScale = 1;
+        //进入下一个场景前将所有面板出栈
+        int count = uiMng.getStackCount();
+        for (int i = 0; i < count; i++)
+        {
+            uiMng.PopPanel(); uiMng.clearDict();
+            Debug.Log("pop successfully!!!");
+        }
+        DontDestroyOnLoad(settingMessage.Instance);
+        //判断是重新开始哪一个游戏
+        if (gameObject.scene.name == "storyGame")
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
+        else if (gameObject.scene.name == "fightGame")
+        {
+            SceneManager.LoadScene(2, LoadSceneMode.Single);
+        }
     }
     public void OnMusic()
     {

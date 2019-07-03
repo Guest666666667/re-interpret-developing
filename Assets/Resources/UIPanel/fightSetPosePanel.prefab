@@ -1750,7 +1750,7 @@ GameObject:
   - component: {fileID: 3375617767681603535}
   - component: {fileID: 3375617767681603534}
   m_Layer: 5
-  m_Name: player1Confirm
+  m_Name: P1confirmMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1767,13 +1767,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3375617768501903413}
-  m_RootOrder: 4
+  m_Father: {fileID: 3375617768700698028}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -39, y: -788}
-  m_SizeDelta: {x: 274.85, y: 93.39}
+  m_AnchoredPosition: {x: -657, y: -458}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3375617767681603535
 CanvasRenderer:
@@ -1796,7 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1804,19 +1804,19 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 38
+    m_Font: {fileID: 12800000, guid: 1f40de65f1f1aa14fb78bf32e82c4dd8, type: 3}
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 8
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Confirm\uFF01"
+  m_Text: 
 --- !u!1 &3375617767700433926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,7 +2766,7 @@ RectTransform:
   - {fileID: 3375617767700433927}
   - {fileID: 3375617767605460084}
   m_Father: {fileID: 3375617768501903413}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2785,7 +2785,7 @@ GameObject:
   - component: {fileID: 3375617768315160117}
   - component: {fileID: 3375617768315160116}
   m_Layer: 5
-  m_Name: player2Confirm
+  m_Name: P2confirmMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2802,13 +2802,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3375617768614193944}
-  m_RootOrder: 5
+  m_Father: {fileID: 3375617768700698028}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -29.000061, y: -776}
-  m_SizeDelta: {x: 274.85, y: 93.39}
+  m_AnchoredPosition: {x: 658, y: -458}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3375617768315160117
 CanvasRenderer:
@@ -2831,7 +2831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2839,19 +2839,19 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 38
+    m_Font: {fileID: 12800000, guid: 1f40de65f1f1aa14fb78bf32e82c4dd8, type: 3}
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 8
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Confirm\uFF01"
+  m_Text: 
 --- !u!1 &3375617768398771635
 GameObject:
   m_ObjectHideFlags: 0
@@ -3020,6 +3020,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3375617768501903413}
   - component: {fileID: 3375617768501903402}
+  - component: {fileID: 3677054663649387746}
   m_Layer: 5
   m_Name: P1
   m_TagString: Untagged
@@ -3042,7 +3043,6 @@ RectTransform:
   - {fileID: 3375617769382018906}
   - {fileID: 3375617767453989452}
   - {fileID: 3375617768061882843}
-  - {fileID: 3375617767681603529}
   - {fileID: 3375617768162067937}
   m_Father: {fileID: 3375617768700698028}
   m_RootOrder: 0
@@ -3064,6 +3064,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba84f37d8c08154c9aac989f5e6c564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &3677054663649387746
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375617768501903412}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3375617768593094600
 GameObject:
   m_ObjectHideFlags: 0
@@ -3149,6 +3161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3375617768614193944}
   - component: {fileID: 3375617768614193945}
+  - component: {fileID: 4647654739550472213}
   m_Layer: 5
   m_Name: P2
   m_TagString: Untagged
@@ -3172,7 +3185,6 @@ RectTransform:
   - {fileID: 3375617767456240722}
   - {fileID: 3375617768931471302}
   - {fileID: 3375617767772831713}
-  - {fileID: 3375617768315160119}
   m_Father: {fileID: 3375617768700698028}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3193,6 +3205,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba84f37d8c08154c9aac989f5e6c564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &4647654739550472213
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3375617768614193947}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3375617768620267189
 GameObject:
   m_ObjectHideFlags: 0
@@ -3384,6 +3408,8 @@ RectTransform:
   m_Children:
   - {fileID: 3375617768501903413}
   - {fileID: 3375617768614193944}
+  - {fileID: 3375617767681603529}
+  - {fileID: 3375617768315160119}
   - {fileID: 6607591698437439457}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -5422,7 +5448,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3375617768700698028}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

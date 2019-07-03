@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class selectBgUnit : MonoBehaviour
 {
@@ -158,7 +159,12 @@ public class selectBgUnit : MonoBehaviour
                 nearBgindex = 0;
             }
             nearBGtemp = BG.transform.Find(nearBg[nearBgindex]).gameObject;
-            BG.transform.Find(nearBg[nearBgindex]).gameObject.SetActive(true);
+
+            Vector3 temp = nearBGtemp.transform.localPosition;
+            temp.x = 10;
+            nearBGtemp.transform.localPosition = temp;
+            nearBGtemp.SetActive(true);
+            nearBGtemp.transform.DOLocalMoveX(0, 0.6f);
         }
     }
     public void OnEnterRight(bool ifFar)
@@ -240,7 +246,11 @@ public class selectBgUnit : MonoBehaviour
                 nearBgindex = 2;
             }
             nearBGtemp = BG.transform.Find(nearBg[nearBgindex]).gameObject;
-            BG.transform.Find(nearBg[nearBgindex]).gameObject.SetActive(true);
+            Vector3 temp = nearBGtemp.transform.localPosition;
+            temp.x = -10;
+            nearBGtemp.transform.localPosition = temp;
+            nearBGtemp.SetActive(true);
+            nearBGtemp.transform.DOLocalMoveX(0, 0.6f);
         }
     }
 }
