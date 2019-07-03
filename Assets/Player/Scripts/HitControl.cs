@@ -67,6 +67,20 @@ public class HitControl : MonoBehaviour
         }
     }
 
+    public void hitted()
+    {
+        int damage = 0;
+        if (name.Equals("rootBone"))
+        {
+            damage = BattlePara.GetBodyDamage();
+        }
+        if (name.Equals("head"))
+        {
+            damage = BattlePara.GetHeadDamage();
+        }
+        player.GetComponent<PlayerControl>().HitFly(damage);
+    }
+
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
 
