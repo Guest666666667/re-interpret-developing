@@ -41,8 +41,8 @@ public class fightSetPosePanel : BasePanel
     {
         canvasGroup = transform.GetComponent<CanvasGroup>();
 
-        player1Confirm = transform.GetChild(0).Find("player1Confirm").GetComponent<Text>();
-        player2Confirm = transform.GetChild(1).Find("player2Confirm").GetComponent<Text>();
+        player1Confirm = transform.Find("P1confirmMessage").GetComponent<Text>();
+        player2Confirm = transform.Find("P2confirmMessage").GetComponent<Text>();
         player1Confirm.text = "";
         player2Confirm.text = "";
 
@@ -81,13 +81,17 @@ public class fightSetPosePanel : BasePanel
         if (Input.GetKeyDown(KeyCode.J))
         {
             player1OK = true;
-            player1Confirm.text = "Confirm！";
+            player1Confirm.text = "确认！";
+            transform.Find("P1").GetComponent<selectPose>().enabled = false;
+            transform.Find("P1").GetComponent<CanvasGroup>().alpha = 0.5f;
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
             player2OK = true;
-            player2Confirm.text = "Confirm！";
+            player2Confirm.text = "确认！";
+            transform.Find("P2").GetComponent<selectPose>().enabled = false;
+            transform.Find("P2").GetComponent<CanvasGroup>().alpha = 0.5f;
         }
 
         if (!player1OK)
@@ -204,7 +208,7 @@ public class fightSetPosePanel : BasePanel
             SaveMotion();
             player1OK = false;
             player2OK = false;
-            uiMng.PushPanel(UIPanelType.fightSelectBg);
+            Invoke("OnMakeSure", 0.6f);
         }
     }
     public override void OnEnter()//不用enter，一开始就在   

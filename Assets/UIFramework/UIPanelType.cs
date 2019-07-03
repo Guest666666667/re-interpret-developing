@@ -14,5 +14,7 @@ public enum UIPanelType
     fightMain,
     fightSelectPart,
     fightSetPose,
-    fightSelectBg
+    fightSelectBg,
+    defeat,
+    vectory
 }

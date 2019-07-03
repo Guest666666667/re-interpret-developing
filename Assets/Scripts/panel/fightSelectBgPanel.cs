@@ -14,7 +14,10 @@ public class fightSelectBgPanel : BasePanel
     private bool P2Enter = false;
     //随机天气
     private Image weather;
+    private Text weatherMessge;
     private GameObject random;
+    private Animator weatherAnim;
+    private string[] message = { "云", "月", "蚀", "阳" };
 
     // Start is called before the first frame update
     void Start()
@@ -27,20 +30,37 @@ public class fightSelectBgPanel : BasePanel
 
         weather = transform.Find("weather").GetComponent<Image>();
         random = transform.Find("weather/random").gameObject;
-        for (int i = 0; i < 5; i++)
-        {
-            int index = Random.Range(0, 3);
-            weather.sprite = random.transform.GetChild(index).GetComponent<SpriteRenderer>().sprite;
-        }
+        weatherMessge = transform.Find("weather/bgMessage").GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //接收按键事件
-        if (!P1anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.J)) P1Enter = true;
-        if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1)) P2Enter = true;
-        if (P1Enter && P2Enter) OnMakeSure();
+        if (!P1anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.J))
+        {
+            P1Enter = true;
+            transform.Find("farConfirmMessage").gameObject.SetActive(true);
+            transform.Find("farBG").GetComponent<selectBgUnit>().enabled = false;
+            transform.Find("farBG").GetComponent<CanvasGroup>().alpha = 0.5f;
+        }
+        if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            P2Enter = true;
+            transform.Find("nearConfirmMessage").gameObject.SetActive(true);
+            transform.Find("nearBG").GetComponent<selectBgUnit>().enabled = false;
+            transform.Find("nearBG").GetComponent<CanvasGroup>().alpha = 0.5f;
+        }
+        if (P1Enter && P2Enter)
+        {
+            P1Enter = false;
+            P2Enter = false;
+            weatherAnim = transform.Find("weather").GetComponent<Animator>();
+            weatherAnim.Play("turn-edge");
+            Invoke("TurnSprite", 0.5f);
+            Invoke("OnMakeSure", 2f);
+            //OnMakeSure();
+        }
     }
     public override void OnEnter()
     {
@@ -76,17 +96,14 @@ public class fightSelectBgPanel : BasePanel
     }
     public void OnMakeSure()
     {
-        P1Enter = false;
-        P2Enter = false;
-        Animation anim = transform.Find("weather").GetComponent<Animation>();
-        anim.Play("turn-edge");
+        uiMng.PushPanel(UIPanelType.fightMain);
+    }
+    public void TurnSprite()
+    {
+        //Debug.Log("Invoke in!!!");
         int index = Random.Range(0, 3);
         weather.sprite = random.transform.GetChild(index).GetComponent<SpriteRenderer>().sprite;
-
-        while (anim.IsPlaying("turn-edge"))
-        {
-
-        };
-        uiMng.PushPanel(UIPanelType.fightMain);
+        transform.Find("weather/描述垫底").gameObject.SetActive(true);
+        weatherMessge.text = message[index];
     }
 }
