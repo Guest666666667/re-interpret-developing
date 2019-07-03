@@ -13,10 +13,12 @@ public class Player2Control : MonoBehaviour
     private Rigidbody2D rigidbody = null;
     private Animator animator = null;
 
-    private bool isTouch = false;
     private bool isOnLand = false;
     private bool isHitted = false;
     private bool isDown = false;
+    private bool isTurn = false;
+    private bool isDash = false;
+
     private State state = State.idle;
 
     //整合的
@@ -27,7 +29,7 @@ public class Player2Control : MonoBehaviour
     public int direction = 0;//移动的方向
     private bool CanCollider = true;//用来判断自身是否碰到便边界
 
-    private readonly KeyCode[] KeyCodeSet = new KeyCode[6];
+    private readonly KeyCode[] KeyCodeSet = new KeyCode[8];
 
     public State GetState()
     {
@@ -47,6 +49,8 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[3] = KeyCode.D;
             KeyCodeSet[4] = KeyCode.J;
             KeyCodeSet[5] = KeyCode.K;
+            KeyCodeSet[6] = KeyCode.U;
+            KeyCodeSet[7] = KeyCode.I;
         }
         if (player.name.Equals("player2"))
         {
@@ -56,6 +60,8 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[3] = KeyCode.RightArrow;
             KeyCodeSet[4] = KeyCode.Keypad1;
             KeyCodeSet[5] = KeyCode.Keypad2;
+            KeyCodeSet[6] = KeyCode.Keypad4;
+            KeyCodeSet[7] = KeyCode.Keypad5;
         }
         animator = GetComponent<Animator>();
 
@@ -67,6 +73,27 @@ public class Player2Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool isTuring = true;
+        if (animator.GetCurrentAnimatorStateInfo(2).IsName("front") || animator.GetCurrentAnimatorStateInfo(2).IsName("back"))
+        {
+            isTuring = false;
+            isDash = false;
+        }
+
+        if (isTuring && isDash)
+        {
+            if (isTurn)
+            {
+                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                player.transform.Translate(vector3, Space.World);
+            }
+            else
+            {
+                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                player.transform.Translate(vector3, Space.World);
+            }
+        }
+
         if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle"))
         {
             if (!state.Equals(State.idle))
@@ -86,36 +113,34 @@ public class Player2Control : MonoBehaviour
 
         if (state.Equals(State.idle))
         {
-            if (Input.GetKey(KeyCodeSet[1]))
+            if (Input.GetKey(KeyCodeSet[1]) && !isTuring)
             {
-                /*if (player.name.Equals("player1") || (!isTouch))
-                {
-                    Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                    player.transform.Translate(vector3, Space.World);
-                    animator.SetBool("isFront", true);
-                    //整合的
-                    direction = -1;
-                }*/
                 Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
-                animator.SetBool("isFront", true);
+                if(!isTurn)
+                {
+                    animator.SetBool("isFront", true);
+                }
+                else
+                {
+                    animator.SetBool("isBack", true);
+                }
                 //整合的
                 direction = -1;
 
             }
-            if (Input.GetKey(KeyCodeSet[3]))
+            if (Input.GetKey(KeyCodeSet[3]) && !isTuring)
             {
-                /*if (player.name.Equals("player2") || (!isTouch))
-                {
-                    Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                    player.transform.Translate(vector3, Space.World);
-                    animator.SetBool("isBack", true);
-                    //整合的
-                    direction = 1;
-                }*/
                 Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
-                animator.SetBool("isBack", true);
+                if (!isTurn)
+                {
+                    animator.SetBool("isBack", true);
+                }
+                else
+                {
+                    animator.SetBool("isFront", true);
+                }
                 //整合的
                 direction = 1;
             }
@@ -156,6 +181,23 @@ public class Player2Control : MonoBehaviour
                 state = State.guard;
             }
 
+            //有Bug待修
+            if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring)
+            {
+                isDash = true;
+                isTurn = !isTurn;
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+                animator.SetBool("isTurn", isTurn);
+            }
+            if (Input.GetKeyDown(KeyCodeSet[7]) && !isTuring)
+            {
+                isDash = false;
+                isTurn = !isTurn;
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+                animator.SetBool("isTurn", isTurn);
+            }
         }
 
         if (Input.GetKey(KeyCodeSet[2]) && isOnLand && !isDown)
@@ -225,10 +267,6 @@ public class Player2Control : MonoBehaviour
             isOnLand = true;
             isHitted = false;
         }
-        if (collision.collider.Equals(other.GetComponent<Collider2D>()))
-        {
-            isTouch = true;
-        }
         //如果触碰了界面的碰撞
         if (collision.collider.tag == "backGround")
         {
@@ -243,10 +281,6 @@ public class Player2Control : MonoBehaviour
         if (collision.collider.name.Equals("Grass"))
         {
             isOnLand = false;
-        }
-        if (collision.collider.Equals(other.GetComponent<Collider2D>()))
-        {
-            isTouch = false;
         }
         if (collision.collider.tag == "backGround")
         {
