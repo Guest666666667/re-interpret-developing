@@ -37,9 +37,17 @@
     "panelTypeString": "fightSelectBg",
     "path": "UIPanel/fightSelectBgPanel"
   },
-      {
+  {
     "panelTypeString": "fightSetPose",
     "path": "UIPanel/fightSetPosePanel"
+  },
+  {
+    "panelTypeString": "defeat",
+    "path": "UIPanel/defeatPanel"
+  },
+  {
+    "panelTypeString": "vectory",
+    "path": "UIPanel/vectoryPanel"
   }
 ]
 }

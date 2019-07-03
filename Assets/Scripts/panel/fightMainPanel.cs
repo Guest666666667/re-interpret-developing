@@ -45,7 +45,10 @@ public class fightMainPanel : BasePanel
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnStopClick();
+        }
     }
     public override void OnEnter()
     {
