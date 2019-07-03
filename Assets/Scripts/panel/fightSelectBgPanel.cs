@@ -78,6 +78,15 @@ public class fightSelectBgPanel : BasePanel
     {
         P1Enter = false;
         P2Enter = false;
+        Animation anim = transform.Find("weather").GetComponent<Animation>();
+        anim.Play("turn-edge");
+        int index = Random.Range(0, 3);
+        weather.sprite = random.transform.GetChild(index).GetComponent<SpriteRenderer>().sprite;
+
+        while (anim.IsPlaying("turn-edge"))
+        {
+
+        };
         uiMng.PushPanel(UIPanelType.fightMain);
     }
 }
