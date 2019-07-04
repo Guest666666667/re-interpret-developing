@@ -84,12 +84,12 @@ public class Player2Control : MonoBehaviour
         {
             if (isTurn)
             {
-                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                 player.transform.Translate(vector3, Space.World);
             }
             else
             {
-                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                 player.transform.Translate(vector3, Space.World);
             }
         }
