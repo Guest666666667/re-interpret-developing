@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class fightSelectBgPanel : BasePanel
 {
     private CanvasGroup canvasGroup;
-
+    private Attribute attributeManager;
     private Animator P1anim_m;
     private Animator P2anim_m;
     //双方是否点击了确定
@@ -31,6 +31,7 @@ public class fightSelectBgPanel : BasePanel
         weather = transform.Find("weather").GetComponent<Image>();
         random = transform.Find("weather/random").gameObject;
         weatherMessge = transform.Find("weather/bgMessage").GetComponent<Text>();
+        attributeManager = GameObject.Find("/attributeManager").GetComponent<Attribute>();
     }
 
     // Update is called once per frame
@@ -105,5 +106,6 @@ public class fightSelectBgPanel : BasePanel
         weather.sprite = random.transform.GetChild(index).GetComponent<SpriteRenderer>().sprite;
         transform.Find("weather/描述垫底").gameObject.SetActive(true);
         weatherMessge.text = message[index];
+        attributeManager.setSceneArray(1, index);
     }
 }

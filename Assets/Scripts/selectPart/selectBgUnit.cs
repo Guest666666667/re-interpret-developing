@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class selectBgUnit : MonoBehaviour
 {
+    //属性控制
+    private Attribute attributeManager;
     //控制UI动画
     private Animator anim_m;
     private Animator anim_left;
@@ -41,6 +43,8 @@ public class selectBgUnit : MonoBehaviour
         BG.transform.GetChild(3).gameObject.SetActive(true);//远景
         BG.transform.Find("Peach").gameObject.SetActive(true);//第一个桃林
         nearBGtemp = BG.transform.Find("Peach").gameObject;
+
+        attributeManager = GameObject.Find("/attributeManager").GetComponent<Attribute>();
     }
     // Start is called before the first frame update
     void Start()
@@ -125,6 +129,7 @@ public class selectBgUnit : MonoBehaviour
         if (ifFar)
         {
 
+            //attributeManager.setSceneArray(0, farBgindex);
         }
         else
         {
@@ -165,6 +170,9 @@ public class selectBgUnit : MonoBehaviour
             nearBGtemp.transform.localPosition = temp;
             nearBGtemp.SetActive(true);
             nearBGtemp.transform.DOLocalMoveX(0, 0.6f);
+
+            //保存属性
+            attributeManager.setSceneArray(2, nearBgindex);
         }
     }
     public void OnEnterRight(bool ifFar)
@@ -251,6 +259,9 @@ public class selectBgUnit : MonoBehaviour
             nearBGtemp.transform.localPosition = temp;
             nearBGtemp.SetActive(true);
             nearBGtemp.transform.DOLocalMoveX(0, 0.6f);
+
+            //保存属性
+            attributeManager.setSceneArray(2, nearBgindex);
         }
     }
 }
