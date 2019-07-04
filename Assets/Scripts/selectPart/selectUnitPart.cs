@@ -7,6 +7,10 @@ using UnityEditor;
 
 public class selectUnitPart : MonoBehaviour
 {
+    //属性文字
+    private Attribute attributeManager;
+    private Text[] attibuteText = new Text[7];
+
     //图片及文字改变
     private Image mid;
     private Image up;
@@ -67,15 +71,18 @@ public class selectUnitPart : MonoBehaviour
 
         for (int i = 0; i < 11; i++)
         {
-            //P1Sprite[i] = transform.parent.parent.parent.Find("player1").Find("model").GetChild(i).GetComponent<SpriteMeshInstance>();
             P1Sprite[i] = GameObject.Find("/player1/model").transform.GetChild(i).GetComponent<SpriteMeshInstance>();
         }
         for (int i = 0; i < 11; i++)
         {
-            //P2Sprite[i] = transform.parent.parent.parent.Find("player2").Find("model").GetChild(i).GetComponent<SpriteMeshInstance>();
             P2Sprite[i] = GameObject.Find("/player2/model").transform.GetChild(i).GetComponent<SpriteMeshInstance>();
         }
-        //P1Sprite[0].spriteMesh= Resources.Load<SpriteMesh>("Model/DaQiao/SpriteMesh/头");
+
+        attributeManager = GameObject.Find("/attributeManager").GetComponent<Attribute>();
+        for (int i = 0; i < 7; i++)
+        {
+            attibuteText[i] = transform.parent.Find("Attribute").GetChild(i).Find("value").GetComponent<Text>();
+        }
     }
 
     // Start is called before the first frame update
@@ -106,7 +113,7 @@ public class selectUnitPart : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.UpArrow)) OnEnterUp();
                 else if (Input.GetKeyDown(KeyCode.DownArrow)) OnEnterDown();
                 else if (Input.GetKeyDown(KeyCode.LeftArrow)) OnEnterLeft(2);
-                else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight(2);//if(Input.GetButtonDown())
+                else if (Input.GetKeyDown(KeyCode.RightArrow)) OnEnterRight(2);
             }
         }
     }
@@ -332,6 +339,12 @@ public class selectUnitPart : MonoBehaviour
                 P2Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
         }
+
+        //修改属性值
+        for (int i = 0; i < 7; i++)
+        {
+            attibuteText[i].text = attributeManager.getNewValue(index, i, player) + "";
+        }
     }
     public void OnEnterRight(int player)
     {
@@ -400,6 +413,12 @@ public class selectUnitPart : MonoBehaviour
             {
                 P2Sprite[currPartIndex[1] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[index[currPartIndex[1]]] + "/SpriteMesh/" + message[currPartIndex[1]]);
             }
+        }
+
+        //修改属性值
+        for (int i = 0; i < 7; i++)
+        {
+            attibuteText[i].text = attributeManager.getNewValue(index, i, player) + "";
         }
     }
     public void changeSprite()
@@ -696,6 +715,12 @@ public class selectUnitPart : MonoBehaviour
 
                 break;
             default:break;
+        }
+        //改属性数值
+        int[] tempArray = attributeManager.setTotal(index, player);
+        for (int i = 0; i < 7; i++)
+        {
+            attibuteText[i].text = tempArray[i] + "";
         }
     }
     public int ifAActor()

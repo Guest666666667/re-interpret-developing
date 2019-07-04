@@ -9,7 +9,7 @@ public class selectStoryPanel : BasePanel
     private Button firstStoryButton;//夸父逐日
     private Button secondStoryButton;//大闹天宫
     private Button backButton;
-    private Button beginButton;
+    //private Button beginButton;
     private CanvasGroup canvasGroup;
     private bool firstOrSecond;//fight为true,story为false
 
@@ -19,15 +19,15 @@ public class selectStoryPanel : BasePanel
         firstStoryButton = transform.Find("runAfterSunButton").GetComponent<Button>();
         secondStoryButton = transform.Find("fightWithGodButton").GetComponent<Button>();
         backButton = transform.Find("backButton").GetComponent<Button>();
-        beginButton = transform.Find("beginButton").GetComponent<Button>();
-        beginButton.gameObject.SetActive(false);//未选择前不可用
+        //beginButton = transform.Find("beginButton").GetComponent<Button>();
+        //beginButton.gameObject.SetActive(false);//未选择前不可用
 
         firstStoryButton.Select();
         //绑定响应函数
         firstStoryButton.onClick.AddListener(OnTurnFirstClick);
         secondStoryButton.onClick.AddListener(OnTurnSecondClick);
         backButton.onClick.AddListener(OnBackClick);
-        beginButton.onClick.AddListener(OnBeginClick);
+        //beginButton.onClick.AddListener(OnBeginClick);
     }
     void Update()
     {
@@ -72,13 +72,23 @@ public class selectStoryPanel : BasePanel
     public void OnTurnFirstClick()
     {
         firstOrSecond = true;
-        beginButton.gameObject.SetActive(true);
+        //beginButton.gameObject.SetActive(true);
+        Debug.Log("first in");
+        int count = UIManager.Instance.getStackCount();
+        //进入下一个场景前将所有面板出栈
+        for (int i = 0; i < count; i++)
+        {
+            uiMng.PopPanel(); uiMng.clearDict();
+            Debug.Log("pop successfully!!!");
+        }
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
     public void OnTurnSecondClick()
     {
         firstOrSecond = false;
-        beginButton.gameObject.SetActive(true);
+        //beginButton.gameObject.SetActive(true);
+
     }
     public void OnBackClick()
     {
