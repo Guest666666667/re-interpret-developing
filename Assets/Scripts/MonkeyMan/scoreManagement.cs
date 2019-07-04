@@ -28,7 +28,7 @@ public class scoreManagement : MonoBehaviour
         Sequence flash = DOTween.Sequence();
         if (perfectCount > 1)
         {
-            flash.Append(transform.DOScale((1f + 0.05f * perfectCount) > 2f ? 2f : (1f + 0.05f * perfectCount), 0.1f))
+            flash.Append(transform.DOScale((1f + 0.05f * perfectCount) > 2f ? 2f : (1f + 0.05f * perfectCount), 0.01f))
             .Append(transform.DOScale(1f, 0.5f));
         }
         else

@@ -18,11 +18,11 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody2D rigidbody = null;
     private Animator animator = null;
 
-    private bool isTouch = false;
     private bool isOnLand = false;
     private bool isHitted = false;
     private bool isDown = false;
-    private bool isTurn = false;
+    public bool isTurn = false;
+    private bool isDash = false;
 
     private State state = State.idle;
 
@@ -31,9 +31,9 @@ public class PlayerControl : MonoBehaviour
     private Player2Control moveScript_2;//player_2
     private moveGrounds mG;
     public int direction = 0;
-    private bool CanCollider = true;//用来判断自身是否碰到便边界
+    public bool CanCollider = true;//用来判断自身是否碰到便边界
 
-    private readonly KeyCode[] KeyCodeSet = new KeyCode[7];
+    private readonly KeyCode[] KeyCodeSet = new KeyCode[8];
 
     public State GetState()
     {
@@ -54,6 +54,7 @@ public class PlayerControl : MonoBehaviour
             KeyCodeSet[4] = KeyCode.J;
             KeyCodeSet[5] = KeyCode.K;
             KeyCodeSet[6] = KeyCode.U;
+            KeyCodeSet[7] = KeyCode.I;
         }
         if (player.name.Equals("player2"))
         {
@@ -64,6 +65,7 @@ public class PlayerControl : MonoBehaviour
             KeyCodeSet[4] = KeyCode.Keypad1;
             KeyCodeSet[5] = KeyCode.Keypad2;
             KeyCodeSet[6] = KeyCode.Keypad4;
+            KeyCodeSet[7] = KeyCode.Keypad5;
         }
         animator = GetComponent<Animator>();
 
@@ -81,19 +83,22 @@ public class PlayerControl : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(2).IsName("front") || animator.GetCurrentAnimatorStateInfo(2).IsName("back"))
         {
             isTuring = false;
+            isDash = false;
         }
 
-        if(isTuring)
+        if(isTuring && isDash)
         {
             if(isTurn)
             {
                 Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                player.transform.Translate(vector3, Space.World);
+                //rigidbody.transform.Translate(vector3, Space.World);
+                dashTranslate(vector3);
             }
             else
             {
                 Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                player.transform.Translate(vector3, Space.World);
+                //rigidbody.transform.Translate(vector3, Space.World);
+                dashTranslate(vector3);
             }
         }
 
@@ -118,33 +123,31 @@ public class PlayerControl : MonoBehaviour
         {
             if (Input.GetKey(KeyCodeSet[1]) && !isTuring)
             {
-                /*if(player.name.Equals("player1") || (!isTouch))
-                {
-                    Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                    player.transform.Translate(vector3, Space.World);
-                    animator.SetBool("isBack",true);
-                    //整合的
-                    direction = -1;
-                }*/
                 Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
-                animator.SetBool("isBack", true);
+                if(!isTurn)
+                {
+                    animator.SetBool("isBack", true);
+                }
+                else
+                {
+                    animator.SetBool("isFront", true);
+                }
                 //整合的
                 direction = -1;
             }
             if (Input.GetKey(KeyCodeSet[3]) && !isTuring)
             {
-                /*if (player.name.Equals("player2") || (!isTouch))
-                {
-                    Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                    player.transform.Translate(vector3, Space.World);
-                    animator.SetBool("isFront", true);
-                    //整合的
-                    direction = 1;
-                }*/
                 Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
-                animator.SetBool("isFront", true);
+                if (!isTurn)
+                {
+                    animator.SetBool("isFront", true);
+                }
+                else
+                {
+                    animator.SetBool("isBack", true);
+                }
                 //整合的
                 direction = 1;
             }
@@ -189,6 +192,15 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring)
             {
                 isTurn = !isTurn;
+                isDash = true;
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+                animator.SetBool("isTurn", isTurn);
+            }
+            if (Input.GetKeyDown(KeyCodeSet[7]) && !isTuring)
+            {
+                isTurn = !isTurn;
+                isDash = false;
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
@@ -259,10 +271,6 @@ public class PlayerControl : MonoBehaviour
             isOnLand = true;
             isHitted = false;
         }
-        if (collision.collider.Equals(other.GetComponent<Collider2D>()))
-        {
-            isTouch = true;
-        }
 
         //如果触碰了界面的碰撞
         if (collision.collider.tag == "backGround")
@@ -279,10 +287,6 @@ public class PlayerControl : MonoBehaviour
         {
             isOnLand = false;
         }
-        if (collision.collider.Equals(other.GetComponent<Collider2D>()))
-        {
-            isTouch = false;
-        }
 
         //离开碰撞
         if (collision.collider.tag == "backGround")
@@ -297,9 +301,25 @@ public class PlayerControl : MonoBehaviour
     {
         if(!isHitted)
         {
-            player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(-5, 5), ForceMode2D.Impulse);
+            float x1 = transform.position.x, x2 = other.transform.position.x;
+            if (x1 <= x2)
+            {
+                player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(-5, 5), ForceMode2D.Impulse);
+            }
+            else
+            {
+                player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(5, 5), ForceMode2D.Impulse);
+            }
             playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
             isHitted = true;
+        }
+    }
+    private void dashTranslate(Vector3 vector3)
+    {
+        float x = transform.position.x + vector3.x;
+        if (x >=-8.2 && x <= 8.2)
+        {
+            rigidbody.transform.Translate(vector3, Space.World);
         }
     }
 }
