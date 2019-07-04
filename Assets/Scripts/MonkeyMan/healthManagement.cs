@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class healthManagement : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class healthManagement : MonoBehaviour
     {
         valueParent = transform.Find("lifeValue");
         value = maxValue;
+        foreach (Image t in valueParent.GetComponentsInChildren<Image>())
+        {
+            t.material = new Material(Resources.Load<Material>("UI source/circleMaterial"));
+            DOTween.To(() => t.material.GetFloat("_CurrentAngle"), x => t.material.SetFloat("_CurrentAngle", x), -1f, 0.5f);
+        }
     }
 
     // Update is called once per frame
@@ -24,6 +30,7 @@ public class healthManagement : MonoBehaviour
 
     public void substract(int value)
     {
+        int tmpVal = this.value;
         if (this.value - value <= 0)
         {
             this.value = 0;
@@ -47,16 +54,24 @@ public class healthManagement : MonoBehaviour
                 }
                 temp = valueParent.Find("point" + i).GetComponent<Image>().color;
                 valueParent.Find("point" + i).GetComponent<Image>().color = new Color(temp.r, temp.g, temp.b, 1f);
+                valueParent.Find("point" + i).GetComponent<Image>().material.SetFloat("_AlphaScale", 1);
+            }
+            else if (i >= this.value && i < tmpVal) 
+            {
+                Material t = valueParent.Find("point" + i).GetComponent<Image>().material;
+                DOTween.To(() => t.GetFloat("_CurrentAngle"), x => t.SetFloat("_CurrentAngle", x), 0f, 0.5f);
             }
             else
             {
                 valueParent.Find("point" + i).GetComponent<Image>().color = new Color(temp.r, temp.g, temp.b, 0f);
+                valueParent.Find("point" + i).GetComponent<Image>().material.SetFloat("_AlphaScale", 0);
             }
         }
         
     }
     public void plus(int value)
     {
+        int tmpVal = this.value;
         if ((this.value = this.value+value)>maxValue)
         {
             this.value = maxValue;
@@ -64,7 +79,7 @@ public class healthManagement : MonoBehaviour
         for (int i = 0; i < maxValue; i++)
         {
             Color temp = valueParent.Find("point" + i).GetComponent<Image>().color;
-            if (i < this.value)
+            if (i < tmpVal)
             {
                 if (this.value > 2)
                 {
@@ -76,6 +91,12 @@ public class healthManagement : MonoBehaviour
                 }
                 temp = valueParent.Find("point" + i).GetComponent<Image>().color;
                 valueParent.Find("point" + i).GetComponent<Image>().color = new Color(temp.r, temp.g, temp.b, 1f);
+            }
+            else if (i < this.value && i >= tmpVal)
+            {
+                Material t = valueParent.Find("point" + i).GetComponent<Image>().material;
+                t.SetFloat("_AlphaScale", 1);
+                DOTween.To(() => t.GetFloat("_CurrentAngle"), x => t.SetFloat("_CurrentAngle", x), -1f, 0.5f);
             }
             else
             {
