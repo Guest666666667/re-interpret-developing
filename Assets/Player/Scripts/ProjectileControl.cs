@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- *  未测试的脚本！！！
- *  未挂载到Projectile！！！
- */
 public class ProjectileControl : MonoBehaviour
 {
 
@@ -54,6 +50,7 @@ public class ProjectileControl : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+            Debug.Log("Collision with Guard");
             return;
         }
 
@@ -62,8 +59,9 @@ public class ProjectileControl : MonoBehaviour
         {
             hc.hitted();
             Destroy(gameObject);
+            Debug.Log("Collision with Other");
         }
-
+        Debug.Log("Collision!!!");
         Destroy(gameObject);
     }
 

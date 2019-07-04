@@ -20,9 +20,6 @@ public class fightSetPosePanel : BasePanel
     private GameObject[] player1 = new GameObject[paraCount];
     private GameObject[] player2 = new GameObject[paraCount];
 
-    private Text player1Confirm;
-    private Text player2Confirm;
-
     private int[][] player1Para = new int[2][];
     private int[][] player2Para = new int[2][];
 
@@ -40,11 +37,6 @@ public class fightSetPosePanel : BasePanel
     void Start()
     {
         canvasGroup = transform.GetComponent<CanvasGroup>();
-
-        player1Confirm = transform.Find("P1confirmMessage").GetComponent<Text>();
-        player2Confirm = transform.Find("P2confirmMessage").GetComponent<Text>();
-        player1Confirm.text = "";
-        player2Confirm.text = "";
 
         head = GameObject.Find("/player2/model/头");
 
@@ -81,7 +73,7 @@ public class fightSetPosePanel : BasePanel
         if (Input.GetKeyDown(KeyCode.J))
         {
             player1OK = true;
-            player1Confirm.text = "确认！";
+            transform.Find("P1confirmMessage").gameObject.SetActive(true);
             transform.Find("P1").GetComponent<selectPose>().enabled = false;
             transform.Find("P1").GetComponent<CanvasGroup>().alpha = 0.5f;
         }
@@ -89,7 +81,7 @@ public class fightSetPosePanel : BasePanel
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
             player2OK = true;
-            player2Confirm.text = "确认！";
+            transform.Find("P2confirmMessage").gameObject.SetActive(true);
             transform.Find("P2").GetComponent<selectPose>().enabled = false;
             transform.Find("P2").GetComponent<CanvasGroup>().alpha = 0.5f;
         }

@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - player
+  - player_2
+  - grounds
+  - grounds_2
+  - backGround
   layers:
   - Default
   - TransparentFX
@@ -13,9 +18,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - e1
+  - bound
+  - e2
   - 
   - 
   - 

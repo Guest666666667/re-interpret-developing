@@ -12,12 +12,15 @@ public class Player2Control : MonoBehaviour
     private GameObject playerHealth = null;
     private Rigidbody2D rigidbody = null;
     private Animator animator = null;
+    public GameObject projectilePrefab;
+    private GameObject throwArea = null;
 
     private bool isOnLand = false;
     private bool isHitted = false;
     private bool isDown = false;
-    private bool isTurn = false;
+    public bool isTurn = false;
     private bool isDash = false;
+    private int throwCount = 1;
 
     private State state = State.idle;
 
@@ -27,9 +30,9 @@ public class Player2Control : MonoBehaviour
     private PlayerControl moveScript;//player_1
     private moveGrounds mG;
     public int direction = 0;//移动的方向
-    private bool CanCollider = true;//用来判断自身是否碰到便边界
+    public bool CanCollider = true;//用来判断自身是否碰到便边界
 
-    private readonly KeyCode[] KeyCodeSet = new KeyCode[8];
+    private readonly KeyCode[] KeyCodeSet = new KeyCode[9];
 
     public State GetState()
     {
@@ -51,6 +54,7 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[5] = KeyCode.K;
             KeyCodeSet[6] = KeyCode.U;
             KeyCodeSet[7] = KeyCode.I;
+            KeyCodeSet[8] = KeyCode.O;
         }
         if (player.name.Equals("player2"))
         {
@@ -62,9 +66,10 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[5] = KeyCode.Keypad2;
             KeyCodeSet[6] = KeyCode.Keypad4;
             KeyCodeSet[7] = KeyCode.Keypad5;
+            KeyCodeSet[8] = KeyCode.Keypad6;
         }
         animator = GetComponent<Animator>();
-
+        throwArea = GameObject.Find(name + "/Skeleton/rootBone/rightArm/rightArm2/rightHand/throwArea");
         //整合的
         moveScript = GameObject.FindWithTag("player").GetComponent<PlayerControl>();//获得脚本的对象
         mG = GameObject.FindWithTag("grounds").GetComponent<moveGrounds>();
@@ -84,17 +89,21 @@ public class Player2Control : MonoBehaviour
         {
             if (isTurn)
             {
-                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                player.transform.Translate(vector3, Space.World);
+                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                //rigidbody.transform.Translate(vector3, Space.World);
+                dashTranslate(vector3);
             }
             else
             {
-                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                player.transform.Translate(vector3, Space.World);
+                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                //rigidbody.transform.Translate(vector3, Space.World);
+                dashTranslate(vector3);
             }
         }
 
-        if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle"))
+        if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") 
+            || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle")
+            || animator.GetAnimatorTransitionInfo(0).IsName("throwComplete -> idle"))
         {
             if (!state.Equals(State.idle))
             {
@@ -109,6 +118,28 @@ public class Player2Control : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard"))
         {
             animator.SetBool("isGuard", false);
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("throwComplete"))
+        {
+            animator.SetBool("isThrow", false);
+        }
+        if (animator.GetAnimatorTransitionInfo(0).IsName("throw -> throwComplete"))
+        {
+            if (throwCount == 1)
+            {
+                Vector2 d = new Vector2(0, 0);
+                if (!isTurn)
+                {
+                    d.x = -1;
+                }
+                else
+                {
+                    d.x = 1;
+                }
+                HandThrow h = throwArea.GetComponent<HandThrow>();
+                h.Throw(projectilePrefab, d);
+                throwCount = 0;
+            }
         }
 
         if (state.Equals(State.idle))
@@ -181,7 +212,6 @@ public class Player2Control : MonoBehaviour
                 state = State.guard;
             }
 
-            //有Bug待修
             if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring)
             {
                 isDash = true;
@@ -197,6 +227,14 @@ public class Player2Control : MonoBehaviour
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
+            }
+            if (Input.GetKeyDown(KeyCodeSet[8]))
+            {
+                throwCount = 1;
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+                animator.SetBool("isThrow", true);
+                state = State.throws;
             }
         }
 
@@ -294,9 +332,34 @@ public class Player2Control : MonoBehaviour
     {
         if(!isHitted)
         {
-            player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(5, 5), ForceMode2D.Impulse);
+            float x1 = transform.position.x, x2 = other.transform.position.x;
+            if (x1 <= x2)
+            {
+                player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(-5, 5), ForceMode2D.Impulse);
+            }
+            else
+            {
+                player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(5, 5), ForceMode2D.Impulse);
+            }
             playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
             isHitted = true;
+        }
+    }
+    public void Hit(int damage)
+    {
+        if (!isHitted)
+        {
+            float x1 = transform.position.x, x2 = other.transform.position.x;
+            playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
+            isHitted = true;
+        }
+    }
+    private void dashTranslate(Vector3 vector3)
+    {
+        float x = transform.position.x + vector3.x;
+        if (x >= -8.2 && x <= 8.2)
+        {
+            rigidbody.transform.Translate(vector3, Space.World);
         }
     }
 }

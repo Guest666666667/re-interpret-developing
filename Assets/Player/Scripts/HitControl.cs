@@ -78,7 +78,14 @@ public class HitControl : MonoBehaviour
         {
             damage = BattlePara.GetHeadDamage();
         }
-        player.GetComponent<PlayerControl>().HitFly(damage);
+        if(player.name.Equals("player1"))
+        {
+            player.GetComponent<PlayerControl>().Hit(damage);
+        }
+        if (player.name.Equals("player2"))
+        {
+            player.GetComponent<Player2Control>().Hit(damage);
+        }
     }
 
     /*private void OnTriggerEnter2D(Collider2D collision)
