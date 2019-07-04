@@ -16,7 +16,7 @@ public class Player2Control : MonoBehaviour
     private bool isOnLand = false;
     private bool isHitted = false;
     private bool isDown = false;
-    private bool isTurn = false;
+    public bool isTurn = false;
     private bool isDash = false;
 
     private State state = State.idle;
@@ -27,7 +27,7 @@ public class Player2Control : MonoBehaviour
     private PlayerControl moveScript;//player_1
     private moveGrounds mG;
     public int direction = 0;//移动的方向
-    private bool CanCollider = true;//用来判断自身是否碰到便边界
+    public bool CanCollider = true;//用来判断自身是否碰到便边界
 
     private readonly KeyCode[] KeyCodeSet = new KeyCode[8];
 
@@ -85,12 +85,14 @@ public class Player2Control : MonoBehaviour
             if (isTurn)
             {
                 Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                player.transform.Translate(vector3, Space.World);
+                //rigidbody.transform.Translate(vector3, Space.World);
+                dashTranslate(vector3);
             }
             else
             {
                 Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
-                player.transform.Translate(vector3, Space.World);
+                //rigidbody.transform.Translate(vector3, Space.World);
+                dashTranslate(vector3);
             }
         }
 
@@ -294,9 +296,26 @@ public class Player2Control : MonoBehaviour
     {
         if(!isHitted)
         {
-            player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(5, 5), ForceMode2D.Impulse);
+            float x1 = transform.position.x, x2 = other.transform.position.x;
+            if (x1 <= x2)
+            {
+                player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(-5, 5), ForceMode2D.Impulse);
+            }
+            else
+            {
+                player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(5, 5), ForceMode2D.Impulse);
+            }
             playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
             isHitted = true;
+        }
+    }
+
+    private void dashTranslate(Vector3 vector3)
+    {
+        float x = transform.position.x + vector3.x;
+        if (x >= -8.2 && x <= 8.2)
+        {
+            rigidbody.transform.Translate(vector3, Space.World);
         }
     }
 }

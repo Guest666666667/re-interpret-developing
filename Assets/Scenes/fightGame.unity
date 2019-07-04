@@ -1382,11 +1382,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: backGround
       objectReference: {fileID: 0}
-    - target: {fileID: 2045582293032896228, guid: c96452c76b33c064684708965b05029c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2045582293032896235, guid: c96452c76b33c064684708965b05029c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3127,8 +3122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 752370304}
   other: {fileID: 1731857054}
+  isTurn: 0
   isMove: 0
   direction: 0
+  CanCollider: 1
 --- !u!61 &752370309
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3153,7 +3150,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.714644, y: 2.3438606}
+  m_Size: {x: 3, y: 2.3438606}
   m_EdgeRadius: 0
 --- !u!50 &752370310
 Rigidbody2D:
@@ -4326,6 +4323,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195112821}
     m_Modifications:
+    - target: {fileID: 8160744571619653053, guid: 5f574c45c17e4cd448121e08f3981aed,
+        type: 3}
+      propertyPath: m_Name
+      value: ThirdLayer
+      objectReference: {fileID: 0}
     - target: {fileID: 8160744571619653042, guid: 5f574c45c17e4cd448121e08f3981aed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4380,11 +4382,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8160744571619653053, guid: 5f574c45c17e4cd448121e08f3981aed,
-        type: 3}
-      propertyPath: m_Name
-      value: ThirdLayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f574c45c17e4cd448121e08f3981aed, type: 3}
@@ -5763,6 +5760,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195112821}
     m_Modifications:
+    - target: {fileID: 8710252344234626600, guid: afd4d1775022d4e4689e2294ae20af5f,
+        type: 3}
+      propertyPath: m_Name
+      value: SecondLayer
+      objectReference: {fileID: 0}
     - target: {fileID: 8710252344234626615, guid: afd4d1775022d4e4689e2294ae20af5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5817,11 +5819,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8710252344234626600, guid: afd4d1775022d4e4689e2294ae20af5f,
-        type: 3}
-      propertyPath: m_Name
-      value: SecondLayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afd4d1775022d4e4689e2294ae20af5f, type: 3}
@@ -7991,8 +7988,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1731857054}
   other: {fileID: 752370304}
+  isTurn: 0
   isMove: 0
   direction: 0
+  CanCollider: 1
 --- !u!95 &1731857058
 Animator:
   serializedVersion: 3
@@ -8036,7 +8035,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.6714456, y: 2.245532}
+  m_Size: {x: 3, y: 2.245532}
   m_EdgeRadius: 0
 --- !u!50 &1731857060
 Rigidbody2D:
@@ -8258,6 +8257,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1195112821}
     m_Modifications:
+    - target: {fileID: 6507056072880412417, guid: 53a0cbb54d717694c9ce850a164354c0,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstLayer
+      objectReference: {fileID: 0}
     - target: {fileID: 6507056072880412419, guid: 53a0cbb54d717694c9ce850a164354c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8312,11 +8316,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6507056072880412417, guid: 53a0cbb54d717694c9ce850a164354c0,
-        type: 3}
-      propertyPath: m_Name
-      value: FirstLayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53a0cbb54d717694c9ce850a164354c0, type: 3}
