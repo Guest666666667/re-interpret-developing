@@ -14,6 +14,9 @@ public class Player2Control : MonoBehaviour
     private Animator animator = null;
     public GameObject projectilePrefab;
     private GameObject throwArea = null;
+    private BlueBar bluebar;
+    private Gem[] gems = new Gem[3];
+    private int gemCount = 0;
 
     private bool isOnLand = false;
     private bool isHitted = false;
@@ -72,6 +75,9 @@ public class Player2Control : MonoBehaviour
         }
         animator = GetComponent<Animator>();
         throwArea = GameObject.Find(name + "/Skeleton/rootBone/rightArm/rightArm2/rightHand/throwArea");
+        bluebar = GameObject.FindWithTag("BlueBar_2").GetComponent<BlueBar>();
+        gems[0] = GameObject.FindWithTag("Gem_2_1").GetComponent<Gem>(); gems[1] = GameObject.FindWithTag("Gem_2_2").GetComponent<Gem>(); gems[2] = GameObject.FindWithTag("Gem_2_3").GetComponent<Gem>();
+
         //整合的
         moveScript = GameObject.FindWithTag("player").GetComponent<PlayerControl>();//获得脚本的对象
         mG = GameObject.FindWithTag("grounds").GetComponent<moveGrounds>();
@@ -91,13 +97,13 @@ public class Player2Control : MonoBehaviour
         {
             if (isTurn)
             {
-                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(-12 * BattlePara.moveSpeed2 * Time.deltaTime, 0, 0);
                 //rigidbody.transform.Translate(vector3, Space.World);
                 dashTranslate(vector3);
             }
             else
             {
-                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(12 * BattlePara.moveSpeed2 * Time.deltaTime, 0, 0);
                 //rigidbody.transform.Translate(vector3, Space.World);
                 dashTranslate(vector3);
             }
@@ -153,7 +159,7 @@ public class Player2Control : MonoBehaviour
         {
             if (Input.GetKey(KeyCodeSet[1]) && !isTuring)
             {
-                Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(-2 * BattlePara.moveSpeed2 * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
                 if(!isTurn)
                 {
@@ -169,7 +175,7 @@ public class Player2Control : MonoBehaviour
             }
             if (Input.GetKey(KeyCodeSet[3]) && !isTuring)
             {
-                Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(2 * BattlePara.moveSpeed2 * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
                 if (!isTurn)
                 {
@@ -199,7 +205,7 @@ public class Player2Control : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCodeSet[0]) && isOnLand && !isDown)
             {
-                rigidbody.velocity = new Vector2(0, 400 * BattlePara.GetJumpSpeed() * Time.deltaTime);
+                rigidbody.velocity = new Vector2(0, 400 * BattlePara.jumpSpeed2 * Time.deltaTime);
                 animator.SetTrigger("jumpUp");
             }
 
@@ -227,8 +233,10 @@ public class Player2Control : MonoBehaviour
                 state = State.attack2;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring)
+            if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring && gemCount>0)
             {
+                gemCount = Mathf.Max(0, gemCount - 1);
+                gems[gemCount].DeleteGem();
                 isDash = true;
                 isTurn = !isTurn;
                 animator.SetBool("isBack", false);
@@ -243,13 +251,14 @@ public class Player2Control : MonoBehaviour
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
             }
-            if (Input.GetKeyDown(KeyCodeSet[8]))
+            if (Input.GetKeyDown(KeyCodeSet[8]) && bluebar.get() == 1f)
             {
                 throwCount = 1;
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isThrow", true);
                 state = State.throws;
+                bluebar.releaseSkill();
             }
         }
 
@@ -277,7 +286,7 @@ public class Player2Control : MonoBehaviour
                 {
                     Vector2 v = transform.localPosition;
                     if (mG.canMove)
-                        v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime;
+                        v.x -= BattlePara.moveSpeed2 * Time.deltaTime;
                     transform.localPosition = v;
                 }
                 //如果另一个人往左，那么自己往右
@@ -285,7 +294,7 @@ public class Player2Control : MonoBehaviour
                 {
                     Vector2 v = transform.localPosition;
                     if (mG.canMove)
-                        v.x += BattlePara.GetMoveSpeed() * Time.deltaTime;
+                        v.x += BattlePara.moveSpeed2 * Time.deltaTime;
                     transform.localPosition = v;
                 }
             }
@@ -296,14 +305,14 @@ public class Player2Control : MonoBehaviour
         {
             Vector2 v = transform.localPosition;
             if (mG.canMove)
-                v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
+                v.x -= BattlePara.moveSpeed2 * Time.deltaTime * 0.5f;
             transform.localPosition = v;
         }
         if ((!moveScript.isMove) && (moveScript.direction == -1))
         {
             Vector2 v = transform.localPosition;
             if (mG.canMove)
-                v.x += BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
+                v.x += BattlePara.moveSpeed2 * Time.deltaTime * 0.5f;
             transform.localPosition = v;
         }
     }
@@ -347,6 +356,8 @@ public class Player2Control : MonoBehaviour
     {
         if(!isHitted)
         {
+            gemCount = Mathf.Min(3, gemCount + 1);
+            gems[gemCount - 1].AddGem();
             float x1 = transform.position.x, x2 = other.transform.position.x;
             if (x1 <= x2)
             {
@@ -362,12 +373,10 @@ public class Player2Control : MonoBehaviour
     }
     public void Hit(int damage)
     {
-        if (!isHitted)
-        {
-            float x1 = transform.position.x, x2 = other.transform.position.x;
-            playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
-            isHitted = true;
-        }
+        gemCount = Mathf.Min(3, gemCount + 1);
+        gems[gemCount - 1].AddGem();
+        playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
+
     }
     private void dashTranslate(Vector3 vector3)
     {

@@ -2872,6 +2872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4be668f4108cd846a8f08f896e1ff1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneAttribute: 000000000000000000000000
 --- !u!4 &662892774
 Transform:
   m_ObjectHideFlags: 0
@@ -10439,11 +10440,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320437021287535124, guid: e463515bb78bbdd4daeecde8b2d4fcaa,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e463515bb78bbdd4daeecde8b2d4fcaa, type: 3}

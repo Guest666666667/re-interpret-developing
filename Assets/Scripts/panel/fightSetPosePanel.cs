@@ -265,7 +265,7 @@ public class fightSetPosePanel : BasePanel
     private void SaveMotion()
     {
         JsonData jsonTemp1 = new JsonData();
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < paraCount; j++)
             {
@@ -284,7 +284,7 @@ public class fightSetPosePanel : BasePanel
         sw1.Close();
 
         JsonData jsonTemp2 = new JsonData();
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < paraCount; j++)
             {

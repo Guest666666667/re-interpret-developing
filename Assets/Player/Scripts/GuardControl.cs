@@ -44,12 +44,12 @@ public class GuardControl : MonoBehaviour
         {
             if (other.name.Equals("player1"))
             {
-                other.GetComponent<PlayerControl>().HitFly(BattlePara.GetGuardDamage());
+                other.GetComponent<PlayerControl>().HitFly(BattlePara.guardDamage1);
 
             }
             if (other.name.Equals("player2"))
             {
-                other.GetComponent<Player2Control>().HitFly(BattlePara.GetGuardDamage());
+                other.GetComponent<Player2Control>().HitFly(BattlePara.guardDamage2);
             }
         }
     }

@@ -9,6 +9,18 @@ TagManager:
   - grounds
   - grounds_2
   - backGround
+  - Text_1
+  - BloodBar_1
+  - BloodBar_2
+  - BlueBar_1
+  - BlueBar_2
+  - Gem_1_1
+  - Gem_1_2
+  - Gem_1_3
+  - Gem_2_1
+  - Gem_2_2
+  - Gem_2_3
+  - HurtEffect
   layers:
   - Default
   - TransparentFX
