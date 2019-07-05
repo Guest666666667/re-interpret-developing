@@ -14,6 +14,7 @@ public class selectPanel : BasePanel {
     //private Button beginButton;
     private CanvasGroup canvasGroup;
     private bool fightOrStory;//fight为true,story为false
+    private Animator anim;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class selectPanel : BasePanel {
         storyButton = transform.Find("storyButton").GetComponent<Button>();
         setButton = transform.Find("setButton").GetComponent<Button>();
         exitButton = transform.Find("exitButton").GetComponent<Button>();
+        anim = GetComponent<Animator>();
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
         //beginButton.gameObject.SetActive(false);//未选择前不可用
 
@@ -46,6 +48,9 @@ public class selectPanel : BasePanel {
     {
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
+        if (anim == null)
+            anim = GetComponent<Animator>();
+        anim.SetInteger("state", 1);
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
         //Vector3 temp = transform.localPosition;
@@ -56,19 +61,26 @@ public class selectPanel : BasePanel {
     public override void OnPause()
     {
         base.OnPause();
+        anim.SetInteger("state", 2);
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
         //canvasGroup.blocksRaycasts = false;
     }
     public override void OnResume()
     {
+        anim.SetInteger("state", 1);
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
         fightButton.Select();//设置最上面的为选中状态
         canvasGroup.blocksRaycasts = true;
     }
 
     public override void OnExit()
     {
+        anim.SetInteger("state", 2);
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
-        transform.DOLocalMoveX(500, .5f).OnComplete(() => canvasGroup.alpha = 0);//OnComplete使用了lambda表达式
+        //transform.DOLocalMoveX(500, .5f).OnComplete(() => canvasGroup.alpha = 0);//OnComplete使用了lambda表达式
     }
     public void OnClose()
     {
