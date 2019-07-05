@@ -26,9 +26,9 @@ public class fightSetPosePanel : BasePanel
     private int selectIndex1 = 1000000 * paraCount;
     private int selectIndex2 = 1000000 * paraCount;
     private string[] button1 = { "Attack:J", "Guard:K" };
-    private int buttonIndex1 = 1000000 * 2;
+    private int buttonIndex1 = 1000000 * 3;
     private string[] button2 = { "Attack:Num1", "Guard:Num2" };
-    private int buttonIndex2 = 1000000 * 2;
+    private int buttonIndex2 = 1000000 * 3;
     private bool player1OK = false;
     private bool player2OK = false;
 

@@ -12,6 +12,7 @@ public class selectStoryPanel : BasePanel
     //private Button beginButton;
     private CanvasGroup canvasGroup;
     private bool firstOrSecond;//fight为true,story为false
+    private Animator anim;
 
     private void Start()
     {
@@ -19,10 +20,13 @@ public class selectStoryPanel : BasePanel
         firstStoryButton = transform.Find("runAfterSunButton").GetComponent<Button>();
         secondStoryButton = transform.Find("fightWithGodButton").GetComponent<Button>();
         backButton = transform.Find("backButton").GetComponent<Button>();
+
+        //anim = transform.GetComponent<Animator>();
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
         //beginButton.gameObject.SetActive(false);//未选择前不可用
 
-        firstStoryButton.Select();
+        //firstStoryButton.Select();
+        //Invoke("OnSelect", 1.1f);
         //绑定响应函数
         firstStoryButton.onClick.AddListener(OnTurnFirstClick);
         secondStoryButton.onClick.AddListener(OnTurnSecondClick);
@@ -36,33 +40,45 @@ public class selectStoryPanel : BasePanel
             OnBackClick();
         }
     }
+    public void OnSelect()
+    {
+        firstStoryButton.Select();
+    }
     public override void OnEnter()
     {
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
-        canvasGroup.alpha = 1;
+        if (anim == null)
+            anim = GetComponent<Animator>();
+        anim.SetInteger("state", 1);
+        //canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        Vector3 temp = transform.localPosition;
-        temp.x = 500;
-        transform.localPosition = temp;
-        transform.DOLocalMoveX(0, .5f);
+        //Vector3 temp = transform.localPosition;
+        //temp.x = 500;
+        //transform.localPosition = temp;
+        //transform.DOLocalMoveX(0, .5f);
     }
     public override void OnPause()
     {
         base.OnPause();
-        //canvasGroup.blocksRaycasts = false;
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
     }
     public override void OnResume()
     {
         firstStoryButton.Select();
+        canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
     }
 
     public override void OnExit()
     {
+        //anim.enabled = false;
+        anim.SetInteger("state", 2);
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
-        transform.DOLocalMoveX(500, .5f).OnComplete(() => canvasGroup.alpha = 0);//OnComplete使用了lambda表达式
+        Debug.Log("已调用ONEXIT");
+        //transform.DOLocalMoveX(500, .5f).OnComplete(() => canvasGroup.alpha = 0);//OnComplete使用了lambda表达式
     }
     public void OnClose()
     {
