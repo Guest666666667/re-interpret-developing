@@ -9,6 +9,7 @@ public class AnimationCreator : MonoBehaviour
     private JsonData jsonTemp = new JsonData();
     private float[] attackPara = new float[6];
     private float[] GuardPara = new float[6];
+    private float[] attack2Para = new float[6];
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class AnimationCreator : MonoBehaviour
         loadMotion();
         CreateAnime("attack");
         CreateAnime("Guard");
+        CreateAnime("attack2");
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class AnimationCreator : MonoBehaviour
             }
         }
         animationClip.ClearCurves();
+
         string[] relativePath = { "Skeleton/rootBone/leftArm"
                 , "Skeleton/rootBone/leftArm/leftArm2"
                 , "Skeleton/rootBone/rightArm"
@@ -48,13 +51,13 @@ public class AnimationCreator : MonoBehaviour
         string[] propertyName = { "localEulerAngles.z", "localEulerAngles.z"
                 , "localEulerAngles.z", "localEulerAngles.z"
                 , "localEulerAngles.z", "localEulerAngles.z" };
-
         float[] la = { -152.28f, -152.28f, -152.28f, -152.28f };
         float[] la2 = { -157.26f, -157.26f, -157.26f, -157.26f };
         float[] ra = { 167.66f, 96.043f, 96.043f, 167.66f };
         float[] ra2 = { -145.5f, -11.204f, -11.204f, -145.5f };
         float[] rb = { -270.12f, -270.12f, -270.12f, -270.12f };
         float[] h = { -0.712f, -0.712f, -0.712f, -0.712f };
+
         if (para.Equals("attack"))
         {
             la[1] = attackPara[0]; la[2] = attackPara[0];
@@ -72,6 +75,15 @@ public class AnimationCreator : MonoBehaviour
             ra2[1] = GuardPara[3]; ra2[2] = GuardPara[3];
             rb[1] = GuardPara[4]; rb[2] = GuardPara[4];
             h[1] = GuardPara[5]; h[2] = GuardPara[5];
+        }
+        if (para.Equals("attack2"))
+        {
+            la[1] = attack2Para[0]; la[2] = attack2Para[0];
+            la2[1] = attack2Para[1]; la2[2] = attack2Para[1];
+            ra[1] = attack2Para[2]; ra[2] = attack2Para[2];
+            ra2[1] = attack2Para[3]; ra2[2] = attack2Para[3];
+            rb[1] = attack2Para[4]; rb[2] = attack2Para[4];
+            h[1] = attack2Para[5]; h[2] = attack2Para[5];
         }
 
         float[][] property = new float[6][];
@@ -125,11 +137,17 @@ public class AnimationCreator : MonoBehaviour
                 int c2 = jsonTemp.MotionList[i].boneIndex;
                 GuardPara[c2] = jsonTemp.MotionList[i].value;
             }
+            if (jsonTemp.MotionList[i].motionIndex == 2)
+            {
+                int c3 = jsonTemp.MotionList[i].boneIndex;
+                attack2Para[c3] = jsonTemp.MotionList[i].value;
+            }
         }
     }
 
     private string JsonPath(int index)
     {
+        Debug.Log(Application.persistentDataPath + "/player" + (index + 1) + ".json");
         return Application.persistentDataPath + "/player" + (index + 1) + ".json";
     }
 }

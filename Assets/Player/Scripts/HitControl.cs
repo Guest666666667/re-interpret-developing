@@ -34,6 +34,10 @@ public class HitControl : MonoBehaviour
         {
             damage = BattlePara.GetHeadDamage();
         }
+        if (name.Equals("leftArm")|| name.Equals("rightArm"))
+        {
+            damage = BattlePara.GetArmDamage();
+        }
 
         State otherState = 0, playerState = 0;
 
@@ -78,7 +82,11 @@ public class HitControl : MonoBehaviour
         {
             damage = BattlePara.GetHeadDamage();
         }
-        if(player.name.Equals("player1"))
+        if (name.Equals("leftArm") || name.Equals("rightArm"))
+        {
+            damage = BattlePara.GetArmDamage();
+        }
+        if (player.name.Equals("player1"))
         {
             player.GetComponent<PlayerControl>().Hit(damage);
         }
