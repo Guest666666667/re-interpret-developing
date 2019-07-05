@@ -21,7 +21,7 @@ public class selectStoryPanel : BasePanel
         secondStoryButton = transform.Find("fightWithGodButton").GetComponent<Button>();
         backButton = transform.Find("backButton").GetComponent<Button>();
 
-        //anim = transform.GetComponent<Animator>();
+        anim = transform.GetComponent<Animator>();
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
         //beginButton.gameObject.SetActive(false);//未选择前不可用
 
