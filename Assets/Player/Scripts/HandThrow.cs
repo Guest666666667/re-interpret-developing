@@ -24,6 +24,6 @@ public class HandThrow : MonoBehaviour
             transform.position,
             Quaternion.identity);
         ProjectileControl projectile = projectileObject.GetComponent<ProjectileControl>();
-        projectile.Launch(direction, 300*3);
+        projectile.Launch(direction, 30*3*5);
     }
 }

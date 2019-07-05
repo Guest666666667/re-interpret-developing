@@ -32,7 +32,7 @@ public class Player2Control : MonoBehaviour
     public int direction = 0;//移动的方向
     public bool CanCollider = true;//用来判断自身是否碰到便边界
 
-    private readonly KeyCode[] KeyCodeSet = new KeyCode[9];
+    private readonly KeyCode[] KeyCodeSet = new KeyCode[10];
 
     public State GetState()
     {
@@ -55,6 +55,7 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[6] = KeyCode.U;
             KeyCodeSet[7] = KeyCode.I;
             KeyCodeSet[8] = KeyCode.O;
+            KeyCodeSet[9] = KeyCode.J;
         }
         if (player.name.Equals("player2"))
         {
@@ -67,6 +68,7 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[6] = KeyCode.Keypad4;
             KeyCodeSet[7] = KeyCode.Keypad5;
             KeyCodeSet[8] = KeyCode.Keypad6;
+            KeyCodeSet[9] = KeyCode.Keypad3;
         }
         animator = GetComponent<Animator>();
         throwArea = GameObject.Find(name + "/Skeleton/rootBone/rightArm/rightArm2/rightHand/throwArea");
@@ -103,6 +105,7 @@ public class Player2Control : MonoBehaviour
 
         if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") 
             || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle")
+            || animator.GetAnimatorTransitionInfo(0).IsName("attack2 -> idle")
             || animator.GetAnimatorTransitionInfo(0).IsName("throwComplete -> idle"))
         {
             if (!state.Equals(State.idle))
@@ -118,6 +121,10 @@ public class Player2Control : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Guard"))
         {
             animator.SetBool("isGuard", false);
+        }
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack2"))
+        {
+            animator.SetBool("isAttack2", false);
         }
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("throwComplete"))
         {
@@ -210,6 +217,14 @@ public class Player2Control : MonoBehaviour
                 animator.SetBool("isFront", false);
                 animator.SetBool("isGuard", true);
                 state = State.guard;
+            }
+
+            if (Input.GetKeyDown(KeyCodeSet[9]))
+            {
+                animator.SetBool("isBack", false);
+                animator.SetBool("isFront", false);
+                animator.SetBool("isAttack2", true);
+                state = State.attack2;
             }
 
             if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring)

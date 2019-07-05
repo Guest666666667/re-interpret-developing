@@ -25,7 +25,8 @@ public class selectPanel : BasePanel {
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
         //beginButton.gameObject.SetActive(false);//未选择前不可用
 
-        fightButton.Select();//设置最上面的为选中状态
+        //fightButton.Select();//设置最上面的为选中状态
+        Invoke("OnSelect", 1.1f);
         //绑定响应函数
         fightButton.onClick.AddListener(OnTurnFightClick);
         storyButton.onClick.AddListener(OnTurnStoryClick);
@@ -47,10 +48,10 @@ public class selectPanel : BasePanel {
             canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        Vector3 temp = transform.localPosition;
-        temp.x = 500;
-        transform.localPosition = temp;
-        transform.DOLocalMoveX(0, .5f);
+        //Vector3 temp = transform.localPosition;
+        //temp.x = 500;
+        //transform.localPosition = temp;
+        //transform.DOLocalMoveX(0, .5f);
     }
     public override void OnPause()
     {
@@ -125,4 +126,8 @@ public class selectPanel : BasePanel {
     //        SceneManager.LoadScene(1,LoadSceneMode.Single);
     //    }               //选择了志异模式
     //}
+    public void OnSelect()
+    {
+        fightButton.Select();
+    }
 }
