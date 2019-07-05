@@ -22,10 +22,15 @@ public class beginPanelKeyPad : MonoBehaviour
             //temp.x = 10;
             //showImage.transform.localPosition = temp;
             showImage.transform.DOMoveY(775 , 1);
+            //showImage.transform.DOLocalMoveY(775, 1);
             Debug.Log("shi zheli meicuo ");
             //TODO add delay
-            UIManager.Instance.PushPanel(UIPanelType.select);
+            Invoke("turnPage", 1);
             gameObject.SetActive(false);
         }
+    }
+    public void turnPage()
+    {
+        UIManager.Instance.PushPanel(UIPanelType.select);
     }
 }
