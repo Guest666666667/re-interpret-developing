@@ -10,11 +10,12 @@ public class BattlePara : MonoBehaviour
     private static int bodyDamage;
     private static int headDamage;
     private static int guardDamage;
+    private static int armDamage;
 
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 1; jumpSpeed = 1; bodyDamage = 10; headDamage = 20; guardDamage = 10; chargeSpeed = 1;
+        moveSpeed = 1; jumpSpeed = 1; chargeSpeed = 1; bodyDamage = 10; headDamage = 20; guardDamage = 10; armDamage = 10;
     }
 
     // Update is called once per frame
@@ -47,6 +48,10 @@ public class BattlePara : MonoBehaviour
     {
         return guardDamage;
     }
+    public static int GetArmDamage()
+    {
+        return armDamage;
+    }
 
     public static void SetMoveSpeed(float para)
     {
@@ -77,5 +82,10 @@ public class BattlePara : MonoBehaviour
     {
         int result = Mathf.Max(5, para);
         guardDamage = Mathf.Min(20, result);
+    }
+    public static void SetArmDamage(int para)
+    {
+        int result = Mathf.Max(5, para);
+        armDamage = Mathf.Min(20, result);
     }
 }

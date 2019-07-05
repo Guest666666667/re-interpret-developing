@@ -8,6 +8,7 @@ public class ProjectileControl : MonoBehaviour
     private int aliveCount = 2;
     private Vector2 forceV = new Vector2(0,0);
     private Rigidbody2D rigidbody2D;
+    private bool isReturn = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class ProjectileControl : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GuardControl gc = collision.collider.GetComponent<GuardControl>();
-        if(gc != null)
+        if((gc != null)||collision.collider.name.Equals("rightHand") || collision.collider.name.Equals("leftHand"))
         {
             aliveCount--;
             if (aliveCount == 1)
@@ -50,7 +51,7 @@ public class ProjectileControl : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            Debug.Log("Collision with Guard");
+            Debug.Log("Collision with Guard:" + collision.collider.name);
             return;
         }
 
@@ -59,9 +60,10 @@ public class ProjectileControl : MonoBehaviour
         {
             hc.hitted();
             Destroy(gameObject);
-            Debug.Log("Collision with Other");
+            Debug.Log("Collision with Other:" + collision.collider.name);
+            return;
         }
-        Debug.Log("Collision!!!");
+        Debug.Log("Collision!!!" + collision.collider.name);
         Destroy(gameObject);
     }
 

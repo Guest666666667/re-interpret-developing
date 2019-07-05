@@ -50,7 +50,7 @@ public class readTxt : MonoBehaviour {
         for (int i = 0; i < sentences.Count; i++)
         {
             //musicPoint[i] = double.Parse(sentences[i]);
-            musicPoint.Add(double.Parse(sentences[i]) > 50 ? double.Parse(sentences[i]) - 0.25 : double.Parse(sentences[i]));//鼓点微调
+            musicPoint.Add(double.Parse(sentences[i]));//鼓点微调
             musicJudge[i] = false;
             actionJudge[i] = false;
             boneSeq[i] = 0;
