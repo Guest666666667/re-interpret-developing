@@ -8,12 +8,38 @@ public class scoreManagement : MonoBehaviour
 {
     private int perfectCount = 0;
     private Transform scoreText;
+    private Transform scoreValue;
     private float tmp;
 
     public void addPerfect()
     {
         perfectCount++;
         scoreText.GetComponent<Text>().text = "善 X" + perfectCount;
+        int dig, tenDig, hunDig;
+        dig = perfectCount % 10;
+        tenDig = (perfectCount / 10) % 10;
+        hunDig = perfectCount / 100;
+        if (tenDig == 0)
+        {
+            //单个数字 
+        }
+        else if (perfectCount == 10)
+        {
+            //十
+        }
+        else if (dig == 0)
+        {
+            //Tendig十
+        }
+        else if (tenDig == 1)
+        {
+            //十dig
+        }
+        else
+        {
+            //tenDig十dig
+        }
+
         //根据连击数改变颜色
         float h = (120 - 6 * perfectCount) > 0 ? 120 - 6 * perfectCount : 0;
         float s = 5 * perfectCount;
@@ -60,6 +86,7 @@ public class scoreManagement : MonoBehaviour
         tmp = transform.position.x;
         scoreText = transform.Find("scoreHint");
         scoreText.GetComponent<Text>().text = "";
+        scoreValue = transform.Find("value");
     }
 
     // Update is called once per frame
