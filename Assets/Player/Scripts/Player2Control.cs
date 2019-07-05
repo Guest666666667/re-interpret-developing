@@ -18,6 +18,11 @@ public class Player2Control : MonoBehaviour
     private Gem[] gems = new Gem[3];
     private int gemCount = 0;
 
+    private Animation animation;
+    private AnimationClip ac1 = null;
+    private AnimationClip ac2 = null;
+    private AnimationClip ac3 = null;
+
     private bool isOnLand = false;
     private bool isHitted = false;
     private bool isDown = false;
@@ -74,6 +79,10 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[9] = KeyCode.Keypad3;
         }
         animator = GetComponent<Animator>();
+
+        animation = GetComponent<Animation>();
+        ac1 = GetComponent<AnimationCreator>().Create("attack"); ac2 = GetComponent<AnimationCreator>().Create("Guard"); ac3 = GetComponent<AnimationCreator>().Create("attack2");
+
         throwArea = GameObject.Find(name + "/Skeleton/rootBone/rightArm/rightArm2/rightHand/throwArea");
         bluebar = GameObject.FindWithTag("BlueBar_2").GetComponent<BlueBar>();
         gems[0] = GameObject.FindWithTag("Gem_2_1").GetComponent<Gem>(); gems[1] = GameObject.FindWithTag("Gem_2_2").GetComponent<Gem>(); gems[2] = GameObject.FindWithTag("Gem_2_3").GetComponent<Gem>();
@@ -109,7 +118,7 @@ public class Player2Control : MonoBehaviour
             }
         }
 
-        if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") 
+        /*if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") 
             || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle")
             || animator.GetAnimatorTransitionInfo(0).IsName("attack2 -> idle")
             || animator.GetAnimatorTransitionInfo(0).IsName("throwComplete -> idle"))
@@ -118,9 +127,17 @@ public class Player2Control : MonoBehaviour
             {
                 state = State.idle;
             }
+        }*/
+
+        if (animator.GetAnimatorTransitionInfo(0).IsName("throwComplete -> idle"))
+        {
+            if (state.Equals(State.throws))
+            {
+                state = State.idle;
+            }
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
+        /*if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
         {
             animator.SetBool("isAttack", false);
         }
@@ -131,7 +148,14 @@ public class Player2Control : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack2"))
         {
             animator.SetBool("isAttack2", false);
+        }*/
+
+        if (!animation.isPlaying && (state.Equals(State.attack) || state.Equals(State.guard) || state.Equals(State.attack2)))
+        {
+            state = State.idle;
+            animator.enabled = true;
         }
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("throwComplete"))
         {
             animator.SetBool("isThrow", false);
@@ -209,27 +233,39 @@ public class Player2Control : MonoBehaviour
                 animator.SetTrigger("jumpUp");
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[4]))
+            if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring)
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                animator.SetBool("isAttack", true);
+                //animator.SetBool("isAttack", true);
+                animator.enabled = false;
+                animation.clip = ac1;
+                animation.AddClip(ac1, ac1.name);
+                animation.Play();
                 state = State.attack;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[5]))
+            if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring)
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                animator.SetBool("isGuard", true);
+                //animator.SetBool("isGuard", true);
+                animator.enabled = false;
+                animation.clip = ac2;
+                animation.AddClip(ac2, ac2.name);
+                animation.Play();
                 state = State.guard;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[9]))
+            if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring)
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                animator.SetBool("isAttack2", true);
+                //animator.SetBool("isAttack2", true);
+                animator.enabled = false;
+                animation.clip = ac3;
+                animation.AddClip(ac3, ac3.name);
+                animation.Play();
                 state = State.attack2;
             }
 
