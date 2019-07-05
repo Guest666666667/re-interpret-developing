@@ -17,6 +17,7 @@ public class fightSelectPartPanel : BasePanel
     private bool P2Enter = false;
     //确认动画
     //private Animator confirmAnim;
+    private Animator anim;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class fightSelectPartPanel : BasePanel
         //confirmAnim = GameObject.Find("/成").GetComponent<Animator>();
         transform.Find("P1").gameObject.SetActive(true);
         transform.Find("P2").gameObject.SetActive(true);
+        anim = transform.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -58,17 +60,24 @@ public class fightSelectPartPanel : BasePanel
         {
             P1Enter = false;
             P2Enter = false;
+            anim.SetInteger("state", 2);
             Invoke("OnMakeSure", 0.6f);
         }
     }
-    public override void OnEnter()//不用enter，一开始就在   
+    public override void OnEnter()
     {
         base.OnEnter();
+        if (canvasGroup == null)
+            canvasGroup = GetComponent<CanvasGroup>();
+        if (anim == null)
+            anim = GetComponent<Animator>();
+        anim.SetInteger("state", 1);
+        //canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
     }
     public override void OnPause()
     {
-        //transform.GetChild(0).gameObject.SetActive(false);
-        //transform.GetChild(1).gameObject.SetActive(false);
+        //Invoke("set", 1);
         gameObject.SetActive(false);
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;//当弹出新的面板的时候，让主菜单面板不再和鼠标交互
@@ -86,6 +95,7 @@ public class fightSelectPartPanel : BasePanel
     public override void OnExit()
     {
         base.OnExit();
+        anim.SetInteger("state", 2);
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
     }

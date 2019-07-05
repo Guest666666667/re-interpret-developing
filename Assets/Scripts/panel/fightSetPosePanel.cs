@@ -8,7 +8,7 @@ public class fightSetPosePanel : BasePanel
 {
     private CanvasGroup canvasGroup;
     private const int paraCount = 6;
-
+    private Animator anim;
     //private Text player1Button;
     //private Text player2Button;
     private Text[] player1ParaText = new Text[paraCount];
@@ -37,7 +37,7 @@ public class fightSetPosePanel : BasePanel
     void Start()
     {
         canvasGroup = transform.GetComponent<CanvasGroup>();
-
+        anim = GetComponent<Animator>();
         head = GameObject.Find("/player2/model/头");
 
         player1Para[0] = new int[paraCount];
@@ -221,12 +221,20 @@ public class fightSetPosePanel : BasePanel
             SaveMotion();
             player1OK = false;
             player2OK = false;
+            anim.SetInteger("state", 2);
             Invoke("OnMakeSure", 0.6f);
         }
     }
     public override void OnEnter()//不用enter，一开始就在   
     {
         base.OnEnter();
+        if (canvasGroup == null)
+            canvasGroup = GetComponent<CanvasGroup>();
+        if (anim == null)
+            anim = GetComponent<Animator>();
+        anim.SetInteger("state", 1);
+        //canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
     }
     public override void OnPause()
     {
@@ -245,6 +253,7 @@ public class fightSetPosePanel : BasePanel
     public override void OnExit()
     {
         base.OnExit();
+        anim.SetInteger("state", 2);
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
     }

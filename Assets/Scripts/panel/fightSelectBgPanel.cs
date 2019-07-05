@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class fightSelectBgPanel : BasePanel
 {
     private CanvasGroup canvasGroup;
+    private Animator anim;
     private Attribute attributeManager;
     private Animator P1anim_m;
     private Animator P2anim_m;
@@ -23,6 +24,7 @@ public class fightSelectBgPanel : BasePanel
     void Start()
     {
         canvasGroup = transform.GetComponent<CanvasGroup>();
+        anim = GetComponent<Animator>();
         P1anim_m = transform.Find("farBG").Find("middleImage").GetComponent<Animator>();
         P2anim_m = transform.Find("nearBG").Find("middleImage").GetComponent<Animator>();
         GameObject.Find("/player1").transform.Translate(4f, 0, 0);
@@ -59,7 +61,8 @@ public class fightSelectBgPanel : BasePanel
             weatherAnim = transform.Find("weather").GetComponent<Animator>();
             weatherAnim.Play("turn-edge");
             Invoke("TurnSprite", 0.5f);
-            Invoke("OnMakeSure", 2f);
+            Invoke("slideOut", 1.5f);
+            Invoke("OnMakeSure", 2.5f);
             //OnMakeSure();
         }
     }
@@ -70,6 +73,11 @@ public class fightSelectBgPanel : BasePanel
             canvasGroup = transform.GetComponent<CanvasGroup>();
         }
         base.OnEnter();
+        if (anim == null)
+            anim = GetComponent<Animator>();
+        anim.SetInteger("state", 1);
+        //canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
     }
     public override void OnPause()
     {
@@ -92,6 +100,7 @@ public class fightSelectBgPanel : BasePanel
     public override void OnExit()
     {
         base.OnExit();
+        anim.SetInteger("state", 2);
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
     }
@@ -107,5 +116,9 @@ public class fightSelectBgPanel : BasePanel
         transform.Find("weather/描述垫底").gameObject.SetActive(true);
         weatherMessge.text = message[index];
         attributeManager.setSceneArray(1, index);
+    }
+    public void slideOut()
+    {
+        anim.SetInteger("state", 2);
     }
 }
