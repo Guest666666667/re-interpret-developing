@@ -14,7 +14,9 @@ public class scoreManagement : MonoBehaviour
     public void addPerfect()
     {
         perfectCount++;
-        scoreText.GetComponent<Text>().text = "善 X";
+        //scoreText.GetComponent<Text>().text = "善 X";
+        scoreText.Find("evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/perfect");
+        scoreText.Find("evaluate").GetComponent<Image>().color = new Color(1, 1, 1, 1);
         int dig, tenDig, hunDig;
         dig = perfectCount % 10;
         tenDig = (perfectCount / 10) % 10;
@@ -66,7 +68,7 @@ public class scoreManagement : MonoBehaviour
         float h = (120 - 6 * perfectCount) > 0 ? 120 - 6 * perfectCount : 0;
         float s = 5 * perfectCount;
         float v = 50f;
-        scoreText.GetComponent<Text>().color = Color.HSVToRGB(h / 360f, s / 100f, v / 100f);
+        //scoreText.GetComponent<Text>().color = Color.HSVToRGB(h / 360f, s / 100f, v / 100f);
 
         if (perfectCount % 3 == 0)
         {
@@ -97,9 +99,11 @@ public class scoreManagement : MonoBehaviour
         float h = (120 - 6 * perfectCount) > 0 ? 120 - 6 * perfectCount : 0;
         float s = 5 * perfectCount;
         float v = 50f;
-        scoreText.GetComponent<Text>().color = Color.HSVToRGB(h / 360f, s / 100f, v / 100f);
+        //scoreText.GetComponent<Text>().color = Color.HSVToRGB(h / 360f, s / 100f, v / 100f);
 
-        scoreText.GetComponent<Text>().text = (isKeyDown ? "误" : "弃");
+        //scoreText.GetComponent<Text>().text = (isKeyDown ? "误" : "弃");
+        scoreText.Find("evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>(isKeyDown ? "UI source/premature" : "UI source/miss");
+        scoreText.Find("evaluate").GetComponent<Image>().color = new Color(1, 1, 1, 1);
         transform.position = new Vector3(tmp - GetComponent<RectTransform>().rect.size.x, transform.position.y, transform.position.z);
         Sequence flash = DOTween.Sequence();
         flash.Append(transform.DOMoveX(tmp, 0.1f))
@@ -111,7 +115,9 @@ public class scoreManagement : MonoBehaviour
     {
         tmp = transform.position.x;
         scoreText = transform.Find("scoreHint");
-        scoreText.GetComponent<Text>().text = "";
+        //scoreText.GetComponent<Text>().text = "";
+        scoreText.Find("evaluate").GetComponent<Image>().sprite = null;
+        scoreText.Find("evaluate").GetComponent<Image>().color = new Color(1,1,1,0);
         scoreValue = transform.Find("value");
     }
 
