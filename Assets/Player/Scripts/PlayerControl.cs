@@ -20,6 +20,14 @@ public class PlayerControl : MonoBehaviour
     private Animator animator = null;
     public GameObject projectilePrefab;
     private GameObject throwArea = null;
+    private BlueBar bluebar;
+    private Gem[] gems = new Gem[3];
+    private int gemCount = 0;
+
+    private Animation animation;
+    private AnimationClip ac1 = null;
+    private AnimationClip ac2 = null;
+    private AnimationClip ac3 = null;
 
     private bool isOnLand = false;
     private bool isHitted = false;
@@ -76,7 +84,13 @@ public class PlayerControl : MonoBehaviour
             KeyCodeSet[9] = KeyCode.Keypad3;
         }
         animator = GetComponent<Animator>();
+
+        animation = GetComponent<Animation>();
+        ac1 = GetComponent<AnimationCreator>().Create("attack"); ac2 = GetComponent<AnimationCreator>().Create("Guard"); ac3 = GetComponent<AnimationCreator>().Create("attack2");
+
         throwArea = GameObject.Find(name + "/Skeleton/rootBone/rightArm/rightArm2/rightHand/throwArea");
+        bluebar = GameObject.FindWithTag("BlueBar_1").GetComponent<BlueBar>();
+        gems[0] = GameObject.FindWithTag("Gem_1_1").GetComponent<Gem>(); gems[1] = GameObject.FindWithTag("Gem_1_2").GetComponent<Gem>(); gems[2] = GameObject.FindWithTag("Gem_1_3").GetComponent<Gem>();
 
         //整合的(设置Tag)
         moveScript_2 = GameObject.FindWithTag("player_2").GetComponent<Player2Control>();
@@ -98,30 +112,27 @@ public class PlayerControl : MonoBehaviour
         {
             if(isTurn)
             {
-                Vector3 vector3 = new Vector3(12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(12 * BattlePara.moveSpeed1 * Time.deltaTime, 0, 0);
                 //rigidbody.transform.Translate(vector3, Space.World);
                 dashTranslate(vector3);
             }
             else
             {
-                Vector3 vector3 = new Vector3(-12 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(-12 * BattlePara.moveSpeed1 * Time.deltaTime, 0, 0);
                 //rigidbody.transform.Translate(vector3, Space.World);
                 dashTranslate(vector3);
             }
         }
 
-        if (animator.GetAnimatorTransitionInfo(0).IsName("attack -> idle") 
-            || animator.GetAnimatorTransitionInfo(0).IsName("Guard -> idle")
-            || animator.GetAnimatorTransitionInfo(0).IsName("attack2 -> idle")
-            || animator.GetAnimatorTransitionInfo(0).IsName("throwComplete -> idle"))
+        if (animator.GetAnimatorTransitionInfo(0).IsName("throwComplete -> idle"))
         {
-            if (!state.Equals(State.idle))
+            if (state.Equals(State.throws))
             {
                 state = State.idle;
             }
         }
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
+        /*if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack"))
         {
             animator.SetBool("isAttack",false);
         }
@@ -132,7 +143,16 @@ public class PlayerControl : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("attack2"))
         {
             animator.SetBool("isAttack2", false);
+        }*/
+
+        Debug.Log(state);
+
+        if (!animation.isPlaying && (state.Equals(State.attack)|| state.Equals(State.guard)|| state.Equals(State.attack2)))
+        {
+            state = State.idle;
+            animator.enabled = true;
         }
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("throwComplete"))
         {
             animator.SetBool("isThrow", false);
@@ -160,7 +180,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (Input.GetKey(KeyCodeSet[1]) && !isTuring)
             {
-                Vector3 vector3 = new Vector3(-2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(-2 * BattlePara.moveSpeed1 * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
                 if(!isTurn)
                 {
@@ -175,7 +195,7 @@ public class PlayerControl : MonoBehaviour
             }
             if (Input.GetKey(KeyCodeSet[3]) && !isTuring)
             {
-                Vector3 vector3 = new Vector3(2 * BattlePara.GetMoveSpeed() * Time.deltaTime, 0, 0);
+                Vector3 vector3 = new Vector3(2 * BattlePara.moveSpeed1 * Time.deltaTime, 0, 0);
                 rigidbody.transform.Translate(vector3, Space.World);
                 if (!isTurn)
                 {
@@ -205,36 +225,50 @@ public class PlayerControl : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCodeSet[0]) && isOnLand && !isDown)
             {
-                rigidbody.velocity = new Vector2(0, 400 * BattlePara.GetJumpSpeed() * Time.deltaTime);
+                rigidbody.velocity = new Vector2(0, 400 * BattlePara.jumpSpeed1 * Time.deltaTime);
                 animator.SetTrigger("jumpUp");
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[4]))
+            if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring)
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                animator.SetBool("isAttack", true);
+                //animator.SetBool("isAttack", true);
+                animator.enabled = false;
+                animation.clip = ac1;
+                animation.AddClip(ac1, ac1.name);
+                animation.Play();
                 state = State.attack;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[5]))
+            if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring)
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                animator.SetBool("isGuard", true);
+                //animator.SetBool("isGuard", true);
+                animator.enabled = false;
+                animation.clip = ac2;
+                animation.AddClip(ac2, ac2.name);
+                animation.Play();
                 state = State.guard;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[9]))
+            if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring)
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                animator.SetBool("isAttack2", true);
+                //animator.SetBool("isAttack2", true);
+                animator.enabled = false;
+                animation.clip = ac3;
+                animation.AddClip(ac3, ac3.name);
+                animation.Play();
                 state = State.attack2;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring)
+            if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring && gemCount>0)
             {
+                gemCount = Mathf.Max(0, gemCount - 1);
+                gems[gemCount].DeleteGem();
                 isTurn = !isTurn;
                 isDash = true;
                 animator.SetBool("isBack", false);
@@ -250,13 +284,14 @@ public class PlayerControl : MonoBehaviour
                 animator.SetBool("isTurn", isTurn);
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[8]))
+            if (Input.GetKeyDown(KeyCodeSet[8]) && bluebar.get()==1f)
             {
                 throwCount = 1;
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isThrow", true);
                 state = State.throws;
+                bluebar.releaseSkill();
             }
         }
 
@@ -282,14 +317,14 @@ public class PlayerControl : MonoBehaviour
                 {
                     Vector2 v = transform.localPosition;
                     if (mG.canMove)
-                        v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime;
+                        v.x -= BattlePara.moveSpeed1 * Time.deltaTime;
                     transform.localPosition = v;
                 }
                 if (moveScript_2.direction == -1)
                 {
                     Vector2 v = transform.localPosition;
                     if (mG.canMove)
-                        v.x += BattlePara.GetMoveSpeed() * Time.deltaTime;
+                        v.x += BattlePara.moveSpeed1 * Time.deltaTime;
                     transform.localPosition = v;
                 }
             }
@@ -300,14 +335,14 @@ public class PlayerControl : MonoBehaviour
         {
             Vector2 v = transform.localPosition;
             if (mG.canMove)
-                v.x += BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
+                v.x += BattlePara.moveSpeed1 * Time.deltaTime * 0.5f;
             transform.localPosition = v;
         }
         if ((!moveScript_2.isMove) && (moveScript_2.direction == 1))
         {
             Vector2 v = transform.localPosition;
             if (mG.canMove)
-                v.x -= BattlePara.GetMoveSpeed() * Time.deltaTime * 0.5f;
+                v.x -= BattlePara.moveSpeed1 * Time.deltaTime * 0.5f;
             transform.localPosition = v;
         }
     }
@@ -354,6 +389,8 @@ public class PlayerControl : MonoBehaviour
     {
         if(!isHitted)
         {
+            gemCount = Mathf.Min(3, gemCount+1);
+            gems[gemCount - 1].AddGem();
             float x1 = transform.position.x, x2 = other.transform.position.x;
             if (x1 <= x2)
             {
@@ -369,6 +406,8 @@ public class PlayerControl : MonoBehaviour
     }
     public void Hit(int damage)
     {
+        gemCount = Mathf.Min(3, gemCount + 1);
+        gems[gemCount - 1].AddGem();
         playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
     }
     private void dashTranslate(Vector3 vector3)

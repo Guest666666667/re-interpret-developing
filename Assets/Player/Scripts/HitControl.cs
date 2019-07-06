@@ -25,18 +25,21 @@ public class HitControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        int damage = 0;
+        int damage1 = 0, damage2 = 0;
         if (name.Equals("rootBone"))
         {
-            damage = BattlePara.GetBodyDamage();
+            damage1 = BattlePara.bodyDamage1;
+            damage2 = BattlePara.bodyDamage2;
         }
         if (name.Equals("head"))
         {
-            damage = BattlePara.GetHeadDamage();
+            damage1 = BattlePara.headDamage1;
+            damage2 = BattlePara.headDamage2;
         }
         if (name.Equals("leftArm")|| name.Equals("rightArm"))
         {
-            damage = BattlePara.GetArmDamage();
+            damage1 = BattlePara.armDamage1;
+            damage2 = BattlePara.armDamage2;
         }
 
         State otherState = 0, playerState = 0;
@@ -61,38 +64,41 @@ public class HitControl : MonoBehaviour
             if (player.name.Equals("player1"))
             {
                 Debug.Log("player1");
-                player.GetComponent<PlayerControl>().HitFly(damage);
+                player.GetComponent<PlayerControl>().HitFly(damage1);
             }
             if (player.name.Equals("player2"))
             {
                 Debug.Log("player2");
-                player.GetComponent<Player2Control>().HitFly(damage);
+                player.GetComponent<Player2Control>().HitFly(damage2);
             }
         }
     }
 
     public void hitted()
     {
-        int damage = 0;
+        int damage1 = 0, damage2 = 0;
         if (name.Equals("rootBone"))
         {
-            damage = BattlePara.GetBodyDamage();
+            damage1 = BattlePara.bodyDamage1;
+            damage2 = BattlePara.bodyDamage2;
         }
         if (name.Equals("head"))
         {
-            damage = BattlePara.GetHeadDamage();
+            damage1 = BattlePara.headDamage1;
+            damage2 = BattlePara.headDamage2;
         }
         if (name.Equals("leftArm") || name.Equals("rightArm"))
         {
-            damage = BattlePara.GetArmDamage();
+            damage1 = BattlePara.armDamage1;
+            damage2 = BattlePara.armDamage2;
         }
         if (player.name.Equals("player1"))
         {
-            player.GetComponent<PlayerControl>().Hit(damage);
+            player.GetComponent<PlayerControl>().Hit(damage1);
         }
         if (player.name.Equals("player2"))
         {
-            player.GetComponent<Player2Control>().Hit(damage);
+            player.GetComponent<Player2Control>().Hit(damage2);
         }
     }
 

@@ -2872,6 +2872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4be668f4108cd846a8f08f896e1ff1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneAttribute: 000000000000000000000000
 --- !u!4 &662892774
 Transform:
   m_ObjectHideFlags: 0
@@ -3181,11 +3182,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 752370311}
+  - component: {fileID: 752370306}
   - component: {fileID: 752370310}
   - component: {fileID: 752370309}
+  - component: {fileID: 752370312}
   - component: {fileID: 752370307}
   - component: {fileID: 752370308}
-  - component: {fileID: 752370306}
   - component: {fileID: 752370305}
   m_Layer: 0
   m_Name: player1
@@ -3320,6 +3322,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!111 &752370312
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752370304}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 1
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &778785047
 GameObject:
   m_ObjectHideFlags: 0
@@ -8197,6 +8214,7 @@ GameObject:
   - component: {fileID: 1731857061}
   - component: {fileID: 1731857060}
   - component: {fileID: 1731857059}
+  - component: {fileID: 1731857062}
   - component: {fileID: 1731857058}
   - component: {fileID: 1731857057}
   - component: {fileID: 1731857056}
@@ -8334,6 +8352,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &1731857062
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731857054}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &1748930822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10439,11 +10472,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3320437021287535124, guid: e463515bb78bbdd4daeecde8b2d4fcaa,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e463515bb78bbdd4daeecde8b2d4fcaa, type: 3}
