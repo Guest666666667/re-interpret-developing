@@ -14,30 +14,52 @@ public class scoreManagement : MonoBehaviour
     public void addPerfect()
     {
         perfectCount++;
-        scoreText.GetComponent<Text>().text = "善 X" + perfectCount;
+        scoreText.GetComponent<Text>().text = "善 X";
         int dig, tenDig, hunDig;
         dig = perfectCount % 10;
         tenDig = (perfectCount / 10) % 10;
         hunDig = perfectCount / 100;
+        foreach (writeShow d in scoreValue.GetComponentsInChildren<writeShow>())
+        {
+            Destroy(d.gameObject);
+        }
         if (tenDig == 0)
         {
             //单个数字 
+            GameObject tmp = Instantiate(Resources.Load<GameObject>("UIPanel/" + dig), scoreValue, false);
+            tmp.GetComponent<writeShow>().wShow(null, dig);
         }
         else if (perfectCount == 10)
         {
             //十
+            GameObject tmp = Instantiate(Resources.Load<GameObject>("UIPanel/10"), scoreValue, false);
+            tmp.GetComponent<writeShow>().wShow(null, 10);
         }
         else if (dig == 0)
         {
             //Tendig十
+            GameObject tmp = Instantiate(Resources.Load<GameObject>("UIPanel/"+tenDig), scoreValue, false);
+            Sequence t = tmp.GetComponent<writeShow>().wShow(null, tenDig);
+            tmp = Instantiate(Resources.Load<GameObject>("UIPanel/10"), scoreValue, false);
+            tmp.GetComponent<writeShow>().wShow(t, 10);
         }
         else if (tenDig == 1)
         {
             //十dig
+            GameObject tmp = Instantiate(Resources.Load<GameObject>("UIPanel/10"), scoreValue, false);
+            Sequence t = tmp.GetComponent<writeShow>().wShow(null, 10);
+            tmp = Instantiate(Resources.Load<GameObject>("UIPanel/"+dig), scoreValue, false);
+            tmp.GetComponent<writeShow>().wShow(t, dig);
         }
         else
         {
             //tenDig十dig
+            GameObject tmp = Instantiate(Resources.Load<GameObject>("UIPanel/"+tenDig), scoreValue, false);
+            Sequence t = tmp.GetComponent<writeShow>().wShow(null, tenDig);
+            tmp = Instantiate(Resources.Load<GameObject>("UIPanel/10"), scoreValue, false);
+            t = tmp.GetComponent<writeShow>().wShow(t, 10);
+            tmp = Instantiate(Resources.Load<GameObject>("UIPanel/" + dig), scoreValue, false);
+            tmp.GetComponent<writeShow>().wShow(t, dig);
         }
 
         //根据连击数改变颜色
@@ -67,6 +89,10 @@ public class scoreManagement : MonoBehaviour
     public void fault(bool isKeyDown)
     {
         perfectCount = 0;
+        foreach (writeShow d in scoreValue.GetComponentsInChildren<writeShow>())
+        {
+            Destroy(d.gameObject);
+        }
         //根据连击数改变颜色
         float h = (120 - 6 * perfectCount) > 0 ? 120 - 6 * perfectCount : 0;
         float s = 5 * perfectCount;

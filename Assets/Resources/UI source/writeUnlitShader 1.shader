@@ -5,14 +5,14 @@
 		//_MainTex ("Texture", 2D) = "white" {}
 		_AlphaScale("Alpha Scale",Range(0,1)) = 1
 		_StartAngle("Start Angle", Range(0,1)) = 0
-		_CurrentAngle("Current Angle", Range(-1,1)) = 1
+		_CurrentAngle("Current Angle", Range(-1,1)) = 0
 		_MaxDis("Max Distance", Range(0,1)) = 0.12//最近样条线点的最远距离
 		_UnitOffset("Unit Offset", Range(0,1)) = 0.01//单个像素的偏移量
 
 		_StartCol("Start Color", Range(0,1)) = 1
 		_EndCol("End Color", Range(0,1)) = 0
 
-		_SplineTex("Spline Texture", 2D) = "white" {}
+		_SplineTex("Spline Texture", 2D) = "white" {}//样条线图片
 	[PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
 	_Color("Tint", Color) = (1,1,1,1)
 		_StencilComp("Stencil Comparison", Float) = 8
