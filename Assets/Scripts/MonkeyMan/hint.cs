@@ -23,7 +23,7 @@ public class hint : MonoBehaviour
         //transform.Find("bg").GetComponent<Image>().material = mat;
         transform.Find("miss").GetComponent<Image>().material = mat;
         transform.Find("keyHint").GetComponent<Image>().material = mat;
-        transform.Find("keyHint/Text").GetComponent<Text>().material = mat;
+        transform.Find("keyHint/evaluate").GetComponent<Image>().material = mat;
     }
 
     // Update is called once per frame
@@ -96,7 +96,7 @@ public class hint : MonoBehaviour
         if (isKeyDown && isPerfect)//按键闪光
         {
             transform.Find("miss/halo").GetComponent<CanvasGroup>().alpha = 1f;
-            transform.Find("keyHint/Text").GetComponent<Text>().text = "善";
+            transform.Find("keyHint/evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/perfect");
             Sequence flash = DOTween.Sequence();
             flash.Append(transform.Find("miss/halo").GetComponent<CanvasGroup>().DOFade(0f, 0.5f));
             transform.parent.Find("score").GetComponent<scoreManagement>().addPerfect();
@@ -104,7 +104,8 @@ public class hint : MonoBehaviour
         else
         {
             transform.parent.Find("score").GetComponent<scoreManagement>().fault(isKeyDown);
-            transform.Find("keyHint/Text").GetComponent<Text>().text = (isKeyDown ? "误" : "弃");
+            transform.Find("keyHint/evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>(isKeyDown ? "UI source/premature" : "UI source/miss");
+            //transform.Find("keyHint/Text").GetComponent<Text>().text = (isKeyDown ? "误" : "弃");
             transform.parent.Find("health").GetComponent<healthManagement>().substract(isKeyDown ? 1 : 2);
         }
     }
@@ -115,7 +116,8 @@ public class hint : MonoBehaviour
     public void setUp(string Key,int type, int seq)
     {
         this.Key = Key;
-        transform.Find("keyHint/Text").GetComponent<Text>().text = "";//Key.ToUpper();
+        transform.Find("keyHint/evaluate").GetComponent<Image>().sprite = null;
+        //transform.Find("keyHint/Text").GetComponent<Text>().text = "";//Key.ToUpper();
         if (Key == "a" || Key == "d")
         {
             transform.localPosition -= new Vector3(0f, 165f, 0f);
@@ -136,8 +138,8 @@ public class hint : MonoBehaviour
         }*/
         if (seq != 0)
         {
-            GameObject gen = Instantiate(Resources.Load("UIPanel/seqHint") as GameObject, transform, false);
-            gen.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/seqJudge" + seq);
+            GameObject gen = Instantiate(Resources.Load("UIPanel/seqHint") as GameObject, transform.Find("process"), false);
+            gen.GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/" + seq);
             //transform.Find("miss").GetChild(0).RotateAroundLocal(new Vector3(0f, 0f, 1f), -0.03f * Mathf.PI);//微调
         }
         begin();

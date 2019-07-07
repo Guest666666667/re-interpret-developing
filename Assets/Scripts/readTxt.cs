@@ -125,10 +125,10 @@ public class readTxt : MonoBehaviour {
         //{
         foreach (hint t in GameObject.Find("Canvas/runTimeUI").GetComponentsInChildren<hint>())//确定现在屏幕上存在着的按钮
         {
-            if (t.Key == "q" && t.GetComponentInChildren<Text>().text == "") temp[0] = true;
-            if (t.Key == "e" && t.GetComponentInChildren<Text>().text == "") temp[1] = true;
-            if (t.Key == "a" && t.GetComponentInChildren<Text>().text == "") temp[2] = true;
-            if (t.Key == "d" && t.GetComponentInChildren<Text>().text == "") temp[3] = true;
+            if (t.Key == "q" && t.transform.Find("keyHint/evaluate").GetComponent<Image>().sprite == null) temp[0] = true;
+            if (t.Key == "e" && t.transform.Find("keyHint/evaluate").GetComponent<Image>().sprite == null) temp[1] = true;
+            if (t.Key == "a" && t.transform.Find("keyHint/evaluate").GetComponent<Image>().sprite == null) temp[2] = true;
+            if (t.Key == "d" && t.transform.Find("keyHint/evaluate").GetComponent<Image>().sprite == null) temp[3] = true;
         }
         if (temp[0] && temp[1] && temp[2] && temp[3])
         {
