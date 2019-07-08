@@ -28,7 +28,11 @@ public class Player2Control : MonoBehaviour
     private bool isDown = false;
     public bool isTurn = false;
     private bool isDash = false;
+    private bool isCharge = false;
     private int throwCount = 1;
+    private float poisonTimer = 0f;
+
+    private float projectileBlueCost = 0.5f;
 
     private State state = State.idle;
 
@@ -50,6 +54,8 @@ public class Player2Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("2 Initing!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         playerHealth = GameObject.Find("PlayerHealth");
         rigidbody = GetComponent<Rigidbody2D>();
         if (player.name.Equals("player1"))
@@ -58,6 +64,7 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[1] = KeyCode.A;
             KeyCodeSet[2] = KeyCode.S;
             KeyCodeSet[3] = KeyCode.D;
+
             KeyCodeSet[4] = KeyCode.J;
             KeyCodeSet[5] = KeyCode.K;
             KeyCodeSet[6] = KeyCode.U;
@@ -71,6 +78,7 @@ public class Player2Control : MonoBehaviour
             KeyCodeSet[1] = KeyCode.LeftArrow;
             KeyCodeSet[2] = KeyCode.DownArrow;
             KeyCodeSet[3] = KeyCode.RightArrow;
+
             KeyCodeSet[4] = KeyCode.Keypad1;
             KeyCodeSet[5] = KeyCode.Keypad2;
             KeyCodeSet[6] = KeyCode.Keypad4;
@@ -87,6 +95,9 @@ public class Player2Control : MonoBehaviour
         bluebar = GameObject.FindWithTag("BlueBar_2").GetComponent<BlueBar>();
         gems[0] = GameObject.FindWithTag("Gem_2_1").GetComponent<Gem>(); gems[1] = GameObject.FindWithTag("Gem_2_2").GetComponent<Gem>(); gems[2] = GameObject.FindWithTag("Gem_2_3").GetComponent<Gem>();
 
+        playerHealth.GetComponent<PlayerHealth>().init();
+        BattlePara.Init();
+
         //整合的
         moveScript = GameObject.FindWithTag("player").GetComponent<PlayerControl>();//获得脚本的对象
         mG = GameObject.FindWithTag("grounds").GetComponent<moveGrounds>();
@@ -95,6 +106,31 @@ public class Player2Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (BattlePara.scene3.Equals(BattlePara.Scene.日蚀))
+        {
+            if (name.Equals("player1"))
+            {
+                KeyCodeSet[1] = KeyCode.D;
+                KeyCodeSet[3] = KeyCode.A;
+            }
+            if (name.Equals("player2"))
+            {
+                KeyCodeSet[1] = KeyCode.RightArrow;
+                KeyCodeSet[3] = KeyCode.LeftArrow;
+            }
+        }
+
+        if (BattlePara.scene3.Equals(BattlePara.Scene.多云))
+        {
+            if (!isCharge)
+            {
+                bluebar.chargeFull();
+                gems[0].AddGem(); gems[1].AddGem(); gems[2].AddGem();
+                gemCount = 3;
+            }
+            isCharge = true;
+        }
+
         bool isTuring = true;
         if (animator.GetCurrentAnimatorStateInfo(2).IsName("front") || animator.GetCurrentAnimatorStateInfo(2).IsName("back"))
         {
@@ -227,16 +263,18 @@ public class Player2Control : MonoBehaviour
                 direction = 0;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[0]) && isOnLand && !isDown)
+            if (Input.GetKeyDown(KeyCodeSet[0]) && isOnLand && !isDown && !isTuring)
             {
                 rigidbody.velocity = new Vector2(0, 400 * BattlePara.jumpSpeed2 * Time.deltaTime);
+                isOnLand = false;
                 animator.SetTrigger("jumpUp");
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring)
+            if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[0])
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
+                bluebar.releaseSkill(BattlePara.player2MotionCost[0]);
                 //animator.SetBool("isAttack", true);
                 animator.enabled = false;
                 animation.clip = ac1;
@@ -245,10 +283,11 @@ public class Player2Control : MonoBehaviour
                 state = State.attack;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring)
+            if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[1])
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
+                bluebar.releaseSkill(BattlePara.player2MotionCost[1]);
                 //animator.SetBool("isGuard", true);
                 animator.enabled = false;
                 animation.clip = ac2;
@@ -257,10 +296,11 @@ public class Player2Control : MonoBehaviour
                 state = State.guard;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring)
+            if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[2])
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
+                bluebar.releaseSkill(BattlePara.player2MotionCost[2]);
                 //animator.SetBool("isAttack2", true);
                 animator.enabled = false;
                 animation.clip = ac3;
@@ -287,14 +327,16 @@ public class Player2Control : MonoBehaviour
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
             }
-            if (Input.GetKeyDown(KeyCodeSet[8]) && bluebar.get() == 1f)
+            if (Input.GetKeyDown(KeyCodeSet[8]) 
+                && bluebar.get() >= projectileBlueCost 
+                && !BattlePara.scene2.Equals(BattlePara.Scene.高树))
             {
                 throwCount = 1;
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isThrow", true);
                 state = State.throws;
-                bluebar.releaseSkill();
+                bluebar.releaseSkill(projectileBlueCost);
             }
         }
 
@@ -309,6 +351,20 @@ public class Player2Control : MonoBehaviour
 
         animator.SetBool("isDown", isDown);
         animator.SetBool("isOnLand", isOnLand);
+
+        if (BattlePara.scene2.Equals(BattlePara.Scene.荆棘))
+        {
+            poisonTimer += Time.deltaTime;
+            if (poisonTimer >= 1f)
+            {
+                float randomPoint = Random.value;
+                if (randomPoint <= 0.4f)
+                {
+                    Poison(2);
+                }
+                poisonTimer = 0f;
+            }
+        }
 
         //如果另一个人物在移动
         if (moveScript.isMove)
@@ -374,6 +430,15 @@ public class Player2Control : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.name.Equals("Grass"))
+        {
+            isOnLand = true;
+            isHitted = false;
+        }
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.name.Equals("Grass"))
@@ -403,6 +468,16 @@ public class Player2Control : MonoBehaviour
             {
                 player.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(5, 5), ForceMode2D.Impulse);
             }
+
+            if (BattlePara.scene2.Equals(BattlePara.Scene.桃林))
+            {
+                float randomPoint = Random.value;
+                if (randomPoint <= 0.2f)
+                {
+                    damage -= 2;
+                }
+            }
+
             playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
             isHitted = true;
         }
@@ -411,8 +486,22 @@ public class Player2Control : MonoBehaviour
     {
         gemCount = Mathf.Min(3, gemCount + 1);
         gems[gemCount - 1].AddGem();
+
+        if (BattlePara.scene2.Equals(BattlePara.Scene.桃林))
+        {
+            float randomPoint = Random.value;
+            if (randomPoint <= 0.2f)
+            {
+                damage -= 2;
+            }
+        }
+
         playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
 
+    }
+    public void Poison(int damage)
+    {
+        playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
     }
     private void dashTranslate(Vector3 vector3)
     {

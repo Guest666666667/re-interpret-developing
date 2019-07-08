@@ -94,10 +94,18 @@ public class HitControl : MonoBehaviour
         }
         if (player.name.Equals("player1"))
         {
+            if(BattlePara.scene3.Equals(BattlePara.Scene.艳阳))
+            {
+                damage1 += 15;
+            }
             player.GetComponent<PlayerControl>().Hit(damage1);
         }
         if (player.name.Equals("player2"))
         {
+            if (BattlePara.scene3.Equals(BattlePara.Scene.艳阳))
+            {
+                damage2 += 15;
+            }
             player.GetComponent<Player2Control>().Hit(damage2);
         }
     }

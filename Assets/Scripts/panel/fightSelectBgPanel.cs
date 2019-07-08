@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class fightSelectBgPanel : BasePanel
 {
@@ -27,8 +28,10 @@ public class fightSelectBgPanel : BasePanel
         anim = GetComponent<Animator>();
         P1anim_m = transform.Find("farBG").Find("middleImage").GetComponent<Animator>();
         P2anim_m = transform.Find("nearBG").Find("middleImage").GetComponent<Animator>();
-        GameObject.Find("/player1").transform.Translate(4f, 0, 0);
-        GameObject.Find("/player2").transform.Translate(4f, 0, 0);
+        //GameObject.Find("/player1").transform.Translate(4f, 0, 0);
+        //GameObject.Find("/player2").transform.Translate(4f, 0, 0);
+        GameObject.Find("/player1").transform.DOLocalMoveX(-6, 0.8f);
+        GameObject.Find("/player2").transform.DOLocalMoveX(6, 0.8f);
 
         weather = transform.Find("weather").GetComponent<Image>();
         random = transform.Find("weather/random").gameObject;

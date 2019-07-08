@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static BattlePara;
 
 public class BlueBar : MonoBehaviour
 {
@@ -20,6 +21,15 @@ public class BlueBar : MonoBehaviour
     {
         HandleBar();
         changeBlueBar();
+
+        if(tag.Equals("BlueBar_1"))
+        {
+            speed = 0.1f * BattlePara.chargeSpeed1;
+        }
+        if (tag.Equals("BlueBar_2"))
+        {
+            speed = 0.1f * BattlePara.chargeSpeed2;
+        }
     }
     /// <summary>
     /// 蓝条更新
@@ -36,10 +46,14 @@ public class BlueBar : MonoBehaviour
             fillAmount = 1.0f;
         }
     }
-    public void releaseSkill()
+    public void releaseSkill(float cost)
     {
-        fillAmount = 0f;
-    }   
+        fillAmount = Mathf.Max(0,fillAmount-cost);
+    }
+    public void chargeFull()
+    {
+        fillAmount = 1f;
+    }
 
     public float get()
     {

@@ -11,6 +11,7 @@ public class BattlePara : MonoBehaviour
     public static int headDamage1;
     public static int guardDamage1;
     public static int armDamage1;
+    public static float[] player1MotionCost = new float[3]; 
 
     public static float moveSpeed2;
     public static float jumpSpeed2;
@@ -19,8 +20,9 @@ public class BattlePara : MonoBehaviour
     public static int headDamage2;
     public static int guardDamage2;
     public static int armDamage2;
+    public static float[] player2MotionCost = new float[3];
 
-    private GameObject attributeManager;
+    private static GameObject attributeManager;
     /// <summary>
     ///      生命值，攻击力，头防，胸防，后臂防，跳跃高度，移速
     ///   头{ 1, 1, 1, 1, 1, 1, 1 }
@@ -32,15 +34,26 @@ public class BattlePara : MonoBehaviour
     /// 左腿{ 1, 1, 1, 1, 1, 1, 1 }
     /// 右腿{ 1, 1, 1, 1, 1, 1, 1 }
     /// </summary>
-    private int[] P1DefaultValue = { 100, 15, 3, 5, 5, 10, 12 };
-    private int[] P2DefaultValue = { 100, 15, 3, 5, 5, 10, 12 };
-    private int[] SceneDefaultAttribute = { 0, 0, 0 };
-    private int[] P1ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
-    private int[] P2ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
-    public int[] SceneAttribute = { 0, 0, 0 };//第一个位置为远景，中间位置为天气，第三个为近景
-                                               //远景列表：
-                                               //天气列表：云，月，蚀，阳
-                                               //近景列表：高树，桃林，荆棘
+    private static int[] P1DefaultValue = { 100, 15, 3, 5, 5, 10, 12 };
+    private static int[] P2DefaultValue = { 100, 15, 3, 5, 5, 10, 12 };
+    private static int[] SceneDefaultAttribute = { 0, 0, 0 };
+    private static int[] P1ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
+    private static int[] P2ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
+    public static int[] SceneAttribute = { 0, 0, 0 };//第一个位置为远景，中间位置为天气，第三个为近景
+                                                     //远景列表：
+                                                     //天气列表：云，月，蚀，阳
+                                                     //近景列表：高树，桃林，荆棘
+
+    public enum Scene
+    {
+        远山,雪岭,险峰,
+        高树,荆棘,桃林,
+        艳阳,日蚀,新月,多云
+    }
+
+    public static Scene scene1 = Scene.远山; //远景
+    public static Scene scene2 = Scene.高树; //近景
+    public static Scene scene3 = Scene.艳阳; //天气
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +69,7 @@ public class BattlePara : MonoBehaviour
         
     }
 
-    public void init()
+    public static void Init()
     {
         Attribute a = attributeManager.GetComponent<Attribute>();
         P1ValueArray = a.getP1Attribute();
@@ -78,5 +91,73 @@ public class BattlePara : MonoBehaviour
         headDamage2 = P1ValueArray[1] - P2ValueArray[2];
         guardDamage2 = 10;
         armDamage2 = P1ValueArray[1] - P2ValueArray[4];
+
+        int[][] blueCost = a.getPoseOffset();
+        for(int i=0;i<3;i++)
+        {
+            float temp1 = blueCost[0][i], temp2 = blueCost[1][i];
+            player1MotionCost[i] = temp1 / 100.0f; player2MotionCost[i] = temp2 / 100.0f;
+        }
+
+        //第一个位置为远景，中间位置为天气，第三个为近景
+        //远景列表：
+        //天气列表：云，月，蚀，阳
+        //近景列表：高树，桃林，荆棘
+
+        switch (SceneAttribute[0])
+        {
+            case 0:
+                scene1 = Scene.远山;
+                break;
+            case 1:
+                scene1 = Scene.雪岭;
+                break;
+            case 2:
+                scene1 = Scene.险峰;
+                break;
+        }
+        switch (SceneAttribute[1])
+        {
+            case 0:
+                scene3 = Scene.多云;
+                break;
+            case 1:
+                scene3 = Scene.新月;
+                break;
+            case 2:
+                scene3 = Scene.日蚀;
+                break;
+            case 3:
+                scene3 = Scene.艳阳;
+                break;
+        }
+        switch (SceneAttribute[2])
+        {
+            case 0:
+                scene2 = Scene.高树;
+                break;
+            case 1:
+                scene2 = Scene.桃林;
+                break;
+            case 2:
+                scene2 = Scene.荆棘;
+                break;
+        }
+
+        if(scene1.Equals(Scene.远山))
+        {
+            chargeSpeed1 *= 2.0f; chargeSpeed2 *= 2.0f;
+        }
+        if (scene1.Equals(Scene.雪岭))
+        {
+            moveSpeed1 *= 0.7f; moveSpeed2 *= 0.7f;
+            jumpSpeed1 *= 0.7f; jumpSpeed2 *= 0.7f;
+        }
+        if (scene1.Equals(Scene.险峰))
+        {
+            moveSpeed1 *= 1.3f; moveSpeed2 *= 1.3f;
+            bodyDamage1 += 1; headDamage1 += 1; armDamage1 += 1;
+            bodyDamage2 += 1; headDamage2 += 1; armDamage2 += 1;
+        }
     }
 }

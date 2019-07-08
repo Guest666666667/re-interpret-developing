@@ -26,7 +26,7 @@ public class selectStoryPanel : BasePanel
         //beginButton.gameObject.SetActive(false);//未选择前不可用
 
         //firstStoryButton.Select();
-        //Invoke("OnSelect", 1.1f);
+        Invoke("OnSelect", 1.1f);
         //绑定响应函数
         firstStoryButton.onClick.AddListener(OnTurnFirstClick);
         secondStoryButton.onClick.AddListener(OnTurnSecondClick);

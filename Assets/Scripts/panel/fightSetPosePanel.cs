@@ -7,6 +7,7 @@ using System.IO;
 public class fightSetPosePanel : BasePanel
 {
     private CanvasGroup canvasGroup;
+    private Attribute attributeManager;
     private const int paraCount = 6;
     private Animator anim;
     //private Text player1Button;
@@ -37,6 +38,7 @@ public class fightSetPosePanel : BasePanel
     void Start()
     {
         canvasGroup = transform.GetComponent<CanvasGroup>();
+        attributeManager = transform.Find("/attributeManager").GetComponent<Attribute>();
         anim = GetComponent<Animator>();
         head = GameObject.Find("/player2/model/头");
 
@@ -80,6 +82,8 @@ public class fightSetPosePanel : BasePanel
             transform.Find("P1confirmMessage").gameObject.SetActive(true);
             transform.Find("P1").GetComponent<selectPose>().enabled = false;
             transform.Find("P1").GetComponent<CanvasGroup>().alpha = 0.5f;
+            //计算偏差
+            attributeManager.setPoseArray(player1Para,1);
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad1))
@@ -88,6 +92,8 @@ public class fightSetPosePanel : BasePanel
             transform.Find("P2confirmMessage").gameObject.SetActive(true);
             transform.Find("P2").GetComponent<selectPose>().enabled = false;
             transform.Find("P2").GetComponent<CanvasGroup>().alpha = 0.5f;
+            //计算偏差
+            attributeManager.setPoseArray(player2Para,2);
         }
 
         if (!player1OK)

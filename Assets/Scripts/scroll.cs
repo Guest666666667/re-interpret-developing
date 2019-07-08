@@ -27,11 +27,17 @@ public class scroll : MonoBehaviour
         txt_1 = GameObject.Find("Text_1");
         txt_1.GetComponent<Text>().text = "生命值:" + a.getP1Attribute()[0];
         txt_2 = GameObject.Find("Text_2");
+        txt_2.GetComponent<Text>().text = "攻击力:" + a.getP1Attribute()[1];
         txt_3 = GameObject.Find("Text_3");
+        txt_3.GetComponent<Text>().text = "头防:" + a.getP1Attribute()[2];
         txt_4 = GameObject.Find("Text_4");
+        txt_4.GetComponent<Text>().text = "胸防:" + a.getP1Attribute()[3];
         txt_5 = GameObject.Find("Text_5");
+        txt_5.GetComponent<Text>().text = "后臂防:" + a.getP1Attribute()[4];
         txt_6 = GameObject.Find("Text_6");
+        txt_6.GetComponent<Text>().text = "跳跃高度:" + a.getP1Attribute()[5];
         txt_7 = GameObject.Find("Text_7");
+        txt_7.GetComponent<Text>().text = "移速:" + a.getP1Attribute()[6];
 
     }
 
