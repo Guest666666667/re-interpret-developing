@@ -2777,7 +2777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 4c441a96595605440838274f86ab5f11, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -3009,7 +3009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 8df0fc66290f6ba44aa1d407c08819fe, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -3521,7 +3521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 8df0fc66290f6ba44aa1d407c08819fe, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -5093,7 +5093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 9ea99bd9093fd0d4e87b7c2b0a61e135, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -5796,7 +5796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 9c0458f16de238342852c4c73835f458, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -6069,7 +6069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: b5416043cd1dd0649b1cc45a5fb18ce7, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -7744,7 +7744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: 82b7e3a81eac4aa44bbc199560f72347, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -8869,7 +8869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: b5416043cd1dd0649b1cc45a5fb18ce7, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -9494,7 +9494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: fa0abc4aa8f33fe478adff5a7e992ddf, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -9779,7 +9779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: fa0abc4aa8f33fe478adff5a7e992ddf, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
@@ -9957,7 +9957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpriteMesh: {fileID: 11400000, guid: a8ec651d9ddc84345ab03bf0b4571eb7, type: 2}
-  m_Color: {r: 1, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 0}
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0

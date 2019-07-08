@@ -19,9 +19,11 @@ public class afterBone : MonoBehaviour
     private float showingLast = 10000f;//展示剩余时间
     public float existTime = 0.5f;
     private bool needSlow = false;
+    private int countRun = 0;//跑步动作循环计数
 
     void Start()
     {
+        countRun = 0;
         existTime = 0.5f;
         hasAcc = true;
         needSlow = false;
@@ -116,6 +118,14 @@ public class afterBone : MonoBehaviour
             tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, 1f);
         }
         this.needSlow = needSlow;
+        if (needSlow)
+        {
+            existTime = 0.5f;
+        }
+        else
+        {
+            existTime = 1f;
+        }
     }
 
     public void callChange(string stateName)//空方法，防止残影动画触发相同的事件
@@ -131,5 +141,19 @@ public class afterBone : MonoBehaviour
     public void enableSwing(bool isOn)
     {
         parent.GetComponent<parent>().enableSwing(isOn);
+    }
+
+    public void beginThirsty()
+    {
+        countRun++;
+        if (countRun >= 5)
+        {
+            countRun = 0;
+            GetComponent<Animator>().SetBool("thirsty", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("thirsty", false);
+        }
     }
 }
