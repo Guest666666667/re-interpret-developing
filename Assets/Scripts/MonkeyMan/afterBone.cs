@@ -12,6 +12,7 @@ public class afterBone : MonoBehaviour
     private float needCoverLast = 10000f;//距离需要复原剩余时间
     private float coverTimeLast = 10000f;//复原到正常位置需要的剩余时间*/
     public GameObject model;//对应残影部位模型对象
+    public GameObject parent;
     private bool hasAcc = true;//是否已加速
     private float timeLast = 10000f;//加速到完美位置需要的剩余时间
     private bool showing = false;//是否正在展示残影
@@ -125,5 +126,10 @@ public class afterBone : MonoBehaviour
     public void begin()//同上
     {
 
+    }
+
+    public void enableSwing(bool isOn)
+    {
+        parent.GetComponent<parent>().enableSwing(isOn);
     }
 }

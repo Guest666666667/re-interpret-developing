@@ -23,7 +23,7 @@ public class hint : MonoBehaviour
         //transform.Find("bg").GetComponent<Image>().material = mat;
         transform.Find("miss").GetComponent<Image>().material = mat;
         transform.Find("keyHint").GetComponent<Image>().material = mat;
-        transform.Find("keyHint/evaluate").GetComponent<Image>().material = mat;
+        //transform.Find("keyHint/evaluate").GetComponent<Image>().material = mat;
     }
 
     // Update is called once per frame
@@ -83,6 +83,7 @@ public class hint : MonoBehaviour
             transform.DOScale(new Vector3(2f, 2f, 2f), 0.5f);
         }*/
         //Tweener tweener = GetComponent<CanvasGroup>().DOFade(0, 0.4f);
+        transform.Find("keyHint/evaluate").GetComponent<Image>().material = mat;
         transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.5f);
         DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_Offset"), x => GetComponentInChildren<Image>().material.SetFloat("_Offset", x), 0.05f, 0.4f);
         Tweener tweener = DOTween.To(() => GetComponentInChildren<Image>().material.GetFloat("_AlphaScale"), x => GetComponentInChildren<Image>().material.SetFloat("_AlphaScale", x), 0f, 0.4f);
