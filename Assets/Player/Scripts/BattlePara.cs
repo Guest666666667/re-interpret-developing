@@ -11,6 +11,7 @@ public class BattlePara : MonoBehaviour
     public static int headDamage1;
     public static int guardDamage1;
     public static int armDamage1;
+    public static float[] player1MotionCost = new float[3]; 
 
     public static float moveSpeed2;
     public static float jumpSpeed2;
@@ -19,6 +20,7 @@ public class BattlePara : MonoBehaviour
     public static int headDamage2;
     public static int guardDamage2;
     public static int armDamage2;
+    public static float[] player2MotionCost = new float[3];
 
     private static GameObject attributeManager;
     /// <summary>
@@ -67,7 +69,7 @@ public class BattlePara : MonoBehaviour
         
     }
 
-    public static void init()
+    public static void Init()
     {
         Attribute a = attributeManager.GetComponent<Attribute>();
         P1ValueArray = a.getP1Attribute();
@@ -90,12 +92,19 @@ public class BattlePara : MonoBehaviour
         guardDamage2 = 10;
         armDamage2 = P1ValueArray[1] - P2ValueArray[4];
 
+        int[][] blueCost = a.getPoseOffset();
+        for(int i=0;i<3;i++)
+        {
+            float temp1 = blueCost[0][i], temp2 = blueCost[1][i];
+            player1MotionCost[i] = temp1 / 100.0f; player2MotionCost[i] = temp2 / 100.0f;
+        }
+
         //第一个位置为远景，中间位置为天气，第三个为近景
         //远景列表：
         //天气列表：云，月，蚀，阳
         //近景列表：高树，桃林，荆棘
 
-        switch(SceneAttribute[0])
+        switch (SceneAttribute[0])
         {
             case 0:
                 scene1 = Scene.远山;

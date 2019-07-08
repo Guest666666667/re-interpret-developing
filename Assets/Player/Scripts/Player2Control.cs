@@ -32,9 +32,6 @@ public class Player2Control : MonoBehaviour
     private int throwCount = 1;
     private float poisonTimer = 0f;
 
-    private float attackBlueCost = 0;
-    private float guardBlueCost = 0;
-    private float attack2BlueCost = 0;
     private float projectileBlueCost = 0.5f;
 
     private State state = State.idle;
@@ -57,6 +54,8 @@ public class Player2Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("2 Initing!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
         playerHealth = GameObject.Find("PlayerHealth");
         rigidbody = GetComponent<Rigidbody2D>();
         if (player.name.Equals("player1"))
@@ -95,6 +94,9 @@ public class Player2Control : MonoBehaviour
         throwArea = GameObject.Find(name + "/Skeleton/rootBone/rightArm/rightArm2/rightHand/throwArea");
         bluebar = GameObject.FindWithTag("BlueBar_2").GetComponent<BlueBar>();
         gems[0] = GameObject.FindWithTag("Gem_2_1").GetComponent<Gem>(); gems[1] = GameObject.FindWithTag("Gem_2_2").GetComponent<Gem>(); gems[2] = GameObject.FindWithTag("Gem_2_3").GetComponent<Gem>();
+
+        playerHealth.GetComponent<PlayerHealth>().init();
+        BattlePara.Init();
 
         //整合的
         moveScript = GameObject.FindWithTag("player").GetComponent<PlayerControl>();//获得脚本的对象
@@ -268,11 +270,11 @@ public class Player2Control : MonoBehaviour
                 animator.SetTrigger("jumpUp");
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring && bluebar.get() >= attackBlueCost)
+            if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[0])
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(attackBlueCost);
+                bluebar.releaseSkill(BattlePara.player2MotionCost[0]);
                 //animator.SetBool("isAttack", true);
                 animator.enabled = false;
                 animation.clip = ac1;
@@ -281,11 +283,11 @@ public class Player2Control : MonoBehaviour
                 state = State.attack;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring && bluebar.get() >= guardBlueCost)
+            if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[1])
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(guardBlueCost);
+                bluebar.releaseSkill(BattlePara.player2MotionCost[1]);
                 //animator.SetBool("isGuard", true);
                 animator.enabled = false;
                 animation.clip = ac2;
@@ -294,11 +296,11 @@ public class Player2Control : MonoBehaviour
                 state = State.guard;
             }
 
-            if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring && bluebar.get() >= attack2BlueCost)
+            if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[2])
             {
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(attack2BlueCost);
+                bluebar.releaseSkill(BattlePara.player2MotionCost[2]);
                 //animator.SetBool("isAttack2", true);
                 animator.enabled = false;
                 animation.clip = ac3;

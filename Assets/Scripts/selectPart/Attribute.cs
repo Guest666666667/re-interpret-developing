@@ -155,7 +155,9 @@ public class Attribute : MonoBehaviour
                     poseOffset[i][j] = 10;
                 }
             }
-        //Debug.Log("OFFSET: " + poseOffset[0][0]);
+        Debug.Log("OFFSET: " + poseOffset[0][0]);
+        Debug.Log("OFFSET: " + poseOffset[0][1]);
+
     }
     public int[] getP1Attribute()
     {
