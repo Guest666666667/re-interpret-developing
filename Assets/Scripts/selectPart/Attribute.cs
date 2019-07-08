@@ -49,12 +49,19 @@ public class Attribute : MonoBehaviour
                                                //远景列表：
                                                //天气列表：云，月，蚀，阳
                                                //近景列表：高树，桃林，荆棘
+    private int[][] poseOffset = new int[2][];//0为P1,1为P2；姿势偏差蓝量，用于蓝控，顺序：JKL
+    private int[] compareArray = { -152, -157, 0, 0, -270, 0 };//中间23位不管，只管左手
     // Start is called before the first frame update
     void Start()
     {
         totalAttribute[0] = guanyuAttribute;
         totalAttribute[1] = daqiaoAttribute;
         totalAttribute[2] = wukongAttribute;
+        poseOffset[0] = new int[3];//player1
+        poseOffset[1] = new int[3];//player2
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 3; j++)
+                poseOffset[i][j] = 0;
         //totalAttribute[index[i]][i,j],index[i]为部件指定的角色序号，i为部件,j为属性序号
     }
 
@@ -114,6 +121,42 @@ public class Attribute : MonoBehaviour
     {
         SceneAttribute[changePartIndex] = value;
     }
+    public void setPoseArray(int[][] value,int player)
+    {
+        if (player == 1)
+        {
+            for (int i = 0; i < 3; i++)
+                for (int k = 0; k < 6; k++)
+                {
+                    if (k < 2 || k > 3)
+                    {
+                        poseOffset[0][i] += Mathf.Abs(value[i][k] - compareArray[k]);
+                    }
+                }
+        }
+        else
+        {
+            for (int i = 0; i < 3; i++)
+                for (int k = 0; k < 6; k++)
+                {
+                    if (k < 2 || k > 3)
+                    {
+                        poseOffset[1][i] += Mathf.Abs(value[i][k] - compareArray[k]);
+                    }
+                }
+        }
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 3; j++)
+            {
+                if (poseOffset[i][j] / 10 < 10)
+                    poseOffset[i][j] = poseOffset[i][j] / 10;
+                else
+                {
+                    poseOffset[i][j] = 10;
+                }
+            }
+        //Debug.Log("OFFSET: " + poseOffset[0][0]);
+    }
     public int[] getP1Attribute()
     {
         return P1ValueArray;
@@ -125,5 +168,9 @@ public class Attribute : MonoBehaviour
     public int[] getSceneAttribute()
     {
         return SceneAttribute;
+    }
+    public int[][] getPoseOffset()
+    {
+        return poseOffset;
     }
 }

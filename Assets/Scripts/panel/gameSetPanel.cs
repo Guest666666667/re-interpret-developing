@@ -8,13 +8,15 @@ using UnityEngine.SceneManagement;
 public class gameSetPanel : BasePanel {
     private CanvasGroup canvasGroup;
     private Button returnButton;
-    private Button musicOnButton;
-    private Button soundOnButton;
+    //private Button musicOnButton;
+    //private Button soundOnButton;
     private Button backButton;
     private Button reBeginButton;
-    private Slider musicSlider;
-    private Slider soundSlider;
+    //private Slider musicSlider;
+    //private Slider soundSlider;
     private bool onShow;//用来判断音量是否需要更新
+    private Image musicImage;
+    private Image soundImage;
 
     // Use this for initialization
     private void Start () {
@@ -22,32 +24,60 @@ public class gameSetPanel : BasePanel {
         returnButton = transform.Find("returnButton").GetComponent<Button>();
         backButton = transform.Find("backButton").GetComponent<Button>();
         reBeginButton = transform.Find("reBeginButton").GetComponent<Button>();
-        musicOnButton = transform.Find("music").Find("musicOnButton").GetComponent<Button>();
-        soundOnButton = transform.Find("sound").Find("soundOnButton").GetComponent<Button>();
-        musicSlider = transform.Find("music").Find("musicSlider").GetComponent<Slider>();
-        soundSlider = transform.Find("sound").Find("soundSlider").GetComponent<Slider>();
+        musicImage = transform.Find("musicImage").GetComponent<Image>();
+        soundImage = transform.Find("soundImage").GetComponent<Image>();
+        //musicOnButton = transform.Find("music").Find("musicOnButton").GetComponent<Button>();
+        //soundOnButton = transform.Find("sound").Find("soundOnButton").GetComponent<Button>();
+        //musicSlider = transform.Find("music").Find("musicSlider").GetComponent<Slider>();
+        //soundSlider = transform.Find("sound").Find("soundSlider").GetComponent<Slider>();
 
         //绑定
         returnButton.onClick.AddListener(OnClose);
-        musicOnButton.onClick.AddListener(OnMusic);
-        soundOnButton.onClick.AddListener(OnSound);
+        //musicOnButton.onClick.AddListener(OnMusic);
+        //soundOnButton.onClick.AddListener(OnSound);
         backButton.onClick.AddListener(OnBack);
         reBeginButton.onClick.AddListener(OnAgain);
         //统一变量
-        musicSlider.value = settingMessage.Instance.getMusicVolume();
-        soundSlider.value = settingMessage.Instance.getSoundVolume();
+        musicImage.fillAmount = settingMessage.Instance.getMusicVolume();
+        soundImage.fillAmount = settingMessage.Instance.getSoundVolume();
+        Debug.Log(settingMessage.Instance.getMusicVolume());
     }
     void Update()
     {
-        if (onShow)
-        {
-            settingMessage.Instance.setMusicVolume(musicSlider.value);
-            settingMessage.Instance.setSoundVolume(soundSlider.value);
-        }
+        //if (onShow)
+        //{
+        //    settingMessage.Instance.setMusicVolume(musicSlider.value);
+        //    settingMessage.Instance.setSoundVolume(soundSlider.value);
+        //}
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
         //    OnClose();
         //}
+    }
+    void OnGUI()
+    {
+        Event m_Event = Event.current;
+        float width = Screen.width;
+        float scale = width / 1920;
+        if (Input.GetMouseButton(0))
+        {
+            Vector2 temp = m_Event.mousePosition;
+            Debug.Log(temp);
+            if (temp.x > 775 * scale && temp.x < 1155 * scale)
+            {
+                if (temp.y > 358 * scale && temp.y < 438 * scale)
+                {
+                    Debug.Log("mouse Funtion in!");
+                    musicImage.fillAmount = (temp.x - 775 * scale) / (380 * scale);
+                    settingMessage.Instance.setMusicVolume(musicImage.fillAmount);
+                }
+                else if (temp.y > 488 * scale && temp.y < 568 * scale)
+                {
+                    soundImage.fillAmount = (temp.x - 775 * scale) / (380 * scale);
+                    settingMessage.Instance.setSoundVolume(soundImage.fillAmount);
+                }
+            }
+        }
     }
     public override void OnEnter()
     {
@@ -128,14 +158,14 @@ public class gameSetPanel : BasePanel {
             SceneManager.LoadScene(2, LoadSceneMode.Single);
         }
     }
-    public void OnMusic()
-    {
-        musicSlider.value = 0;
-    }
-    public void OnSound()
-    {
-        soundSlider.value = 0;//back.volume=soundSlider.value;
-    }
+    //public void OnMusic()
+    //{
+    //    musicSlider.value = 0;
+    //}
+    //public void OnSound()
+    //{
+    //    soundSlider.value = 0;//back.volume=soundSlider.value;
+    //}
     public void OnBack()
     {
         Time.timeScale = 1;
