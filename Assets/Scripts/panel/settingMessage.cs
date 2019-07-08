@@ -37,7 +37,7 @@ public class settingMessage : UnitySingleton<settingMessage> {
     public void setMusicVolume(float vol)
     {
         musicVolume = vol;
-        //Debug.Log("set right!volume:"+musicVolume);
+        //Debug.Log("set right!Musicvolume:"+musicVolume);
     }
     public void setSoundVolume(float vol)
     {

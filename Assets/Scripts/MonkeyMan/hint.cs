@@ -96,7 +96,7 @@ public class hint : MonoBehaviour
         if (isKeyDown && isPerfect)//按键闪光
         {
             transform.Find("miss/halo").GetComponent<CanvasGroup>().alpha = 1f;
-            transform.Find("keyHint/evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/perfect");
+            transform.Find("keyHint/evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/w_perfect");
             Sequence flash = DOTween.Sequence();
             flash.Append(transform.Find("miss/halo").GetComponent<CanvasGroup>().DOFade(0f, 0.5f));
             transform.parent.Find("score").GetComponent<scoreManagement>().addPerfect();
@@ -104,7 +104,7 @@ public class hint : MonoBehaviour
         else
         {
             transform.parent.Find("score").GetComponent<scoreManagement>().fault(isKeyDown);
-            transform.Find("keyHint/evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>(isKeyDown ? "UI source/premature" : "UI source/miss");
+            transform.Find("keyHint/evaluate").GetComponent<Image>().sprite = Resources.Load<Sprite>(isKeyDown ? "UI source/w_premature" : "UI source/w_miss");
             //transform.Find("keyHint/Text").GetComponent<Text>().text = (isKeyDown ? "误" : "弃");
             transform.parent.Find("health").GetComponent<healthManagement>().substract(isKeyDown ? 1 : 2);
         }
