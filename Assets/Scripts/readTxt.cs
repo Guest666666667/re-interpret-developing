@@ -68,7 +68,19 @@ public class readTxt : MonoBehaviour {
             totalTime = GameObject.Find("AudioManager").GetComponent<AudioManager>().MusicPlayer.time;
         }
 
-        
+        if (Input.GetButtonDown("j"))
+        {
+            //PlayMusic("test");
+            foreach (Animator t in GameObject.Find("parent/Skeleton").GetComponentsInChildren<Animator>())
+            {
+                t.SetBool("ready", true);
+            }
+            foreach (Animator t in GameObject.Find("afterImage/Skeleton").GetComponentsInChildren<Animator>())
+            {
+                t.SetBool("ready", true);
+            }
+        }
+
         //}
         for (int i = 0; i < musicPoint.Count; i++)
         {
