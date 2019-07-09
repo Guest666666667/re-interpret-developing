@@ -18,10 +18,12 @@ public class frontBone : MonoBehaviour
     private bool hasDel = false;//是否已删除一层慢镜头
     private List<GameObject> buttons;
     private int countRun = 0;//跑步动作循环计数
+    private int countThirsty = 0;//干渴动作循环计数
 
     void Start()
     {
         countRun = 0;
+        countThirsty = 0;
         hasDel = false;
         buttons = new List<GameObject>();
         hasAcc = true;
@@ -194,11 +196,22 @@ public class frontBone : MonoBehaviour
         if (countRun >= 5)
         {
             countRun = 0;
-            GetComponent<Animator>().SetBool("thirsty", true);
+            GetComponent<Animator>().SetBool("thirsty", !GetComponent<Animator>().GetBool("thirsty"));
+        }
+    }
+
+    public void beginDrink()
+    {
+        countThirsty++;
+        GetComponent<Animator>().SetFloat("thirstySpeed", (5f / 6f) * GetComponent<Animator>().GetFloat("thirstySpeed"));
+        if (countThirsty >= 3)
+        {
+            countThirsty = 0;
+            GetComponent<Animator>().SetBool("drink", true);
         }
         else
         {
-            GetComponent<Animator>().SetBool("thirsty", false);
+            GetComponent<Animator>().SetBool("drink", false);
         }
     }
 }
