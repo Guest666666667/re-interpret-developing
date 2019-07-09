@@ -130,7 +130,7 @@ public class hint : MonoBehaviour
         if (type == 1)
         {
             transform.Find("miss").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/judge1");
-            transform.Find("keyHint").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/smallJudge1");
+            //transform.Find("keyHint").GetComponent<Image>().sprite = Resources.Load<Sprite>("UI source/smallJudge1");
         }
         /*for (int i = 0; i < seq; i++)//代码设置连击提示旋转角度
         {

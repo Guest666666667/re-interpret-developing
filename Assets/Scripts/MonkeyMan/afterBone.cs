@@ -175,7 +175,7 @@ public class afterBone : MonoBehaviour
         else if (type == 1)
         {
             countTired++;
-            GetComponent<Animator>().SetFloat("tiredSpeed", (5f / 6f) * GetComponent<Animator>().GetFloat("tiredSpeed"));
+            GetComponent<Animator>().SetFloat("tiredSpeed", 0.9f * GetComponent<Animator>().GetFloat("tiredSpeed"));
             if (countTired >= 3)
             {
                 countTired = 0;
