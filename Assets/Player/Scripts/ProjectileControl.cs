@@ -51,6 +51,10 @@ public class ProjectileControl : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+
+            /*Vector2 temp = new Vector2(-forceV.x, forceV.y);
+            rigidbody2D.AddForce(temp);*/
+
             Debug.Log("Collision with Guard:" + collision.collider.name);
             return;
         }
