@@ -267,46 +267,61 @@ public class Player2Control : MonoBehaviour
             {
                 rigidbody.velocity = new Vector2(0, 400 * BattlePara.jumpSpeed2 * Time.deltaTime);
                 isOnLand = false;
+
                 animator.SetTrigger("jumpUp");
+
+                JumpAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[0])
             {
+                bluebar.releaseSkill(BattlePara.player2MotionCost[0]);
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(BattlePara.player2MotionCost[0]);
                 //animator.SetBool("isAttack", true);
                 animator.enabled = false;
                 animation.clip = ac1;
                 animation.AddClip(ac1, ac1.name);
                 animation.Play();
+
                 state = State.attack;
+
+                HitAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[1])
             {
+                bluebar.releaseSkill(BattlePara.player2MotionCost[1]);
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(BattlePara.player2MotionCost[1]);
                 //animator.SetBool("isGuard", true);
                 animator.enabled = false;
                 animation.clip = ac2;
                 animation.AddClip(ac2, ac2.name);
                 animation.Play();
+
                 state = State.guard;
+
+                HitAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring && bluebar.get() >= BattlePara.player2MotionCost[2])
             {
+                bluebar.releaseSkill(BattlePara.player2MotionCost[2]);
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(BattlePara.player2MotionCost[2]);
                 //animator.SetBool("isAttack2", true);
                 animator.enabled = false;
                 animation.clip = ac3;
                 animation.AddClip(ac3, ac3.name);
                 animation.Play();
+
                 state = State.attack2;
+
+                HitAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring && gemCount>0)
@@ -315,14 +330,18 @@ public class Player2Control : MonoBehaviour
                 gems[gemCount].DeleteGem();
                 isDash = true;
                 isTurn = !isTurn;
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
+
+                TurnAudio();
             }
             if (Input.GetKeyDown(KeyCodeSet[7]) && !isTuring)
             {
                 isDash = false;
                 isTurn = !isTurn;
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
@@ -331,12 +350,16 @@ public class Player2Control : MonoBehaviour
                 && bluebar.get() >= projectileBlueCost 
                 && !BattlePara.scene2.Equals(BattlePara.Scene.高树))
             {
+                bluebar.releaseSkill(projectileBlueCost);
                 throwCount = 1;
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isThrow", true);
+
                 state = State.throws;
-                bluebar.releaseSkill(projectileBlueCost);
+
+                ThrowAudio();
             }
         }
 
@@ -480,6 +503,8 @@ public class Player2Control : MonoBehaviour
 
             playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
             isHitted = true;
+
+            HittedAudio();
         }
     }
     public void Hit(int damage)
@@ -498,10 +523,13 @@ public class Player2Control : MonoBehaviour
 
         playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
 
+        HittedAudio();
+
     }
     public void Poison(int damage)
     {
         playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
+        HittedAudio();
     }
     private void dashTranslate(Vector3 vector3)
     {
@@ -510,5 +538,27 @@ public class Player2Control : MonoBehaviour
         {
             rigidbody.transform.Translate(vector3, Space.World);
         }
+    }
+
+    //Audio
+    private void JumpAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Jump");
+    }
+    private void HittedAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Hitted");
+    }
+    private void HitAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Hit");
+    }
+    private void ThrowAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Throw");
+    }
+    private void TurnAudio()
+    {
+
     }
 }
