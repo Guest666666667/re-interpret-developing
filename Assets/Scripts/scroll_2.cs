@@ -11,7 +11,7 @@ public class scroll_2 : MonoBehaviour
     private bool open = false;
 
 
-    public static GameObject txt_11;
+    public static GameObject txt_21;
     public static GameObject txt_22;
     public static GameObject txt_23;
     public static GameObject txt_24;
@@ -24,13 +24,29 @@ public class scroll_2 : MonoBehaviour
 
     void Start()
     {
-        txt_11 = GameObject.Find("Text_21");
+        /*txt_21 = GameObject.Find("Text_21");
         txt_22 = GameObject.Find("Text_22");
         txt_23 = GameObject.Find("Text_23");
         txt_24 = GameObject.Find("Text_24");
         txt_25 = GameObject.Find("Text_25");
         txt_26 = GameObject.Find("Text_26");
+        txt_27 = GameObject.Find("Text_27");*/
+
+        Attribute a = GameObject.Find("attributeManager").GetComponent<Attribute>();
+        txt_21 = GameObject.Find("Text_21");
+        txt_21.GetComponent<Text>().text = "生命值:" + a.getP2Attribute()[0];
+        txt_22 = GameObject.Find("Text_22");
+        txt_22.GetComponent<Text>().text = "攻击力:" + a.getP2Attribute()[1];
+        txt_23 = GameObject.Find("Text_23");
+        txt_23.GetComponent<Text>().text = "头防:" + a.getP2Attribute()[2];
+        txt_24 = GameObject.Find("Text_24");
+        txt_24.GetComponent<Text>().text = "胸防:" + a.getP2Attribute()[3];
+        txt_25 = GameObject.Find("Text_25");
+        txt_25.GetComponent<Text>().text = "后臂防:" + a.getP2Attribute()[4];
+        txt_26 = GameObject.Find("Text_26");
+        txt_26.GetComponent<Text>().text = "跳跃高度:" + a.getP2Attribute()[5];
         txt_27 = GameObject.Find("Text_27");
+        txt_27.GetComponent<Text>().text = "移速:" + a.getP2Attribute()[6];
 
     }
 
@@ -56,8 +72,8 @@ public class scroll_2 : MonoBehaviour
                 fillAmount -= 0.1f;
             if (fillAmount < 0)
                 fillAmount = 0f;
-            txt_11.SetActive(false);
-            Debug.Log(txt_11.tag);
+            txt_21.SetActive(false);
+            Debug.Log(txt_21.tag);
             txt_22.SetActive(false);
             txt_23.SetActive(false);
             txt_24.SetActive(false);
@@ -72,7 +88,7 @@ public class scroll_2 : MonoBehaviour
                 fillAmount += 0.1f;
                 if (fillAmount > 0.15)
                 {
-                    txt_11.SetActive(true);
+                    txt_21.SetActive(true);
                 }
                 if (fillAmount > 0.3)
                 {

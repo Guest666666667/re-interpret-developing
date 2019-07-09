@@ -6,6 +6,7 @@ public class frontBone : MonoBehaviour
 {
     public string objectName;//残影对应部位骨骼对象的路径
     public float existTime = 1.2f;//光圈缩小时间
+    public GameObject parent;
     private float transLast = 10000f;//按键失误时用来计算距离状态转换的剩余时间
     private float perfectLast = 10000f;//距离完美判定点剩余时间
     private bool hasAcc = true;//是否已加速
@@ -16,9 +17,11 @@ public class frontBone : MonoBehaviour
     private string[] Keys = null;//所有需要按下的键值
     private bool hasDel = false;//是否已删除一层慢镜头
     private List<GameObject> buttons;
+    private int countRun = 0;//跑步动作循环计数
 
     void Start()
     {
+        countRun = 0;
         hasDel = false;
         buttons = new List<GameObject>();
         hasAcc = true;
@@ -178,5 +181,24 @@ public class frontBone : MonoBehaviour
         }
         perfectLast = existTime;
         //callChange(needSlow);
+    }
+
+    public void enableSwing(bool isOn)
+    {
+        parent.GetComponent<parent>().enableSwing(isOn);
+    }
+
+    public void beginThirsty()
+    {
+        countRun++;
+        if (countRun >= 5)
+        {
+            countRun = 0;
+            GetComponent<Animator>().SetBool("thirsty", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("thirsty", false);
+        }
     }
 }

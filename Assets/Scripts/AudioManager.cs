@@ -13,10 +13,23 @@ public class AudioManager : UnitySingleton<AudioManager>
        
         //Instance = new AudioManager();
         //Instance = this;
-        PlayMusic("test");
     }
-   
 
+    void Update()
+    {
+        if (Input.GetButtonDown("j"))
+        {
+            //PlayMusic("test");
+            foreach (Animator t in GameObject.Find("parent/Skeleton").GetComponentsInChildren<Animator>())
+            {
+                t.SetBool("ready", true);
+            }
+            foreach (Animator t in GameObject.Find("afterImage/Skeleton").GetComponentsInChildren<Animator>())
+            {
+                t.SetBool("ready", true);
+            }
+        }
+    }
     //// Update is called once per frame
     //void Update()
     //{

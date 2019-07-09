@@ -103,7 +103,7 @@ public class readTxt : MonoBehaviour {
                 boneSeq[i] = tmp;
                 genRan();
             }
-            if ((((boneSeq[i] == 0 || boneSeq[i] == 7 || boneSeq[i] == 8) && totalTime >= (musicPoint[i] - 0.5f / 0.5f)) || (!(boneSeq[i] == 0 || boneSeq[i] == 7 || boneSeq[i] == 8) && totalTime >= (musicPoint[i] - 0.5f))) && actionJudge[i] == false) //双键慢动作时间预算
+            if ((((boneSeq[i] == 0 || boneSeq[i] == 7 || boneSeq[i] == 8) && totalTime >= (musicPoint[i] - 0.5f / 0.5f)) || (!(boneSeq[i] == 0 || boneSeq[i] == 7 || boneSeq[i] == 8) && totalTime >= (musicPoint[i] - 1f))) && actionJudge[i] == false) //双键慢动作时间预算
             {
                 boneList[boneSeq[i]].GetComponent<frontBone>().callChange((boneSeq[i] == 0 || boneSeq[i] == 7 || boneSeq[i] == 8) ? true : false);
                 actionJudge[i] = true;

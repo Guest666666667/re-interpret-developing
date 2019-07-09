@@ -12,15 +12,18 @@ public class afterBone : MonoBehaviour
     private float needCoverLast = 10000f;//距离需要复原剩余时间
     private float coverTimeLast = 10000f;//复原到正常位置需要的剩余时间*/
     public GameObject model;//对应残影部位模型对象
+    public GameObject parent;
     private bool hasAcc = true;//是否已加速
     private float timeLast = 10000f;//加速到完美位置需要的剩余时间
     private bool showing = false;//是否正在展示残影
     private float showingLast = 10000f;//展示剩余时间
     public float existTime = 0.5f;
     private bool needSlow = false;
+    private int countRun = 0;//跑步动作循环计数
 
     void Start()
     {
+        countRun = 0;
         existTime = 0.5f;
         hasAcc = true;
         needSlow = false;
@@ -115,6 +118,14 @@ public class afterBone : MonoBehaviour
             tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, 1f);
         }
         this.needSlow = needSlow;
+        if (needSlow)
+        {
+            existTime = 0.5f;
+        }
+        else
+        {
+            existTime = 1f;
+        }
     }
 
     public void callChange(string stateName)//空方法，防止残影动画触发相同的事件
@@ -125,5 +136,24 @@ public class afterBone : MonoBehaviour
     public void begin()//同上
     {
 
+    }
+
+    public void enableSwing(bool isOn)
+    {
+        parent.GetComponent<parent>().enableSwing(isOn);
+    }
+
+    public void beginThirsty()
+    {
+        countRun++;
+        if (countRun >= 5)
+        {
+            countRun = 0;
+            GetComponent<Animator>().SetBool("thirsty", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("thirsty", false);
+        }
     }
 }
