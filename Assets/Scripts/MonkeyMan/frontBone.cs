@@ -19,6 +19,8 @@ public class frontBone : MonoBehaviour
     private List<GameObject> buttons;
     private int countRun = 0;//跑步动作循环计数
     private int countThirsty = 0;//干渴动作循环计数
+    private int countTired = 0;//累动作循环计数
+    private int countExhaust = 0;//极累动作循环计数
 
     void Start()
     {
@@ -200,18 +202,49 @@ public class frontBone : MonoBehaviour
         }
     }
 
-    public void beginDrink()
+    public void beginDrink(int type)//0代表即将干渴 1代表即将极累 2代表即将累死
     {
-        countThirsty++;
-        GetComponent<Animator>().SetFloat("thirstySpeed", (5f / 6f) * GetComponent<Animator>().GetFloat("thirstySpeed"));
-        if (countThirsty >= 3)
+        if (type == 0)
         {
-            countThirsty = 0;
-            GetComponent<Animator>().SetBool("drink", true);
+            countThirsty++;
+            GetComponent<Animator>().SetFloat("thirstySpeed", (5f / 6f) * GetComponent<Animator>().GetFloat("thirstySpeed"));
+            if (countThirsty >= 3)
+            {
+                countThirsty = 0;
+                GetComponent<Animator>().SetBool("drink", true);
+            }
+            else
+            {
+                GetComponent<Animator>().SetBool("drink", false);
+            }
         }
-        else
+        else if (type == 1)
         {
-            GetComponent<Animator>().SetBool("drink", false);
+            countTired++;
+            GetComponent<Animator>().SetFloat("tiredSpeed", (5f / 6f) * GetComponent<Animator>().GetFloat("tiredSpeed"));
+            if (countTired >= 3)
+            {
+                countTired = 0;
+                GetComponent<Animator>().SetBool("exhaust", true);
+            }
+            else
+            {
+                GetComponent<Animator>().SetBool("exhaust", false);
+            }
+        }
+        else if (type == 2)
+        {
+            countExhaust++;
+            GetComponent<Animator>().SetFloat("exhaustSpeed", (5f / 6f) * GetComponent<Animator>().GetFloat("exhaustSpeed"));
+            if (countExhaust >= 3)
+            {
+                countExhaust = 0;
+                GetComponent<Animator>().SetBool("die", true);
+            }
+            else
+            {
+                GetComponent<Animator>().SetBool("die", false);
+            }
         }
     }
 }

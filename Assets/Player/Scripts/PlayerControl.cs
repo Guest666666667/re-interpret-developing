@@ -149,13 +149,13 @@ public class PlayerControl : MonoBehaviour
             {
                 Vector3 vector3 = new Vector3(12 * BattlePara.moveSpeed1 * Time.deltaTime, 0, 0);
                 //rigidbody.transform.Translate(vector3, Space.World);
-                dashTranslate(vector3);
+                DashTranslate(vector3);
             }
             else
             {
                 Vector3 vector3 = new Vector3(-12 * BattlePara.moveSpeed1 * Time.deltaTime, 0, 0);
                 //rigidbody.transform.Translate(vector3, Space.World);
-                dashTranslate(vector3);
+                DashTranslate(vector3);
             }
         }
 
@@ -261,47 +261,62 @@ public class PlayerControl : MonoBehaviour
             if (Input.GetKeyDown(KeyCodeSet[0]) && isOnLand && !isDown && !isTuring)
             {
                 rigidbody.velocity = new Vector2(0, 400 * BattlePara.jumpSpeed1 * Time.deltaTime);
+
                 isOnLand = false;
                 animator.SetTrigger("jumpUp");
+
+                JumpAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[4]) && !isTuring && bluebar.get() >= BattlePara.player1MotionCost[0])
             {
+                bluebar.releaseSkill(BattlePara.player1MotionCost[0]);
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(BattlePara.player1MotionCost[0]);
                 //animator.SetBool("isAttack", true);
                 animator.enabled = false;
                 animation.clip = ac1;
                 animation.AddClip(ac1, ac1.name);
                 animation.Play();
+
                 state = State.attack;
+
+                HitAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[5]) && !isTuring && bluebar.get() >= BattlePara.player1MotionCost[1])
             {
+                bluebar.releaseSkill(BattlePara.player1MotionCost[1]);
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(BattlePara.player1MotionCost[1]);
                 //animator.SetBool("isGuard", true);
                 animator.enabled = false;
                 animation.clip = ac2;
                 animation.AddClip(ac2, ac2.name);
                 animation.Play();
+
                 state = State.guard;
+
+                HitAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[9]) && !isTuring && bluebar.get() >= BattlePara.player1MotionCost[2])
             {
+                bluebar.releaseSkill(BattlePara.player1MotionCost[2]);
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
-                bluebar.releaseSkill(BattlePara.player1MotionCost[2]);
                 //animator.SetBool("isAttack2", true);
                 animator.enabled = false;
                 animation.clip = ac3;
                 animation.AddClip(ac3, ac3.name);
                 animation.Play();
+
                 state = State.attack2;
+
+                HitAudio();
             }
 
             if (Input.GetKeyDown(KeyCodeSet[6]) && !isTuring && gemCount>0)
@@ -310,6 +325,7 @@ public class PlayerControl : MonoBehaviour
                 gems[gemCount].DeleteGem();
                 isTurn = !isTurn;
                 isDash = true;
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
@@ -318,6 +334,7 @@ public class PlayerControl : MonoBehaviour
             {
                 isTurn = !isTurn;
                 isDash = false;
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
@@ -327,18 +344,25 @@ public class PlayerControl : MonoBehaviour
                 && bluebar.get() >= projectileBlueCost 
                 && !BattlePara.scene2.Equals(BattlePara.Scene.高树))
             {
+                bluebar.releaseSkill(projectileBlueCost);
                 throwCount = 1;
+
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isThrow", true);
+
                 state = State.throws;
-                bluebar.releaseSkill(projectileBlueCost);
+
+                ThrowAudio();
             }
         }
 
         if (Input.GetKey(KeyCodeSet[2]) && isOnLand && !isDown)
         {
             isDown = true;
+
+            DownAudio();
+
         }
         if (Input.GetKeyUp(KeyCodeSet[2]) && isDown)
         {
@@ -474,6 +498,8 @@ public class PlayerControl : MonoBehaviour
                 }
             }
 
+            HittedAudio();
+
             playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
             isHitted = true;
         }
@@ -492,18 +518,43 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
+        HittedAudio();
+
         playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
     }
     public void Poison(int damage)
     {
         playerHealth.GetComponent<PlayerHealth>().damage(player.name, damage);
+        HittedAudio();
     }
-    private void dashTranslate(Vector3 vector3)
+    private void DashTranslate(Vector3 vector3)
     {
         float x = transform.position.x + vector3.x;
         if (x >=-8.2 && x <= 8.2)
         {
             rigidbody.transform.Translate(vector3, Space.World);
         }
+    }
+
+    //Audio
+    private void JumpAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Jump");
+    }
+    private void HittedAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Hitted");
+    }
+    private void HitAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Hit");
+    }
+    private void ThrowAudio()
+    {
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Throw");
+    }
+    private void DownAudio()
+    {
+
     }
 }
