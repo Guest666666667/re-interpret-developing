@@ -62,12 +62,12 @@ public class gameSetPanel : BasePanel {
         if (Input.GetMouseButton(0))
         {
             Vector2 temp = m_Event.mousePosition;
-            Debug.Log(temp);
+            //Debug.Log(temp);
             if (temp.x > 775 * scale && temp.x < 1155 * scale)
             {
                 if (temp.y > 358 * scale && temp.y < 438 * scale)
                 {
-                    Debug.Log("mouse Funtion in!");
+                    //Debug.Log("mouse Funtion in!");
                     musicImage.fillAmount = (temp.x - 775 * scale) / (380 * scale);
                     settingMessage.Instance.setMusicVolume(musicImage.fillAmount);
                 }
