@@ -10,6 +10,8 @@ public class init : MonoBehaviour
         if (gameObject.scene.name == "mainScene")
         {
             UIManager.Instance.PushPanel(UIPanelType.begin);
+            //AudioManager.Instance.PlayMusic("test");
+            AudioManager.Instance.PlaySound("test");
         }
         else if (gameObject.scene.name == "fightGame")
         {

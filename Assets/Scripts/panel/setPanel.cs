@@ -50,11 +50,13 @@ public class setPanel : BasePanel {
                     //Debug.Log("mouse Funtion in!");
                     musicImage.fillAmount = (temp.x -720f * scale) / (490f * scale);
                     settingMessage.Instance.setMusicVolume(musicImage.fillAmount);
+                    AudioManager.Instance.changeMusicVolume(0.5f * musicImage.fillAmount);
                 }
                 else if (temp.y > 585 * scale && temp.y < 685 * scale)
                 {
                     soundImage.fillAmount = (temp.x -720f * scale) / (490f * scale);
                     settingMessage.Instance.setSoundVolume(soundImage.fillAmount);
+                    AudioManager.Instance.changeSoundVolume(0.5f * soundImage.fillAmount);
                 }
             }
         }

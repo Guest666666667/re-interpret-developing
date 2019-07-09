@@ -7,6 +7,7 @@ public class AudioManager : UnitySingleton<AudioManager>
     //public static AudioManager Instance;
     public AudioSource MusicPlayer;
     public AudioSource SoundPlayer;
+    private bool firstIn = true;
  
 	// Use this for initialization
 	void Start () {
@@ -26,8 +27,11 @@ public class AudioManager : UnitySingleton<AudioManager>
     //播放音乐
     public void PlayMusic(string name)
     {
-        if(MusicPlayer.isPlaying==false)
+        Debug.Log("is playing");
+        if (!MusicPlayer.isPlaying||firstIn)
         {
+            Debug.Log("no playing");
+            firstIn = false;
             AudioClip clip = Resources.Load<AudioClip>(name);
             MusicPlayer.clip = clip;
             MusicPlayer.Play();
@@ -45,7 +49,7 @@ public class AudioManager : UnitySingleton<AudioManager>
     {
         AudioClip clip = Resources.Load<AudioClip>(name);
         SoundPlayer.clip = clip;
-        SoundPlayer.PlayOneShot(clip);
+        SoundPlayer.PlayOneShot(clip,0.8f);
     }
     //改变音量
     public void changeMusicVolume(float vol)
