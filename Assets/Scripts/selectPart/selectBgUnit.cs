@@ -37,9 +37,10 @@ public class selectBgUnit : MonoBehaviour
         right = transform.Find("rightImage").GetComponent<Image>();
 
         BG = GameObject.Find("/BG");
-        BG.transform.GetChild(0).gameObject.SetActive(true);//背景
-        BG.transform.GetChild(1).gameObject.SetActive(true);//地面
-        BG.transform.GetChild(2).gameObject.SetActive(true);//地面
+        //BG.transform.GetChild(0).gameObject.SetActive(true);//背景
+        //BG.transform.GetChild(1).gameObject.SetActive(true);//地面
+        //BG.transform.GetChild(2).gameObject.SetActive(true);//地面
+
         BG.transform.GetChild(3).gameObject.SetActive(true);//远景
         BG.transform.Find("Peach").gameObject.SetActive(true);//第一个桃林
         nearBGtemp = BG.transform.Find("Peach").gameObject;
@@ -82,7 +83,7 @@ public class selectBgUnit : MonoBehaviour
     {
         //if (nearBGtemp != null)
         //    nearBGtemp.SetActive(false);
-
+        AudioManager.Instance.PlaySound("Music/Sound/UI/tick");
         if (LeftOrRight == 2)//如果上一次上下操作为右
         {
             anim_m.SetInteger("state", anim_m.GetInteger("state") - 5);
@@ -177,6 +178,7 @@ public class selectBgUnit : MonoBehaviour
     }
     public void OnEnterRight(bool ifFar)
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/tick");
         if (LeftOrRight == 1)//上一个操作为左
         {
             anim_m.SetInteger("state", anim_m.GetInteger("state") + 5);

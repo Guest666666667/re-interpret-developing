@@ -10,8 +10,10 @@ public class init : MonoBehaviour
         if (gameObject.scene.name == "mainScene")
         {
             UIManager.Instance.PushPanel(UIPanelType.begin);
+            transform.Find("beginPanel(Clone)").Find("Text").gameObject.SetActive(false);
+            Invoke("OnActive", 2.2f);
             //AudioManager.Instance.PlayMusic("test");
-            AudioManager.Instance.PlaySound("test");
+            AudioManager.Instance.PlayMusic("Music/mainScene");
         }
         else if (gameObject.scene.name == "fightGame")
         {
@@ -27,5 +29,9 @@ public class init : MonoBehaviour
     void Update()
     {
 
+    }
+    public void OnActive()
+    {
+        transform.Find("beginPanel(Clone)").Find("Text").gameObject.SetActive(true);
     }
 }

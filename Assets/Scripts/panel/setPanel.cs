@@ -99,6 +99,7 @@ public class setPanel : BasePanel {
     }
     public void OnClose()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/return");
         uiMng.PopPanel();
         //Debug.Log("pop already");
     }

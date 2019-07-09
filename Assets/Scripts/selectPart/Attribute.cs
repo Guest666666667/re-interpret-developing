@@ -84,7 +84,7 @@ public class Attribute : MonoBehaviour
         }
         else
         {
-            P1ValueArray[attributeIndex] = value;
+            P2ValueArray[attributeIndex] = value;
         }
         return value;
     }

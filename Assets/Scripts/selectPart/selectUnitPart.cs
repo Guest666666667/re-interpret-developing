@@ -119,6 +119,7 @@ public class selectUnitPart : MonoBehaviour
     }
     public void OnEnterUp()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/tick");
         //int tempIndex = currPartIndex[1];//上下相当于确定，在执行上下运动之前的中间位置为确定的对象
         buttonUp.alpha = 1.0f;
         if (upOrdown == 2)//如果上一次上下操作为下
@@ -197,6 +198,7 @@ public class selectUnitPart : MonoBehaviour
     }
     public void OnEnterDown()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/tick");
         buttonDown.alpha = 1.0f;
         if (upOrdown == 1)//上一个操作为上
         {
@@ -271,6 +273,7 @@ public class selectUnitPart : MonoBehaviour
     }
     public void OnEnterLeft(int player)
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
         buttonLeft.alpha = 1.0f;
         switch (dir)
         {
@@ -348,6 +351,7 @@ public class selectUnitPart : MonoBehaviour
     }
     public void OnEnterRight(int player)
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
         buttonRight.alpha = 1.0f;
         switch (dir)
         {
@@ -670,7 +674,7 @@ public class selectUnitPart : MonoBehaviour
                 ifChange = 0;
                 break;
             case 3://自定义
-                   //到自定义的时候，选择框改变
+                //到自定义的时候，选择框改变
                 index[currPartIndex[0]] = 0;
                 index[currPartIndex[1]] = 1;
                 index[currPartIndex[2]] = 2;
@@ -702,15 +706,43 @@ public class selectUnitPart : MonoBehaviour
                 //更改人物
                 if (player == 1)
                 {
-                    P1Sprite[currPartIndex[0]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[currPartIndex[0]]);
-                    P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[currPartIndex[1]]);
-                    P1Sprite[currPartIndex[2]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[currPartIndex[2]]);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (currPartIndex[i] < 3)//小于3的直接对应
+                            P1Sprite[currPartIndex[i]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                        else if (currPartIndex[i] >= 3 && currPartIndex[i] <= 5)
+                        {
+                            P1Sprite[currPartIndex[i]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                            P1Sprite[currPartIndex[i] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                        }
+                        else if (currPartIndex[i] > 5)
+                        {
+                            P1Sprite[currPartIndex[i] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                        }
+                    }
+                    //P1Sprite[currPartIndex[0]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[currPartIndex[0]]);
+                    //P1Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                    //P1Sprite[currPartIndex[2]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[currPartIndex[2]]);
                 }
                 else
                 {
-                    P2Sprite[currPartIndex[0]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[currPartIndex[0]]);
-                    P2Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[currPartIndex[1]]);
-                    P2Sprite[currPartIndex[2]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[currPartIndex[2]]);
+                    //P2Sprite[currPartIndex[0]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[0] + "/SpriteMesh/" + message[currPartIndex[0]]);
+                    //P2Sprite[currPartIndex[1]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[1] + "/SpriteMesh/" + message[currPartIndex[1]]);
+                    //P2Sprite[currPartIndex[2]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[2] + "/SpriteMesh/" + message[currPartIndex[2]]);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (currPartIndex[i] < 3)//小于3的直接对应
+                            P2Sprite[currPartIndex[i]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                        else if (currPartIndex[i] >= 3 && currPartIndex[i] <= 5)
+                        {
+                            P2Sprite[currPartIndex[i]].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                            P2Sprite[currPartIndex[i] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                        }
+                        else if (currPartIndex[i] > 5)
+                        {
+                            P2Sprite[currPartIndex[i] + 3].spriteMesh = Resources.Load<SpriteMesh>("Model/" + modelName[i] + "/SpriteMesh/" + message[currPartIndex[i]]);
+                        }
+                    }
                 }
 
                 break;

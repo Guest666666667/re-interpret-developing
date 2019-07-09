@@ -49,6 +49,7 @@ public class fightSelectBgPanel : BasePanel
             transform.Find("farConfirmMessage").gameObject.SetActive(true);
             transform.Find("farBG").GetComponent<selectBgUnit>().enabled = false;
             transform.Find("farBG").GetComponent<CanvasGroup>().alpha = 0.5f;
+            AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         }
         if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1))
         {
@@ -56,6 +57,7 @@ public class fightSelectBgPanel : BasePanel
             transform.Find("nearConfirmMessage").gameObject.SetActive(true);
             transform.Find("nearBG").GetComponent<selectBgUnit>().enabled = false;
             transform.Find("nearBG").GetComponent<CanvasGroup>().alpha = 0.5f;
+            AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         }
         if (P1Enter && P2Enter)
         {
