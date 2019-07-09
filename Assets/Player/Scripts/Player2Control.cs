@@ -542,19 +542,19 @@ public class Player2Control : MonoBehaviour
     //Audio
     private void JumpAudio()
     {
-        AudioManager.Instance.PlaySound("Music/Player/Jump.wav");
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Jump");
     }
     private void HittedAudio()
     {
-        AudioManager.Instance.PlaySound("Music/Player/Hitted.wav");
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Hitted");
     }
     private void HitAudio()
     {
-        AudioManager.Instance.PlaySound("Music/Player/Hit.wav");
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Hit");
     }
     private void ThrowAudio()
     {
-        AudioManager.Instance.PlaySound("Music/Player/Throw.wav");
+        AudioManager.Instance.PlaySound("Music/Sound/Player/Throw");
     }
     private void DownAudio()
     {
