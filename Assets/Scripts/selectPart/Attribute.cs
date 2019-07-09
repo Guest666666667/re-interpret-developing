@@ -50,7 +50,7 @@ public class Attribute : MonoBehaviour
                                                //天气列表：云，月，蚀，阳
                                                //近景列表：高树，桃林，荆棘
     private int[][] poseOffset = new int[2][];//0为P1,1为P2；姿势偏差蓝量，用于蓝控，顺序：JKL
-    private int[] compareArray = { -152, -157, 0, 0, -270, 0 };//中间23位不管，只管左手
+    private int[] compareArray = { -152, -157, 167, 145, -270, 0 };//中间23位不管，只管左手
     // Start is called before the first frame update
     void Start()
     {
@@ -128,7 +128,7 @@ public class Attribute : MonoBehaviour
             for (int i = 0; i < 3; i++)
                 for (int k = 0; k < 6; k++)
                 {
-                    if (k < 2 || k > 3)
+                    if (k > 1) 
                     {
                         poseOffset[0][i] += Mathf.Abs(value[i][k] - compareArray[k]);
                     }
@@ -139,7 +139,7 @@ public class Attribute : MonoBehaviour
             for (int i = 0; i < 3; i++)
                 for (int k = 0; k < 6; k++)
                 {
-                    if (k < 2 || k > 3)
+                    if (k > 1)
                     {
                         poseOffset[1][i] += Mathf.Abs(value[i][k] - compareArray[k]);
                     }

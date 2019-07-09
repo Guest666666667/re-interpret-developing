@@ -14,7 +14,7 @@ public class selectStoryPanel : BasePanel
     private bool firstOrSecond;//fight为true,story为false
     private Animator anim;
 
-    private void Start()
+    void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         firstStoryButton = transform.Find("runAfterSunButton").GetComponent<Button>();
@@ -53,10 +53,9 @@ public class selectStoryPanel : BasePanel
         anim.SetInteger("state", 1);
         //canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        //Vector3 temp = transform.localPosition;
-        //temp.x = 500;
-        //transform.localPosition = temp;
-        //transform.DOLocalMoveX(0, .5f);
+        if (firstStoryButton == null)
+            firstStoryButton = transform.Find("runAfterSunButton").GetComponent<Button>();
+        firstStoryButton.Select();
     }
     public override void OnPause()
     {
