@@ -334,6 +334,8 @@ public class Player2Control : MonoBehaviour
                 animator.SetBool("isBack", false);
                 animator.SetBool("isFront", false);
                 animator.SetBool("isTurn", isTurn);
+
+                TurnAudio();
             }
             if (Input.GetKeyDown(KeyCodeSet[7]) && !isTuring)
             {
@@ -364,7 +366,6 @@ public class Player2Control : MonoBehaviour
         if (Input.GetKey(KeyCodeSet[2]) && isOnLand && !isDown)
         {
             isDown = true;
-            DownAudio();
         }
         if (Input.GetKeyUp(KeyCodeSet[2]) && isDown)
         {
@@ -556,7 +557,7 @@ public class Player2Control : MonoBehaviour
     {
         AudioManager.Instance.PlaySound("Music/Sound/Player/Throw");
     }
-    private void DownAudio()
+    private void TurnAudio()
     {
 
     }
