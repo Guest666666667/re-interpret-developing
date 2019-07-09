@@ -42,19 +42,21 @@ public class setPanel : BasePanel {
         if (Input.GetMouseButton(0))
         {
             Vector2 temp = m_Event.mousePosition;
-            Debug.Log(temp);
+            //Debug.Log(temp);
             if (temp.x > 720*scale && temp.x < 1210*scale)
             {
-                if (temp.y > 315 * scale && temp.y < 415 * scale)
+                if (temp.y > 415 * scale && temp.y < 515 * scale)
                 {
-                    Debug.Log("mouse Funtion in!");
+                    //Debug.Log("mouse Funtion in!");
                     musicImage.fillAmount = (temp.x -720f * scale) / (490f * scale);
                     settingMessage.Instance.setMusicVolume(musicImage.fillAmount);
+                    AudioManager.Instance.changeMusicVolume(0.5f * musicImage.fillAmount);
                 }
-                else if (temp.y > 485 * scale && temp.y < 585 * scale)
+                else if (temp.y > 585 * scale && temp.y < 685 * scale)
                 {
                     soundImage.fillAmount = (temp.x -720f * scale) / (490f * scale);
                     settingMessage.Instance.setSoundVolume(soundImage.fillAmount);
+                    AudioManager.Instance.changeSoundVolume(0.5f * soundImage.fillAmount);
                 }
             }
         }
