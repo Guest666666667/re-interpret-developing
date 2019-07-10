@@ -27,12 +27,11 @@ public class setPanel : BasePanel {
     }
     void Update()
     {
-
-        //if (onShow)
-        //{
-        //    settingMessage.Instance.setMusicVolume(musicSlider.value);
-        //    settingMessage.Instance.setSoundVolume(soundSlider.value);
-        //}
+        if (onShow&&Input.GetKeyDown(KeyCode.Q))
+        {
+            onShow = false;
+            OnClose();
+        }
     }
     void OnGUI()
     {
@@ -99,6 +98,7 @@ public class setPanel : BasePanel {
     }
     public void OnClose()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/return");
         uiMng.PopPanel();
         //Debug.Log("pop already");
     }

@@ -12,8 +12,9 @@ public class fightFinalPanel : BasePanel
     private Button reBeginButton;
     private Text vectoryText;
     private Text timeText;
-    private int vectoryPlayer = 0;
+    private int vectoryPlayer;
     private int latedTime = 10;
+    private Attribute attributeManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,16 @@ public class fightFinalPanel : BasePanel
         vectoryText.text = "";
         timeText = transform.Find("timeText").GetComponent<Text>();//获取时间
         timeText.text = "";
+        attributeManager = GameObject.Find("/attributeManager").GetComponent<Attribute>();
+        if (attributeManager.getWhoWin())
+        {
+            vectoryPlayer = 1;
+        }
+        else
+        {
+            vectoryPlayer = 2;
+        }
+        latedTime = attributeManager.getTime();
 
         backButton.onClick.AddListener(OnBack);
         reBeginButton.onClick.AddListener(OnAgain);

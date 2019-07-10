@@ -27,6 +27,7 @@ public class beginPanelKeyPad : MonoBehaviour
             //showImage.transform.DOLocalMoveY(775, 1);
             anim.SetBool("nextIn", true);
             Debug.Log("shi zheli meicuo ");
+            AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
             //TODO add delay
             Invoke("turnPage", 1);
             gameObject.SetActive(false);

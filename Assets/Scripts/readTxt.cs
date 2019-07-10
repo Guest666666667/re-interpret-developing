@@ -56,7 +56,7 @@ public class readTxt : MonoBehaviour {
             boneSeq[i] = 0;
         }
 
-        genRan();
+        genRan(true);
     }
 
     // Update is called once per frame
@@ -113,7 +113,14 @@ public class readTxt : MonoBehaviour {
                 //Debug.Log(seq);
                 musicJudge[i] = true;
                 boneSeq[i] = tmp;
-                genRan();
+                if ((i + 1) == 6 || (i + 1) == 9)
+                {
+                    genRan(true);
+                }
+                else
+                {
+                    genRan(false);
+                }
             }
             if ((((boneSeq[i] == 0 || boneSeq[i] == 7 || boneSeq[i] == 8) && totalTime >= (musicPoint[i] - 0.5f / 0.5f)) || (!(boneSeq[i] == 0 || boneSeq[i] == 7 || boneSeq[i] == 8) && totalTime >= (musicPoint[i] - 1f))) && actionJudge[i] == false) //双键慢动作时间预算
             {
@@ -129,7 +136,7 @@ public class readTxt : MonoBehaviour {
         }
     }
 
-    public void genRan()//生成随机骨骼序号
+    public void genRan(bool needDouble)//生成随机骨骼序号
     {
         tmp = Mathf.FloorToInt(Random.value * boneList.Length);
         bool[] temp = new bool[4];
@@ -142,15 +149,33 @@ public class readTxt : MonoBehaviour {
             if (t.Key == "a" && t.transform.Find("keyHint/evaluate").GetComponent<Image>().sprite == null) temp[2] = true;
             if (t.Key == "d" && t.transform.Find("keyHint/evaluate").GetComponent<Image>().sprite == null) temp[3] = true;
         }
-        if (temp[0] && temp[1] && temp[2] && temp[3])
+        if (temp[0] && temp[1] && temp[2] && temp[3] && (!needDouble) || (needDouble&&((temp[0] || temp[1]) && (temp[2] || temp[3]))))
         {
             //break;
+            if (needDouble)//是否需要生成双键
+            {
+                tmp = 0;
+            }
+            else
+            {
+                tmp = 1;
+            }
         }
         else
         {
-            while ((temp[0] && (tmp == 0 || tmp == 7 || (tmp >= 4 && tmp <= 6))) || (temp[1] && (tmp == 0 || tmp == 7 || (tmp >= 1 && tmp <= 3))) || ((temp[2] && tmp >= 8 && tmp <= 9)) || (temp[3] && (tmp == 8 || tmp == 10)) || (totalTime > 43f && tmp == 0 || tmp == 7 || tmp == 8)) 
+            if (!needDouble)//是否需要生成双键
             {
-                tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                while (tmp == 3 || tmp == 6 || tmp == 0 || tmp == 7 || tmp == 8 ||(temp[0] && (tmp >= 4 && tmp <= 6)) || (temp[1] && (tmp >= 1 && tmp <= 3)) || (temp[2] &&  tmp == 9) || (temp[3] && tmp == 10) /*|| (totalTime > 43f && tmp == 0 || tmp == 7 || tmp == 8)*/)
+                {
+                    tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                }
+            }
+            else
+            {
+                while (tmp != 0 && tmp != 7 && tmp != 8 || ((temp[0] || temp[1]) && (tmp == 0 || tmp == 7)) || ((temp[2] || temp[3]) && tmp == 8))
+                {
+                    tmp = Mathf.FloorToInt(Random.value * boneList.Length);
+                }
             }
         }
     }

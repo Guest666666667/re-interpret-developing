@@ -54,6 +54,7 @@ public class selectPose : MonoBehaviour
     }
     public void OnEnterLeft()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/tick");
         if (LeftOrRight == 2)//如果上一次上下操作为右
         {
             anim_m.SetInteger("state", anim_m.GetInteger("state") - 5);
@@ -99,6 +100,7 @@ public class selectPose : MonoBehaviour
     }
     public void OnEnterRight()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/tick");
         if (LeftOrRight == 1)//上一个操作为左
         {
             anim_m.SetInteger("state", anim_m.GetInteger("state") + 5);

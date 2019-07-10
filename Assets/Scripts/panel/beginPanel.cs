@@ -12,8 +12,8 @@ public class beginPanel : BasePanel {
     private void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        firstButton = transform.Find("Button").GetComponent<Button>();
-        firstButton.onClick.AddListener(OnSelectClick);
+        //firstButton = transform.Find("Button").GetComponent<Button>();
+        //firstButton.onClick.AddListener(OnSelectClick);
     }
     //void Update()
     //{
@@ -25,11 +25,11 @@ public class beginPanel : BasePanel {
     public override void OnEnter()//不用enter，一开始就在   
     {
         base.OnEnter();
-        if (firstButton == null)
-        {
-            firstButton = transform.Find("Button").GetComponent<Button>();
-            firstButton.onClick.AddListener(OnSelectClick);
-        }
+        //if (firstButton == null)
+        //{
+        //    firstButton = transform.Find("Button").GetComponent<Button>();
+        //    firstButton.onClick.AddListener(OnSelectClick);
+        //}
     }
     public override void OnPause()
     {
