@@ -118,6 +118,7 @@ public class selectStoryPanel : BasePanel
             uiMng.PopPanel(); uiMng.clearDict();
             Debug.Log("pop successfully!!!");
         }
+        AudioManager.Instance.Stop();
         Invoke("OnTurn", 0.8f);
     }
     public void OnTurn()
@@ -149,6 +150,7 @@ public class selectStoryPanel : BasePanel
                 uiMng.PopPanel(); uiMng.clearDict();
                 Debug.Log("pop successfully!!!");
             }
+            AudioManager.Instance.Stop();
             SceneManager.LoadScene(1, LoadSceneMode.Single);
         }               //选择了夸父逐日
         else

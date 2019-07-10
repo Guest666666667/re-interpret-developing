@@ -18,7 +18,7 @@ public class moveUp : MonoBehaviour
         Vector2 v = transform.localPosition;
         if(v.y<7)
         {
-            v.y += speed * Time.deltaTime;
+            v.y += speed * Time.unscaledDeltaTime;
         }
       
         transform.localPosition = v;

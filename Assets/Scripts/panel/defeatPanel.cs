@@ -66,12 +66,7 @@ public class defeatPanel : BasePanel
         }
         DontDestroyOnLoad(settingMessage.Instance);
         //判断是重新开始哪一个游戏
-        if (gameObject.scene.name == "storyGame")
-            SceneManager.LoadScene(1, LoadSceneMode.Single);
-        else if(gameObject.scene.name == "fightGame")
-        {
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
-        }
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
     public void OnBack()
     {

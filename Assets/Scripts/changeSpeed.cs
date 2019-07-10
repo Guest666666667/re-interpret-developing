@@ -644,5 +644,12 @@ public class changeSpeed : MonoBehaviour
             mU.speed = 2;
         }
 
+        if (totalTime >119)
+        {
+            UIManager.Instance.PushPanel(UIPanelType.vectory);
+            Time.timeScale = 0;
+            AudioManager.Instance.Stop();
+        }
+
     }
 }
