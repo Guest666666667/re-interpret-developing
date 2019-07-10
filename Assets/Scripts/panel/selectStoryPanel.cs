@@ -38,10 +38,6 @@ public class selectStoryPanel : BasePanel
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            OnBackClick();
-        }
         if (OnShow)
         {
             if (Input.GetButtonDown("Horizontal"))
@@ -51,6 +47,11 @@ public class selectStoryPanel : BasePanel
             else if (Input.GetKeyDown(KeyCode.J))
             {
                 AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                OnShow = false;
+                OnBackClick();
             }
         }
     }

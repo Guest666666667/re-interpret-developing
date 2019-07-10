@@ -45,7 +45,7 @@ public class Attribute : MonoBehaviour
     private static int[][,] totalAttribute = new int[3][,];
     private int[] P1ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
     private int[] P2ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
-    private int[] SceneAttribute = { 0, 0, 0 };//第一个位置为远景，中间位置为天气，第三个为近景
+    private int[] SceneAttribute = { 1, 0, 1 };//第一个位置为远景，中间位置为天气，第三个为近景
                                                //远景列表：
                                                //天气列表：云，月，蚀，阳
                                                //近景列表：高树，桃林，荆棘
@@ -126,17 +126,26 @@ public class Attribute : MonoBehaviour
         if (player == 1)
         {
             for (int i = 0; i < 3; i++)
+            {
                 for (int k = 0; k < 6; k++)
                 {
-                    if (k > 1) 
+                    if (k > 1)
                     {
                         poseOffset[0][i] += Mathf.Abs(value[i][k] - compareArray[k]);
                     }
                 }
+                if (poseOffset[0][i] / 10 < 10)
+                    poseOffset[0][i] = poseOffset[0][i] / 10;
+                else
+                {
+                    poseOffset[0][i] = 10;
+                }
+            }
         }
         else
         {
             for (int i = 0; i < 3; i++)
+            {
                 for (int k = 0; k < 6; k++)
                 {
                     if (k > 1)
@@ -144,17 +153,15 @@ public class Attribute : MonoBehaviour
                         poseOffset[1][i] += Mathf.Abs(value[i][k] - compareArray[k]);
                     }
                 }
-        }
-        for (int i = 0; i < 2; i++)
-            for (int j = 0; j < 3; j++)
-            {
-                if (poseOffset[i][j] / 10 < 10)
-                    poseOffset[i][j] = poseOffset[i][j] / 10;
+                if (poseOffset[1][i] / 10 < 10)
+                    poseOffset[1][i] = poseOffset[1][i] / 10;
                 else
                 {
-                    poseOffset[i][j] = 10;
+                    poseOffset[1][i] = 10;
                 }
             }
+        }
+
         Debug.Log("OFFSET: " + poseOffset[0][0]);
         Debug.Log("OFFSET: " + poseOffset[0][1]);
 

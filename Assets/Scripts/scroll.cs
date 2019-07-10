@@ -78,6 +78,7 @@ public class scroll : MonoBehaviour
                 fillAmount += 0.1f;
                 if(fillAmount>0.15)
                 {
+                    Debug.Log("text1 IN");
                     txt_1.SetActive(true);
                 }
                 if (fillAmount > 0.3)

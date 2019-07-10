@@ -27,12 +27,11 @@ public class setPanel : BasePanel {
     }
     void Update()
     {
-
-        //if (onShow)
-        //{
-        //    settingMessage.Instance.setMusicVolume(musicSlider.value);
-        //    settingMessage.Instance.setSoundVolume(soundSlider.value);
-        //}
+        if (onShow&&Input.GetKeyDown(KeyCode.Q))
+        {
+            onShow = false;
+            OnClose();
+        }
     }
     void OnGUI()
     {
