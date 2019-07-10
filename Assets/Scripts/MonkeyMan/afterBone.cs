@@ -13,11 +13,12 @@ public class afterBone : MonoBehaviour
     private float coverTimeLast = 10000f;//复原到正常位置需要的剩余时间*/
     public GameObject model;//对应残影部位模型对象
     public GameObject parent;
+    public GameObject frontBone;//对应前景人骨骼
     private bool hasAcc = true;//是否已加速
     private float timeLast = 10000f;//加速到完美位置需要的剩余时间
     private bool showing = false;//是否正在展示残影
     private float showingLast = 10000f;//展示剩余时间
-    public float existTime = 0.5f;
+    public float existTime = 0.5f;//残影显示时间
     private bool needSlow = false;
     private int countRun = 0;//跑步动作循环计数
     private int countThirsty = 0;//干渴动作循环计数
@@ -27,6 +28,9 @@ public class afterBone : MonoBehaviour
     void Start()
     {
         countRun = 0;
+        countThirsty = 0;
+        countTired = 0;
+        countExhaust = 0;
         existTime = 0.5f;
         hasAcc = true;
         needSlow = false;
@@ -34,7 +38,6 @@ public class afterBone : MonoBehaviour
 
     void Update()
     {
-
     }
 
     void FixedUpdate()
@@ -96,6 +99,10 @@ public class afterBone : MonoBehaviour
             }
             //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().delSlow();
             GetComponent<Animator>().speed = 1f;
+
+            AnimatorStateInfo t = frontBone.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+            GetComponent<Animator>().Play(t.fullPathHash, -1, t.normalizedTime);//暴力对齐前景人
+
             showing = false;
             showingLast = 10000f;
             Color temp = model.GetComponent<SpriteMeshInstance>().color;
