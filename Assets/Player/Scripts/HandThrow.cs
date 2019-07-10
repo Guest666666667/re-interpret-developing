@@ -22,7 +22,7 @@ public class HandThrow : MonoBehaviour
         GameObject projectileObject = Instantiate(
             projectilePrefab,
             transform.position,
-            Quaternion.identity);
+            transform.rotation);
         ProjectileControl projectile = projectileObject.GetComponent<ProjectileControl>();
         projectile.Launch(direction, 30*3*5);
     }

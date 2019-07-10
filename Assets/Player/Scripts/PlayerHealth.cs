@@ -15,6 +15,9 @@ public class PlayerHealth : MonoBehaviour
     private BloodBar bloodBar1;
     private BloodBar bloodBar2;
 
+    private bool isPlaying = false;
+    private float time = 0f;
+
     private HurtEffect hurtEffect;
     
     // Start is called before the first frame update
@@ -30,6 +33,27 @@ public class PlayerHealth : MonoBehaviour
     {
         text1.text = "Health:" + player1Health;
         text2.text = "Health:" + player2Health;
+        if(isPlaying)
+        {
+            time += Time.deltaTime;
+        }
+        if(player1Health == 0 || player2Health == 0)
+        {
+            Attribute a = GameObject.Find("/attributeManager").GetComponent<Attribute>();
+
+            a.setTime((int)time);
+
+            if (player1Health == 0)
+            {
+                a.setWhoWin(false);
+            }
+            else
+            {
+                a.setWhoWin(true);
+            }
+            UIManager.Instance.PushPanel(UIPanelType.fightFinal);
+            Time.timeScale = 0;
+        }
     }
 
     public void init()
@@ -42,6 +66,7 @@ public class PlayerHealth : MonoBehaviour
         player2Health = P2ValueArray[0];
         max1 = P1ValueArray[0];
         max2 = P2ValueArray[0];
+        isPlaying = true;
     }
 
     public void damage(string player, int damage)
