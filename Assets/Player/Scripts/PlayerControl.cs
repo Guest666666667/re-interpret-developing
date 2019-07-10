@@ -196,6 +196,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (throwCount == 1)
             {
+                HandThrow h = throwArea.GetComponent<HandThrow>();
                 Vector2 d = new Vector2(0, 0);
                 if (!isTurn)
                 {
@@ -204,8 +205,8 @@ public class PlayerControl : MonoBehaviour
                 else
                 {
                     d.x = -1;
+                    h.transform.rotation = Quaternion.Euler(0, 0, 180);
                 }
-                HandThrow h = throwArea.GetComponent<HandThrow>();
                 h.Throw(projectilePrefab, d);
                 throwCount = 0;
             }

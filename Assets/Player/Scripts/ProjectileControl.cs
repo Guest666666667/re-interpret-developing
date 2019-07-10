@@ -44,6 +44,7 @@ public class ProjectileControl : MonoBehaviour
             aliveCount--;
             if (aliveCount == 1)
             {
+                rigidbody2D.transform.Rotate(0, 0, 180);
                 Vector2 temp = new Vector2(-forceV.x, forceV.y);
                 rigidbody2D.AddForce(temp);
             }
