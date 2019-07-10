@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class frontBone : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class frontBone : MonoBehaviour
     {
         countRun = 0;
         countThirsty = 0;
+        countTired = 0;
+        countExhaust = 0;
         hasDel = false;
         buttons = new List<GameObject>();
         hasAcc = true;
@@ -34,6 +37,7 @@ public class frontBone : MonoBehaviour
 
     void Update()
     {
+
         perfectLast -= Time.deltaTime;
         transLast -= Time.deltaTime;
         bool judge = true;//判定多个键是否同时按下
@@ -253,6 +257,20 @@ public class frontBone : MonoBehaviour
             {
                 countExhaust = 0;
                 GetComponent<Animator>().SetBool("die", true);
+                if (name == "rightHand")
+                {
+                    Transform cane = transform.Find("cane");
+                    cane.SetParent(parent.transform);
+                    //cane = parent.transform.Find("cane");
+                    Sequence s2 = DOTween.Sequence();
+                    s2.Append(cane.DOLocalMoveX(20.68f, 5f))
+                        .Append(cane.DOLocalMoveX(20.68f, 2f))
+                        .Append(cane.DOLocalMoveX(0.6472f, 2f));
+                    Sequence s = DOTween.Sequence();
+                    s.Append(cane.DOLocalMoveY(-2.62f, 1f))
+                        .Append(cane.DOLocalMoveY(-2.62f, 8f))
+                        .Append(cane.DOLocalMoveY(-3.2f, 2f));
+                }
             }
             else
             {
