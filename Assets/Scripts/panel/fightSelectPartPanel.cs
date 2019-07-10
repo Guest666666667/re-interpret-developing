@@ -46,6 +46,7 @@ public class fightSelectPartPanel : BasePanel
             transform.Find("P1").GetComponent<selectTotalPart>().enabled = false;
             transform.Find("P1").Find("P1Child").GetComponent<selectUnitPart>().enabled = false;
             transform.Find("P1").GetComponent<CanvasGroup>().alpha = 0.5f;
+            AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         }
         if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1))
         {
@@ -55,6 +56,7 @@ public class fightSelectPartPanel : BasePanel
             transform.Find("P2").GetComponent<selectTotalPart>().enabled = false;
             transform.Find("P2").Find("P2Child").GetComponent<selectUnitPart>().enabled = false;
             transform.Find("P2").GetComponent<CanvasGroup>().alpha = 0.5f;
+            AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         }
         if (P1Enter && P2Enter)
         {

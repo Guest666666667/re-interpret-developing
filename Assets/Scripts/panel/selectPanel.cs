@@ -15,6 +15,8 @@ public class selectPanel : BasePanel {
     private CanvasGroup canvasGroup;
     private bool fightOrStory;//fight为true,story为false
     private Animator anim;
+    private bool OnShow=true;
+    private Animator cameraAnim;
 
     private void Start()
     {
@@ -24,6 +26,7 @@ public class selectPanel : BasePanel {
         setButton = transform.Find("setButton").GetComponent<Button>();
         exitButton = transform.Find("exitButton").GetComponent<Button>();
         anim = GetComponent<Animator>();
+        cameraAnim = GameObject.Find("Camera").GetComponent<Animator>();
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
         //beginButton.gameObject.SetActive(false);//未选择前不可用
 
@@ -34,7 +37,7 @@ public class selectPanel : BasePanel {
         storyButton.onClick.AddListener(OnTurnStoryClick);
         setButton.onClick.AddListener(OnSetClick);
         exitButton.onClick.AddListener(OnEndClick);
-        //beginButton.onClick.AddListener(OnBeginClick);
+
     }
     void Update()
     {
@@ -42,6 +45,13 @@ public class selectPanel : BasePanel {
         {
             //Debug.Log("esc enter");
             Application.Quit();
+        }
+        if (OnShow)
+        {
+            if (Input.GetButtonDown("Vertical"))
+            {
+                AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
+            }
         }
     }
     public override void OnEnter()
@@ -62,6 +72,7 @@ public class selectPanel : BasePanel {
     {
         base.OnPause();
         anim.SetInteger("state", 2);
+        OnShow = false;
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
         //canvasGroup.blocksRaycasts = false;
@@ -69,6 +80,7 @@ public class selectPanel : BasePanel {
     public override void OnResume()
     {
         anim.SetInteger("state", 1);
+        OnShow = true;
         //canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
         fightButton.Select();//设置最上面的为选中状态
@@ -89,6 +101,7 @@ public class selectPanel : BasePanel {
 
     public void OnTurnFightClick()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         fightOrStory = true;
         //beginButton.gameObject.SetActive(true);
         //uiMng.PushPanel(UIPanelType.selectChild);
@@ -100,21 +113,25 @@ public class selectPanel : BasePanel {
             uiMng.PopPanel(); uiMng.clearDict();
             Debug.Log("pop successfully!!!");
         }
+
         SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 
     public void OnTurnStoryClick()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         fightOrStory = false;
         //beginButton.gameObject.SetActive(true);
         uiMng.PushPanel(UIPanelType.selectStory);
     }
     public void OnSetClick()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         uiMng.PushPanel(UIPanelType.set);
     }
     public void OnEndClick()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         Debug.Log("end in!");
         Application.Quit();
     }

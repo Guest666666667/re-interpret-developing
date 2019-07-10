@@ -513,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 5950790109643767559, guid: 5d5cf375701b81d4f8279b0ab721df4b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5950790109643767558, guid: 5d5cf375701b81d4f8279b0ab721df4b,
         type: 3}
@@ -1468,6 +1468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: backGround
+      objectReference: {fileID: 0}
+    - target: {fileID: 2045582293032896228, guid: c96452c76b33c064684708965b05029c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2045582293032896235, guid: c96452c76b33c064684708965b05029c,
         type: 3}
@@ -3423,6 +3428,8 @@ GameObject:
   - component: {fileID: 815139815}
   - component: {fileID: 815139814}
   - component: {fileID: 815139818}
+  - component: {fileID: 815139820}
+  - component: {fileID: 815139819}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3526,6 +3533,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb444875437a15b4ba082014f04dcd42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &815139819
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815139813}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9153021c7aaa97f499fcd2309f7d3cd5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &815139820
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815139813}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!4 &818622459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7333533826705769156, guid: 615db75297bb8074e87db16d58ff5f14,
@@ -3831,7 +3869,7 @@ PrefabInstance:
     - target: {fileID: 1401121175342986645, guid: ea342fab9640b454ea2cd014b6226feb,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1401121175342986647, guid: ea342fab9640b454ea2cd014b6226feb,
         type: 3}
@@ -8000,7 +8038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1674531271
 SpriteRenderer:
   m_ObjectHideFlags: 0

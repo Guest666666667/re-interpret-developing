@@ -78,22 +78,24 @@ public class fightSetPosePanel : BasePanel
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            player1OK = true;
             transform.Find("P1confirmMessage").gameObject.SetActive(true);
             transform.Find("P1").GetComponent<selectPose>().enabled = false;
             transform.Find("P1").GetComponent<CanvasGroup>().alpha = 0.5f;
+            AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
             //计算偏差
             attributeManager.setPoseArray(player1Para,1);
+            player1OK = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            player2OK = true;
             transform.Find("P2confirmMessage").gameObject.SetActive(true);
             transform.Find("P2").GetComponent<selectPose>().enabled = false;
             transform.Find("P2").GetComponent<CanvasGroup>().alpha = 0.5f;
+            AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
             //计算偏差
             attributeManager.setPoseArray(player2Para,2);
+            player2OK = true;
         }
 
         if (!player1OK)
@@ -101,10 +103,12 @@ public class fightSetPosePanel : BasePanel
             if (Input.GetKeyDown(KeyCode.W))
             {
                 selectIndex1--;
+                AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 selectIndex1++;
+                AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
             }
 
             //if (selectIndex1 % (paraCount + 1) == 0)
@@ -133,12 +137,14 @@ public class fightSetPosePanel : BasePanel
                 //player1Button.color = nonSelectedColor;
                 if (Input.GetKeyDown(KeyCode.A))
                 {
+                    AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
                     int angle = player1Para[buttonIndex1 % 3][selectIndex1 % paraCount];
                     angle = Mathf.Max(-360, angle - 10);
                     player1Para[buttonIndex1 % 3][selectIndex1 % paraCount] = angle;
                 }
                 if (Input.GetKeyDown(KeyCode.D))
                 {
+                    AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
                     int angle = player1Para[buttonIndex1 % 3][selectIndex1 % paraCount];
                     angle = Mathf.Min(360, angle + 10);
                     player1Para[buttonIndex1 % 3][selectIndex1 % paraCount] = angle;
@@ -151,10 +157,12 @@ public class fightSetPosePanel : BasePanel
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
                 selectIndex2--;
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
+                AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
                 selectIndex2++;
             }
 
@@ -185,12 +193,14 @@ public class fightSetPosePanel : BasePanel
                 //player2Button.color = nonSelectedColor;
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
+                    AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
                     int angle = player2Para[buttonIndex2 % 3][selectIndex2 % paraCount];
                     angle = Mathf.Max(-360, angle - 10);
                     player2Para[buttonIndex2 % 3][selectIndex2 % paraCount] = angle;
                 }
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
+                    AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
                     int angle = player2Para[buttonIndex2 % 3][selectIndex2 % paraCount];
                     angle = Mathf.Min(360, angle + 10);
                     player2Para[buttonIndex2 % 3][selectIndex2 % paraCount] = angle;

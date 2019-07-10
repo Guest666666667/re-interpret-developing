@@ -13,6 +13,8 @@ public class selectStoryPanel : BasePanel
     private CanvasGroup canvasGroup;
     private bool firstOrSecond;//fight为true,story为false
     private Animator anim;
+    private bool OnShow = true;
+    private Animator turnScene;
 
     void Start()
     {
@@ -20,6 +22,7 @@ public class selectStoryPanel : BasePanel
         firstStoryButton = transform.Find("runAfterSunButton").GetComponent<Button>();
         secondStoryButton = transform.Find("fightWithGodButton").GetComponent<Button>();
         backButton = transform.Find("backButton").GetComponent<Button>();
+        turnScene = GameObject.Find("/Canvas/RawImage").GetComponent<Animator>();
 
         anim = transform.GetComponent<Animator>();
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
@@ -39,6 +42,17 @@ public class selectStoryPanel : BasePanel
         {
             OnBackClick();
         }
+        if (OnShow)
+        {
+            if (Input.GetButtonDown("Horizontal"))
+            {
+                AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
+            }
+            else if (Input.GetKeyDown(KeyCode.J))
+            {
+                AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
+            }
+        }
     }
     public void OnSelect()
     {
@@ -56,16 +70,20 @@ public class selectStoryPanel : BasePanel
         if (firstStoryButton == null)
             firstStoryButton = transform.Find("runAfterSunButton").GetComponent<Button>();
         firstStoryButton.Select();
+
+        OnShow = true;
     }
     public override void OnPause()
     {
         base.OnPause();
+        OnShow = false;
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
     }
     public override void OnResume()
     {
         firstStoryButton.Select();
+        OnShow = true;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
     }
@@ -74,6 +92,7 @@ public class selectStoryPanel : BasePanel
     {
         //anim.enabled = false;
         anim.SetInteger("state", 2);
+        OnShow = false;
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
         Debug.Log("已调用ONEXIT");
@@ -90,12 +109,18 @@ public class selectStoryPanel : BasePanel
         //beginButton.gameObject.SetActive(true);
         Debug.Log("first in");
         int count = UIManager.Instance.getStackCount();
+        //淡出动画
+        turnScene.SetBool("state", true);
         //进入下一个场景前将所有面板出栈
         for (int i = 0; i < count; i++)
         {
             uiMng.PopPanel(); uiMng.clearDict();
             Debug.Log("pop successfully!!!");
         }
+        Invoke("OnTurn", 0.8f);
+    }
+    public void OnTurn()
+    {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 
@@ -107,6 +132,7 @@ public class selectStoryPanel : BasePanel
     }
     public void OnBackClick()
     {
+        AudioManager.Instance.PlaySound("Music/Sound/UI/return");
         uiMng.PopPanel();
         //uiMng.PushPanel(UIPanelType.select);
     }
