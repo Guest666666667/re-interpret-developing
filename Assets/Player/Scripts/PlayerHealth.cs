@@ -37,6 +37,23 @@ public class PlayerHealth : MonoBehaviour
         {
             time += Time.deltaTime;
         }
+        if(player1Health == 0 || player2Health == 0)
+        {
+            Attribute a = GameObject.Find("/attributeManager").GetComponent<Attribute>();
+
+            a.setTime((int)time);
+
+            if (player1Health == 0)
+            {
+                a.setWhoWin(false);
+            }
+            else
+            {
+                a.setWhoWin(true);
+            }
+            UIManager.Instance.PushPanel(UIPanelType.fightFinal);
+            Time.timeScale = 0;
+        }
     }
 
     public void init()
