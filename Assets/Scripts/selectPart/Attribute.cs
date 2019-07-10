@@ -45,12 +45,14 @@ public class Attribute : MonoBehaviour
     private static int[][,] totalAttribute = new int[3][,];
     private int[] P1ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
     private int[] P2ValueArray = { 100, 15, 3, 5, 5, 10, 12 };
-    private int[] SceneAttribute = { 0, 0, 0 };//第一个位置为远景，中间位置为天气，第三个为近景
-                                               //远景列表：
+    private int[] SceneAttribute = { 1, 0, 1 };//第一个位置为远景，中间位置为天气，第三个为近景
+                                               //远景列表：雪岭，远山，险峰
                                                //天气列表：云，月，蚀，阳
                                                //近景列表：高树，桃林，荆棘
     private int[][] poseOffset = new int[2][];//0为P1,1为P2；姿势偏差蓝量，用于蓝控，顺序：JKL
     private int[] compareArray = { -152, -157, 167, 145, -270, 0 };//中间23位不管，只管左手
+    private bool isPlayer1;//true为1,false为二
+    private int timeCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -126,17 +128,26 @@ public class Attribute : MonoBehaviour
         if (player == 1)
         {
             for (int i = 0; i < 3; i++)
+            {
                 for (int k = 0; k < 6; k++)
                 {
-                    if (k > 1) 
+                    if (k > 1)
                     {
                         poseOffset[0][i] += Mathf.Abs(value[i][k] - compareArray[k]);
                     }
                 }
+                if (poseOffset[0][i] / 10 < 10)
+                    poseOffset[0][i] = poseOffset[0][i] / 10;
+                else
+                {
+                    poseOffset[0][i] = 10;
+                }
+            }
         }
         else
         {
             for (int i = 0; i < 3; i++)
+            {
                 for (int k = 0; k < 6; k++)
                 {
                     if (k > 1)
@@ -144,17 +155,15 @@ public class Attribute : MonoBehaviour
                         poseOffset[1][i] += Mathf.Abs(value[i][k] - compareArray[k]);
                     }
                 }
-        }
-        for (int i = 0; i < 2; i++)
-            for (int j = 0; j < 3; j++)
-            {
-                if (poseOffset[i][j] / 10 < 10)
-                    poseOffset[i][j] = poseOffset[i][j] / 10;
+                if (poseOffset[1][i] / 10 < 10)
+                    poseOffset[1][i] = poseOffset[1][i] / 10;
                 else
                 {
-                    poseOffset[i][j] = 10;
+                    poseOffset[1][i] = 10;
                 }
             }
+        }
+
         Debug.Log("OFFSET: " + poseOffset[0][0]);
         Debug.Log("OFFSET: " + poseOffset[0][1]);
 
@@ -174,5 +183,21 @@ public class Attribute : MonoBehaviour
     public int[][] getPoseOffset()
     {
         return poseOffset;
+    }
+    public void setWhoWin(bool a)
+    {
+        isPlayer1 = a;
+    }
+    public bool getWhoWin()
+    {
+        return isPlayer1;
+    }
+    public void setTime(int t)
+    {
+        timeCount = t;
+    }
+    public int getTime()
+    {
+        return timeCount;
     }
 }

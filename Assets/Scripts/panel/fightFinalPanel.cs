@@ -12,8 +12,9 @@ public class fightFinalPanel : BasePanel
     private Button reBeginButton;
     private Text vectoryText;
     private Text timeText;
-    private int vectoryPlayer = 0;
+    private int vectoryPlayer;
     private int latedTime = 10;
+    private Attribute attributeManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +22,19 @@ public class fightFinalPanel : BasePanel
         backButton = transform.Find("backButton").GetComponent<Button>();
         reBeginButton = transform.Find("reBeginButton").GetComponent<Button>();
         vectoryText = transform.Find("VectoryText").GetComponent<Text>();//获取血条判断
-        vectoryText.text = "";
         timeText = transform.Find("timeText").GetComponent<Text>();//获取时间
-        timeText.text = "";
+        attributeManager = GameObject.Find("/attributeManager").GetComponent<Attribute>();
+        if (attributeManager.getWhoWin())
+        {
+            vectoryPlayer = 1;
+        }
+        else
+        {
+            vectoryPlayer = 2;
+        }
+        latedTime = attributeManager.getTime();
+        vectoryText.text = "P" + vectoryPlayer + "获胜！";
+        timeText.text = "战斗时间" + latedTime + "s";
 
         backButton.onClick.AddListener(OnBack);
         reBeginButton.onClick.AddListener(OnAgain);
@@ -46,14 +57,14 @@ public class fightFinalPanel : BasePanel
         {
             vectoryText = transform.Find("VectoryText").GetComponent<Text>();
             //todo get
-            vectoryText.text = "P" + vectoryPlayer + "获胜！";
         }
+        vectoryText.text = "P" + vectoryPlayer + "获胜！";
         if (timeText == null)
         {
             timeText = transform.Find("timeText").GetComponent<Text>();
             //todo get
-            timeText.text = "战斗时间" + latedTime + "s";
         }
+        timeText.text = "战斗时间" + latedTime + "s";
     }
     public override void OnPause()
     {
@@ -85,13 +96,7 @@ public class fightFinalPanel : BasePanel
             Debug.Log("pop successfully!!!");
         }
         DontDestroyOnLoad(settingMessage.Instance);
-        //判断是重新开始哪一个游戏
-        if (gameObject.scene.name == "storyGame")
-            SceneManager.LoadScene(1, LoadSceneMode.Single);
-        else if (gameObject.scene.name == "fightGame")
-        {
-            SceneManager.LoadScene(2, LoadSceneMode.Single);
-        }
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
     public void OnBack()
     {

@@ -104,13 +104,18 @@ public class BattlePara : MonoBehaviour
         //天气列表：云，月，蚀，阳
         //近景列表：高树，桃林，荆棘
 
+        for(int i=0;i<3;i++)
+        {
+            Debug.Log("Scene "+ (i+1) + ": " + SceneAttribute[i]);
+        }
+
         switch (SceneAttribute[0])
         {
             case 0:
-                scene1 = Scene.远山;
+                scene1 = Scene.雪岭;
                 break;
             case 1:
-                scene1 = Scene.雪岭;
+                scene1 = Scene.远山;
                 break;
             case 2:
                 scene1 = Scene.险峰;
