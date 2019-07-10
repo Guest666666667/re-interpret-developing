@@ -135,6 +135,10 @@ public class frontBone : MonoBehaviour
         GameObject tmp = Resources.Load("UIPanel/hint") as GameObject;
         GameObject gen = Instantiate(tmp, GameObject.Find("Canvas/runTimeUI").transform, false);
         buttons.Add(gen);
+
+        float r = Random.value * 62.5f;//随机极坐标半径
+        float theta = Random.value * 2 * Mathf.PI;//随机极坐标角度
+
         if (No == 0 || No == 7)
         {
             GameObject tmp2 = Resources.Load("UIPanel/hint") as GameObject;
@@ -142,6 +146,9 @@ public class frontBone : MonoBehaviour
             buttons.Add(gen2);
             gen.GetComponent<hint>().setUp("q",1,seq);
             gen2.GetComponent<hint>().setUp("e",1,seq);
+
+            gen2.transform.localPosition += new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta), 0f);//添加按钮随机位置
+
             Keys = new string[2];
             Keys[0] = "q";
             Keys[1] = "e";
@@ -166,6 +173,9 @@ public class frontBone : MonoBehaviour
             buttons.Add(gen2);
             gen.GetComponent<hint>().setUp("a",1, seq);
             gen2.GetComponent<hint>().setUp("d",1, seq);
+
+            gen2.transform.localPosition += new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta), 0f);//添加按钮随机位置
+
             Keys = new string[2];
             Keys[0] = "a";
             Keys[1] = "d";
@@ -183,6 +193,9 @@ public class frontBone : MonoBehaviour
             Keys = new string[1];
             Keys[0] = "d";
         }
+
+        gen.transform.localPosition += new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta), 0f);//添加按钮随机位置
+
         perfectLast = existTime;
         //callChange(needSlow);
     }

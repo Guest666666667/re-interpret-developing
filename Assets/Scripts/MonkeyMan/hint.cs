@@ -121,7 +121,7 @@ public class hint : MonoBehaviour
         //transform.Find("keyHint/Text").GetComponent<Text>().text = "";//Key.ToUpper();
         if (Key == "a" || Key == "d")
         {
-            transform.localPosition -= new Vector3(0f, 165f, 0f);
+            transform.localPosition -= new Vector3(0f, 200f, 0f);
         }
         if (Key == "e" || Key == "d")
         {
