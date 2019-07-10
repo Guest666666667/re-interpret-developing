@@ -22,9 +22,7 @@ public class fightFinalPanel : BasePanel
         backButton = transform.Find("backButton").GetComponent<Button>();
         reBeginButton = transform.Find("reBeginButton").GetComponent<Button>();
         vectoryText = transform.Find("VectoryText").GetComponent<Text>();//获取血条判断
-        vectoryText.text = "";
         timeText = transform.Find("timeText").GetComponent<Text>();//获取时间
-        timeText.text = "";
         attributeManager = GameObject.Find("/attributeManager").GetComponent<Attribute>();
         if (attributeManager.getWhoWin())
         {
@@ -35,6 +33,8 @@ public class fightFinalPanel : BasePanel
             vectoryPlayer = 2;
         }
         latedTime = attributeManager.getTime();
+        vectoryText.text = "P" + vectoryPlayer + "获胜！";
+        timeText.text = "战斗时间" + latedTime + "s";
 
         backButton.onClick.AddListener(OnBack);
         reBeginButton.onClick.AddListener(OnAgain);

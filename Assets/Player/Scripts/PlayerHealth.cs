@@ -51,6 +51,9 @@ public class PlayerHealth : MonoBehaviour
             {
                 a.setWhoWin(true);
             }
+
+            player1Health = max1; player2Health = max2;
+
             UIManager.Instance.PushPanel(UIPanelType.fightFinal);
             Time.timeScale = 0;
         }
