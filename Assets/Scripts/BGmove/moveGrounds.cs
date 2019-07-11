@@ -8,6 +8,7 @@ public class moveGrounds : MonoBehaviour
     public bool canMove = true;//如果地面到头了这个值就是false,只有地面能动才是true
 
     public float speed = 5f;
+    public float speed_2 = 5f;
     public bool isMove = false;//player_1
     public bool isMove_2 = false;//player_2
     private PlayerControl moveScript;//player_1
@@ -23,13 +24,25 @@ public class moveGrounds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        speed = BattlePara.moveSpeed1;
+        speed_2 = BattlePara.moveSpeed2;
+
         canMove = false;
         isMove = moveScript.isMove;
         isMove_2 = moveScript_2.isMove;
         //isMove = transform.Find("player").gameObject.GetComponent<Move>().isMove;
         if (isMove ^ isMove_2)
         {
-            MoveBackGround();//如果两个人有一个移动，背景就移动
+            //MoveBackGround();//如果两个人有一个移动，背景就移动
+            if (isMove)
+            {
+                MoveBackGround(speed);//如果两个人有一个移动，背景就移动
+            }
+            if (isMove_2)
+            {
+                MoveBackGround(speed_2);//如果两个人有一个移动，背景就移动
+            }
         }
         //如果player_1没有碰到墙壁并且往右移动，背景往左移动
         if ((!moveScript.isMove) && (moveScript.direction == 1))
@@ -53,38 +66,73 @@ public class moveGrounds : MonoBehaviour
             if (v.x < 19.2)
             {
                 canMove = true;
-                v.x += speed * Time.deltaTime * 0.5f;
+                v.x += speed_2 * Time.deltaTime * 0.5f;
             }
 
             transform.localPosition = v;
         }
     }
-    public void MoveBackGround()
+    public void MoveBackGround(float Speed)
     {
-        if (Input.GetAxis("Horizontal") < 0)
+        //true代表反方向
+        if(BattlePara.scene3.Equals(BattlePara.Scene.日蚀))
         {
-            Vector2 v = transform.localPosition;
-            //如果没有出边界
-            if (v.x < 19.2)
+            if (Input.GetAxis("Horizontal") < 0)
             {
-                canMove = true;
-                v.x += speed * Time.deltaTime;
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x > -19.2)
+                {
+                    canMove = true;
+                    v.x -= Speed * Time.deltaTime;
+                }
+
+                transform.localPosition = v;
+            }
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x < 19.2)
+                {
+                    canMove = true;
+                    v.x += Speed * Time.deltaTime;
+                }
+
+                transform.localPosition = v;
             }
 
-            transform.localPosition = v;
         }
-        if (Input.GetAxis("Horizontal") > 0)
+        else
         {
-            Vector2 v = transform.localPosition;
-            //如果没有出边界
-            if (v.x > -19.2)
+            if (Input.GetAxis("Horizontal") < 0)
             {
-                canMove = true;
-                v.x -= speed * Time.deltaTime;
-            }
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x < 19.2)
+                {
+                    canMove = true;
+                    v.x += Speed * Time.deltaTime;
+                }
 
-            transform.localPosition = v;
+                transform.localPosition = v;
+            }
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x > -19.2)
+                {
+                    canMove = true;
+                    v.x -= Speed * Time.deltaTime;
+                }
+
+                transform.localPosition = v;
+            }
         }
+
+
+        
 
     }
 }
