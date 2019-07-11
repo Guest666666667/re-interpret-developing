@@ -73,8 +73,15 @@ public class healthManagement : MonoBehaviour
             UIManager.Instance.PushPanel(UIPanelType.defeat);
             Time.timeScale = 0;
             AudioManager.Instance.Stop();
+            foreach (Animator t in GameObject.Find("parent/Skeleton").GetComponentsInChildren<Animator>())
+            {
+                t.updateMode = AnimatorUpdateMode.UnscaledTime;
+                t.CrossFade("Die", 0.25f / t.GetCurrentAnimatorStateInfo(0).length);
+            }
+            
         }
     }
+
     public void plus(int value)
     {
         int tmpVal = this.value;

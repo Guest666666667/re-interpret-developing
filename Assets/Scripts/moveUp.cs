@@ -16,7 +16,7 @@ public class moveUp : MonoBehaviour
     void Update()
     {
         Vector2 v = transform.localPosition;
-        if(v.y<7)
+        if(v.y<9.0)
         {
             v.y += speed * Time.unscaledDeltaTime;
         }
