@@ -50,10 +50,10 @@ public class fightSetPosePanel : BasePanel
         player2Para[2] = new int[paraCount];
         player1Para[0][0] = -152; player1Para[0][1] = -157; player1Para[0][2] = 96; player1Para[0][3] = -11; player1Para[0][4] = -270; player1Para[0][5] = -1;
         player1Para[1][0] = -152; player1Para[1][1] = -157; player1Para[1][2] = 89; player1Para[1][3] = -88; player1Para[1][4] = -270; player1Para[1][5] = -1;
-        player1Para[2][0] = -152; player1Para[2][1] = -157; player1Para[2][2] = 96; player1Para[2][3] = -11; player1Para[2][4] = -270; player1Para[2][5] = -1;
+        player1Para[2][0] = -152; player1Para[2][1] = -157; player1Para[2][2] = 146; player1Para[2][3] = -55; player1Para[2][4] = -270; player1Para[2][5] = -1;
         player2Para[0][0] = -152; player2Para[0][1] = -157; player2Para[0][2] = 96; player2Para[0][3] = -11; player2Para[0][4] = -270; player2Para[0][5] = -1;
         player2Para[1][0] = -152; player2Para[1][1] = -157; player2Para[1][2] = 89; player2Para[1][3] = -88; player2Para[1][4] = -270; player2Para[1][5] = -1;
-        player2Para[2][0] = -152; player2Para[2][1] = -157; player2Para[2][2] = 96; player2Para[2][3] = -11; player2Para[2][4] = -270; player2Para[2][5] = -1;
+        player2Para[2][0] = -152; player2Para[2][1] = -157; player2Para[2][2] = 146; player2Para[2][3] = -55; player2Para[2][4] = -270; player2Para[2][5] = -1;
 
         player1[0] = GameObject.Find("/player1/Skeleton/rootBone/leftArm"); player1[1] = GameObject.Find("/player1/Skeleton/rootBone/leftArm/leftArm2");
         player1[2] = GameObject.Find("/player1/Skeleton/rootBone/rightArm"); player1[3] = GameObject.Find("/player1/Skeleton/rootBone/rightArm/rightArm2");

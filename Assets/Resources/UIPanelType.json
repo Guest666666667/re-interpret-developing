@@ -49,9 +49,13 @@
     "panelTypeString": "vectory",
     "path": "UIPanel/vectoryPanel"
   },
-    {
+  {
     "panelTypeString": "fightFinal",
     "path": "UIPanel/fightFinalPanel"
+  },
+  {
+    "panelTypeString": "help",
+    "path": "UIPanel/helpPanel"
   }
 ]
 }

@@ -11,6 +11,7 @@ public class selectPanel : BasePanel {
     private Button storyButton;
     private Button setButton;
     private Button exitButton;
+    private Button helpButton;
     //private Button beginButton;
     private CanvasGroup canvasGroup;
     private bool fightOrStory;//fight为true,story为false
@@ -25,6 +26,7 @@ public class selectPanel : BasePanel {
         storyButton = transform.Find("storyButton").GetComponent<Button>();
         setButton = transform.Find("setButton").GetComponent<Button>();
         exitButton = transform.Find("exitButton").GetComponent<Button>();
+        helpButton = transform.Find("helpButton").GetComponent<Button>();
         anim = GetComponent<Animator>();
         cameraAnim = GameObject.Find("Camera").GetComponent<Animator>();
         //beginButton = transform.Find("beginButton").GetComponent<Button>();
@@ -37,13 +39,14 @@ public class selectPanel : BasePanel {
         storyButton.onClick.AddListener(OnTurnStoryClick);
         setButton.onClick.AddListener(OnSetClick);
         exitButton.onClick.AddListener(OnEndClick);
+        helpButton.onClick.AddListener(OnHelp);
 
     }
     void Update()
     {
         if (OnShow)
         {
-            if (Input.GetButtonDown("Vertical"))
+            if (Input.GetButtonDown("Vertical")||Input.GetButtonDown("Horizontal"))
             {
                 AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
             }
@@ -169,5 +172,9 @@ public class selectPanel : BasePanel {
     public void OnSelect()
     {
         fightButton.Select();
+    }
+    public void OnHelp()
+    {
+        uiMng.PushPanel(UIPanelType.help);
     }
 }
