@@ -570,7 +570,7 @@ public class changeSpeed : MonoBehaviour
         }
        
             //让视野往左移
-            if ((totalTime <= 119) && (totalTime > 117))
+            if ((totalTime <= 119) && (totalTime > 115))
         {
             
             LB_11.moveBack=true;
@@ -590,7 +590,7 @@ public class changeSpeed : MonoBehaviour
 
 
         }
-        if ((totalTime > 117))
+        if ((totalTime > 116))
         {
             if (review)
             {
@@ -615,7 +615,7 @@ public class changeSpeed : MonoBehaviour
         }
         //桃林时间
         // 
-        if ((totalTime <= 121) && (totalTime > 119))
+        if ((totalTime <= 121) && (totalTime > 117.6))
         {
             LB_11.speed = 0.0f;
             LB_12.speed = 0.0f;

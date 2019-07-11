@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public Text text1;
     public Text text2;
+    public Text timeT;
 
     private int player1Health = 100;
     private int max1 = 100;
@@ -17,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     private bool isPlaying = false;
     private float time = 0f;
+    private float maxTime = 100f;
 
     private HurtEffect hurtEffect;
     
@@ -33,10 +35,36 @@ public class PlayerHealth : MonoBehaviour
     {
         text1.text = "Health:" + player1Health;
         text2.text = "Health:" + player2Health;
-        if(isPlaying)
+
+        timeT.text = "" + (int)(maxTime - time);
+
+        if (isPlaying)
         {
             time += Time.deltaTime;
         }
+
+        if(time >= maxTime)
+        {
+            Attribute a = GameObject.Find("/attributeManager").GetComponent<Attribute>();
+
+            a.setTime((int)time);
+
+            if (player1Health >= player2Health)
+            {
+                a.setWhoWin(true);
+            }
+            else
+            {
+                a.setWhoWin(false);
+            }
+
+            player1Health = max1; player2Health = max2;
+
+            UIManager.Instance.PushPanel(UIPanelType.fightFinal);
+            Time.timeScale = 0;
+
+        }
+
         if(player1Health == 0 || player2Health == 0)
         {
             Attribute a = GameObject.Find("/attributeManager").GetComponent<Attribute>();

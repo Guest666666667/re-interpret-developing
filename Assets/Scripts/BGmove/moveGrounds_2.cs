@@ -5,6 +5,7 @@ using UnityEngine;
 public class moveGrounds_2 : MonoBehaviour
 {
     public float speed = 2.5f;
+    public float speed_2 = 2.5f;
     public bool isMove = false;//player_1
     public bool isMove_2 = false;//player_2
     private PlayerControl moveScript;//player_1

@@ -269,13 +269,21 @@ public class frontBone : MonoBehaviour
                     Sequence s = DOTween.Sequence();
                     s.Append(cane.DOLocalMoveY(-2.62f, 1f))
                         .Append(cane.DOLocalMoveY(-2.62f, 8f))
-                        .Append(cane.DOLocalMoveY(-3.2f, 2f));
+                        .Append(cane.DOLocalMoveY(-3.2f, 1.5f));
                 }
             }
             else
             {
                 GetComponent<Animator>().SetBool("die", false);
             }
+        }
+    }
+
+    public void pauseAction()
+    {
+        if (Time.timeScale < 0.001f)
+        {
+            GetComponent<Animator>().updateMode = AnimatorUpdateMode.Normal;
         }
     }
 }

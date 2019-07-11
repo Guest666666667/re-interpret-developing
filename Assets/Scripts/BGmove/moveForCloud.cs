@@ -5,6 +5,8 @@ using UnityEngine;
 public class moveForCloud : MonoBehaviour
 {
     public float speed = 5f;
+    //public float speed_1 = 5f;
+    //public float speed_2 = 5f;
     public bool isMove = false;//player_1
     public bool isMove_2 = false;//player_2
     private PlayerControl moveScript;//player_1
@@ -23,6 +25,8 @@ public class moveForCloud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //speed_1 = BattlePara.moveSpeed1;
+        //speed_2 = BattlePara.moveSpeed2;
         //云要自己动
         Vector2 v2 = transform.localPosition;
         v2.x -= speed * Time.deltaTime;
@@ -58,7 +62,10 @@ public class moveForCloud : MonoBehaviour
             if (v.x > -19.2)
             {
                 if (mG.canMove)
-                    v.x -= speed * Time.deltaTime * 0.5f;
+                {
+                    //v.x -= speed * Time.deltaTime;
+                }
+
             }
 
             transform.localPosition = v;
@@ -71,7 +78,10 @@ public class moveForCloud : MonoBehaviour
             if (v.x < 19.2)
             {
                 if (mG.canMove)
-                    v.x += speed * Time.deltaTime * 0.5f;
+                {
+                  // v.x += speed * Time.deltaTime;
+                }
+
             }
 
             transform.localPosition = v;
@@ -79,30 +89,64 @@ public class moveForCloud : MonoBehaviour
     }
     public void MoveBackGround()
     {
-        if (Input.GetAxis("Horizontal") < 0)
+        if (BattlePara.scene3.Equals(BattlePara.Scene.日蚀))
         {
-            Vector2 v = transform.localPosition;
-            //如果没有出边界
-            if (v.x < 19.2)
-            {
-                if (mG.canMove)
-                    v.x += speed * Time.deltaTime;
-            }
 
-            transform.localPosition = v;
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x > -19.2)
+                {
+                    if (mG.canMove)
+                        v.x -= speed * Time.deltaTime;
+                }
+
+                transform.localPosition = v;
+            }
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x < 19.2)
+                {
+                    if (mG.canMove)
+                        v.x += speed * Time.deltaTime;
+                }
+
+                transform.localPosition = v;
+            }
         }
-        if (Input.GetAxis("Horizontal") > 0)
+        else
         {
-            Vector2 v = transform.localPosition;
-            //如果没有出边界
-            if (v.x > -19.2)
-            {
-                if (mG.canMove)
-                    v.x -= speed * Time.deltaTime;
-            }
 
-            transform.localPosition = v;
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x < 19.2)
+                {
+                    if (mG.canMove)
+                        v.x += speed * Time.deltaTime;
+                }
+
+                transform.localPosition = v;
+            }
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                Vector2 v = transform.localPosition;
+                //如果没有出边界
+                if (v.x > -19.2)
+                {
+                    if (mG.canMove)
+                        v.x -= speed * Time.deltaTime;
+                }
+
+                transform.localPosition = v;
+            }
         }
+
+
 
     }
 }
