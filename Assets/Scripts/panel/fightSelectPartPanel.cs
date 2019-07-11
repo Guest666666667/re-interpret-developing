@@ -21,6 +21,7 @@ public class fightSelectPartPanel : BasePanel
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.Instance.PlayMusic("Music/fightingBGM");
         P1 = GameObject.Find("/player1").GetComponent<Rigidbody2D>();
         P2 = GameObject.Find("/player2").GetComponent<Rigidbody2D>();
         P1.gravityScale = 0;P2.gravityScale = 0;

@@ -41,6 +41,10 @@ public class AudioManager : UnitySingleton<AudioManager>
     {
         MusicPlayer.Pause();
     }
+    public void Stop()
+    {
+        MusicPlayer.Stop();
+    }
     public void Resume()
     {
         MusicPlayer.Play();

@@ -86,9 +86,9 @@ Material:
     m_Floats:
     - PixelSnap: 0
     - _Alpha: 0
-    - _AlphaScale: 0
+    - _AlphaScale: 0.58
     - _BumpScale: 1
-    - _ColorMask: 15
+    - _ColorMask: 15.87
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _Distance: 0.015
@@ -101,21 +101,21 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OffSet: 0
-    - _Offset: 0.05
+    - _Offset: -0.81
     - _Parallax: 0.02
     - _Power: 1
-    - _Radius: 2
+    - _Radius: 1.74
     - _Shininess: 0.2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpeedX: 1
     - _SpeedY: 0
     - _SrcBlend: 1
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
+    - _Stencil: 1.33
+    - _StencilComp: 7.03
+    - _StencilOp: -13.9
+    - _StencilReadMask: 255.45
+    - _StencilWriteMask: 259
     - _Strength: 0.2
     - _UVSec: 0
     - _UseUIAlphaClip: 0

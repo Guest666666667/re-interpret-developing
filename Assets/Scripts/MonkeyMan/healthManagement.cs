@@ -34,6 +34,7 @@ public class healthManagement : MonoBehaviour
         if (this.value - value <= 0)
         {
             this.value = 0;
+            
         }
         else
         {
@@ -67,7 +68,12 @@ public class healthManagement : MonoBehaviour
                 valueParent.Find("point" + i).GetComponent<Image>().material.SetFloat("_AlphaScale", 0);
             }
         }
-        
+        if (this.value==0)
+        {
+            UIManager.Instance.PushPanel(UIPanelType.defeat);
+            Time.timeScale = 0;
+            AudioManager.Instance.Stop();
+        }
     }
     public void plus(int value)
     {

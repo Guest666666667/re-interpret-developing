@@ -59,9 +59,10 @@ public class selectBgUnit : MonoBehaviour
         //BG.transform.GetChild(1).gameObject.SetActive(true);//地面
         //BG.transform.GetChild(2).gameObject.SetActive(true);//地面
 
-        BG.transform.GetChild(3).gameObject.SetActive(true);//远景
+        BG.transform.Find("farMount").gameObject.SetActive(true);//第一个远山
         BG.transform.Find("Peach").gameObject.SetActive(true);//第一个桃林
         nearBGtemp = BG.transform.Find("Peach").gameObject;
+        farBgtemp = BG.transform.Find("farMount").gameObject;
 
         attributeManager = GameObject.Find("/attributeManager").GetComponent<Attribute>();
     }
@@ -147,25 +148,25 @@ public class selectBgUnit : MonoBehaviour
         //TODO change showImage
         if (ifFar)
         {
-            //if (farBgtemp != null) farBgtemp.SetActive(false);
-            //if (farBgIndex + 1 < 3)
-            //{
-            //    farBgIndex += 1;
-            //}
-            //else
-            //{
-            //    farBgIndex = 0;
-            //}
-            //farBgtemp = BG.transform.Find(farBg[farBgIndex]).gameObject;
+            if (farBgtemp != null) farBgtemp.SetActive(false);
+            if (farBgIndex + 1 < 3)
+            {
+                farBgIndex += 1;
+            }
+            else
+            {
+                farBgIndex = 0;
+            }
+            farBgtemp = BG.transform.Find(farBg[farBgIndex]).gameObject;
 
-            //Vector3 temp = farBgtemp.transform.localPosition;
-            //temp.x = 10;
-            //farBgtemp.transform.localPosition = temp;
-            //farBgtemp.SetActive(true);
-            //farBgtemp.transform.DOLocalMoveX(0, 0.6f);
+            Vector3 temp = farBgtemp.transform.localPosition;
+            temp.x = 10;
+            farBgtemp.transform.localPosition = temp;
+            farBgtemp.SetActive(true);
+            farBgtemp.transform.DOLocalMoveX(0, 0.6f);
 
-            ////更改属性表
-            //attributeManager.setSceneArray(0, farBgIndex);
+            //更改属性表
+            attributeManager.setSceneArray(0, farBgIndex);
         }
         else
         {
@@ -264,24 +265,24 @@ public class selectBgUnit : MonoBehaviour
         //TODO change showImage
         if (ifFar)
         {
-            //if (farBgtemp != null) farBgtemp.SetActive(false);
-            //if (farBgIndex - 1 >= 0)
-            //{
-            //    farBgIndex -= 1;
-            //}
-            //else
-            //{
-            //    farBgIndex = 2;
-            //}
-            //farBgtemp = BG.transform.Find(nearBg[farBgIndex]).gameObject;
-            //Vector3 temp = farBgtemp.transform.localPosition;
-            //temp.x = -10;
-            //farBgtemp.transform.localPosition = temp;
-            //farBgtemp.SetActive(true);
-            //farBgtemp.transform.DOLocalMoveX(0, 0.6f);
+            if (farBgtemp != null) farBgtemp.SetActive(false);
+            if (farBgIndex - 1 >= 0)
+            {
+                farBgIndex -= 1;
+            }
+            else
+            {
+                farBgIndex = 2;
+            }
+            farBgtemp = BG.transform.Find(farBg[farBgIndex]).gameObject;
+            Vector3 temp = farBgtemp.transform.localPosition;
+            temp.x = -10;
+            farBgtemp.transform.localPosition = temp;
+            farBgtemp.SetActive(true);
+            farBgtemp.transform.DOLocalMoveX(0, 0.6f);
 
-            ////保存属性
-            //attributeManager.setSceneArray(0, farBgIndex);
+            //保存属性
+            attributeManager.setSceneArray(0, farBgIndex);
         }
         else
         {

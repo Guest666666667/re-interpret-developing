@@ -92,7 +92,7 @@ public class fightFinalPanel : BasePanel
         int count = uiMng.getStackCount();
         for (int i = 0; i < count; i++)
         {
-            uiMng.PopPanel(); uiMng.clearDict();
+            uiMng.PopPanel();uiMng.clearDict(); 
             Debug.Log("pop successfully!!!");
         }
         DontDestroyOnLoad(settingMessage.Instance);
@@ -109,6 +109,7 @@ public class fightFinalPanel : BasePanel
             Debug.Log("pop successfully!!!");
         }
         DontDestroyOnLoad(settingMessage.Instance);
+        AudioManager.Instance.Stop();
         SceneManager.LoadScene(0, LoadSceneMode.Single);
         //SceneManager.LoadScene();
     }
