@@ -75,8 +75,10 @@ public class selectPanel : BasePanel {
     {
         base.OnPause();
         fightButton.enabled = false;
-        //storyButton.enabled = false;
-        //setButton.enabled = false;
+        storyButton.enabled = false;
+        setButton.enabled = false;
+        exitButton.enabled = false;
+        helpButton.enabled = false;
         anim.SetInteger("state", 2);
         OnShow = false;
         canvasGroup.alpha = 0;
@@ -88,6 +90,10 @@ public class selectPanel : BasePanel {
         anim.SetInteger("state", 1);
         OnShow = true;
         fightButton.enabled = true;
+        storyButton.enabled = true;
+        setButton.enabled = true;
+        exitButton.enabled = true;
+        helpButton.enabled = true;
         //canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
         fightButton.Select();//设置最上面的为选中状态

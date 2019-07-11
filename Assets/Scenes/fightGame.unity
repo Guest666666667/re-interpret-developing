@@ -8633,11 +8633,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Peach
       objectReference: {fileID: 0}
-    - target: {fileID: 7333533826705769157, guid: 615db75297bb8074e87db16d58ff5f14,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7333533826705769156, guid: 615db75297bb8074e87db16d58ff5f14,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -15,11 +15,12 @@ public class readTxt : MonoBehaviour {
     private bool[] actionJudge;//动作判定点
     private int[] boneSeq;//生成的骨骼编号序列
     private int tmp;//随机骨骼序号
+    private Text tip;
 
     // Use this for initialization
     void Start()
     {
-
+        tip = GameObject.Find("/Canvas/tip").GetComponent<Text>();
         text = Resources.Load<TextAsset>("data").text;
         // Debug.Log(text);
 
@@ -79,6 +80,7 @@ public class readTxt : MonoBehaviour {
             {
                 t.SetBool("ready", true);
             }
+            tip.gameObject.SetActive(false);
         }
 
         //}

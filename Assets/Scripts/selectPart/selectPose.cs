@@ -46,8 +46,8 @@ public class selectPose : MonoBehaviour
             }
             else//P2复用代码
             {
-                if (Input.GetKeyDown(KeyCode.Keypad2)) OnEnterLeft();
-                else if (Input.GetKeyDown(KeyCode.Keypad3)) OnEnterRight();
+                if (Input.GetKeyDown(KeyCode.Keypad7)) OnEnterLeft();
+                else if (Input.GetKeyDown(KeyCode.Keypad9)) OnEnterRight();
             }
             //lockTime = 0.7f;
         }

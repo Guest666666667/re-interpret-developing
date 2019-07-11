@@ -18,6 +18,8 @@ public class helpPanel : BasePanel
     public GameObject help_3;
     public GameObject help_4;
     public GameObject help_5;
+    public GameObject help_6;
+    private bool help = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,12 +64,25 @@ public class helpPanel : BasePanel
             help_4.SetActive(false);
             help_5.SetActive(true);
         }
-        if (!h5.isActive && onShow) 
+        if (!h5.isActive ) 
         {
             h5.shouldActive = false;
             help_5.SetActive(false);
+            h5.shouldActive = false;
             //h2.shouldActive = true;
-            OnClose();
+            help = true;
+            help_6.SetActive(true);
+
+        }
+        if(help && onShow)
+        {
+            if(Input.GetKeyDown(KeyCode.J))
+            {
+                help_6.SetActive(false);
+                OnClose();
+                help = false;
+
+            }
         }
     }
     public override void OnEnter()

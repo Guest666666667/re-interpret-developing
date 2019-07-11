@@ -179,8 +179,8 @@ public class selectTotalPart : MonoBehaviour
             }
             else//P2复用代码
             {
-                if (Input.GetKeyDown(KeyCode.Keypad2)) OnEnterLeft(2);
-                else if (Input.GetKeyDown(KeyCode.Keypad3)) OnEnterRight(2);
+                if (Input.GetKeyDown(KeyCode.Keypad7)) OnEnterLeft(2);
+                else if (Input.GetKeyDown(KeyCode.Keypad9)) OnEnterRight(2);
             }
             //lockTime = 0.7f;
         }
