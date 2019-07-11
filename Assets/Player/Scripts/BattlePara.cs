@@ -48,7 +48,8 @@ public class BattlePara : MonoBehaviour
     {
         远山,雪岭,险峰,
         高树,荆棘,桃林,
-        艳阳,日蚀,新月,多云
+        艳阳,日蚀,新月,多云,
+        无
     }
 
     public static Scene scene1 = Scene.远山; //远景
@@ -163,6 +164,12 @@ public class BattlePara : MonoBehaviour
             moveSpeed1 *= 1.3f; moveSpeed2 *= 1.3f;
             bodyDamage1 += 1; headDamage1 += 1; armDamage1 += 1;
             bodyDamage2 += 1; headDamage2 += 1; armDamage2 += 1;
+        }
+
+        if(scene3.Equals(BattlePara.Scene.新月))
+        {
+            scene1 = Scene.无;
+            scene2 = Scene.无;
         }
     }
 }

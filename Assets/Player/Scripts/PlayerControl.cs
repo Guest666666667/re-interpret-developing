@@ -112,10 +112,6 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //for test
-        //BattlePara.scene3 = BattlePara.Scene.日蚀;
-
         if (BattlePara.scene3.Equals(BattlePara.Scene.日蚀))
         {
             if(name.Equals("player1"))
