@@ -41,16 +41,16 @@ public class selectPanel : BasePanel {
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //Debug.Log("esc enter");
-            Application.Quit();
-        }
         if (OnShow)
         {
             if (Input.GetButtonDown("Vertical"))
             {
                 AudioManager.Instance.PlaySound("Music/Sound/UI/turn");
+            }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                //Debug.Log("esc enter");
+                Application.Quit();
             }
         }
     }
@@ -71,6 +71,9 @@ public class selectPanel : BasePanel {
     public override void OnPause()
     {
         base.OnPause();
+        fightButton.enabled = false;
+        //storyButton.enabled = false;
+        //setButton.enabled = false;
         anim.SetInteger("state", 2);
         OnShow = false;
         canvasGroup.alpha = 0;
@@ -81,6 +84,7 @@ public class selectPanel : BasePanel {
     {
         anim.SetInteger("state", 1);
         OnShow = true;
+        fightButton.enabled = true;
         //canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
         fightButton.Select();//设置最上面的为选中状态
@@ -113,7 +117,7 @@ public class selectPanel : BasePanel {
             uiMng.PopPanel(); uiMng.clearDict();
             Debug.Log("pop successfully!!!");
         }
-
+        AudioManager.Instance.Stop();
         SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 

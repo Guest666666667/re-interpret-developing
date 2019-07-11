@@ -9,9 +9,9 @@ public class init : MonoBehaviour
     {
         if (gameObject.scene.name == "mainScene")
         {
-            UIManager.Instance.PushPanel(UIPanelType.begin);
-            transform.Find("beginPanel(Clone)").Find("Text").gameObject.SetActive(false);
-            Invoke("OnActive", 2.2f);
+            //UIManager.Instance.PushPanel(UIPanelType.begin);
+            //transform.Find("beginPanel(Clone)").Find("Text").gameObject.SetActive(false);
+            Invoke("OnActive", 2.1f);
             //AudioManager.Instance.PlayMusic("test");
             AudioManager.Instance.PlayMusic("Music/mainScene");
         }
@@ -32,6 +32,7 @@ public class init : MonoBehaviour
     }
     public void OnActive()
     {
-        transform.Find("beginPanel(Clone)").Find("Text").gameObject.SetActive(true);
+        //transform.Find("beginPanel(Clone)").Find("Text").gameObject.SetActive(true);
+        UIManager.Instance.PushPanel(UIPanelType.begin);
     }
 }

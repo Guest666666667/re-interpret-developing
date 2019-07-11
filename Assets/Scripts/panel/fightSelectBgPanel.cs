@@ -43,7 +43,7 @@ public class fightSelectBgPanel : BasePanel
     void Update()
     {
         //接收按键事件
-        if (!P1anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.J))
+        if (!anim.IsInTransition(0) && !P1anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.J)) 
         {
             P1Enter = true;
             transform.Find("farConfirmMessage").gameObject.SetActive(true);
@@ -51,7 +51,7 @@ public class fightSelectBgPanel : BasePanel
             transform.Find("farBG").GetComponent<CanvasGroup>().alpha = 0.5f;
             AudioManager.Instance.PlaySound("Music/Sound/UI/sure");
         }
-        if (!P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1))
+        if (!anim.IsInTransition(0) && !P2anim_m.IsInTransition(0) && Input.GetKeyDown(KeyCode.Keypad1)) 
         {
             P2Enter = true;
             transform.Find("nearConfirmMessage").gameObject.SetActive(true);

@@ -109,6 +109,7 @@ public class fightFinalPanel : BasePanel
             Debug.Log("pop successfully!!!");
         }
         DontDestroyOnLoad(settingMessage.Instance);
+        AudioManager.Instance.Stop();
         SceneManager.LoadScene(0, LoadSceneMode.Single);
         //SceneManager.LoadScene();
     }

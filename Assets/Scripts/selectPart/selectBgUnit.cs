@@ -265,24 +265,24 @@ public class selectBgUnit : MonoBehaviour
         //TODO change showImage
         if (ifFar)
         {
-            //if (farBgtemp != null) farBgtemp.SetActive(false);
-            //if (farBgIndex - 1 >= 0)
-            //{
-            //    farBgIndex -= 1;
-            //}
-            //else
-            //{
-            //    farBgIndex = 2;
-            //}
-            //farBgtemp = BG.transform.Find(nearBg[farBgIndex]).gameObject;
-            //Vector3 temp = farBgtemp.transform.localPosition;
-            //temp.x = -10;
-            //farBgtemp.transform.localPosition = temp;
-            //farBgtemp.SetActive(true);
-            //farBgtemp.transform.DOLocalMoveX(0, 0.6f);
+            if (farBgtemp != null) farBgtemp.SetActive(false);
+            if (farBgIndex - 1 >= 0)
+            {
+                farBgIndex -= 1;
+            }
+            else
+            {
+                farBgIndex = 2;
+            }
+            farBgtemp = BG.transform.Find(farBg[farBgIndex]).gameObject;
+            Vector3 temp = farBgtemp.transform.localPosition;
+            temp.x = -10;
+            farBgtemp.transform.localPosition = temp;
+            farBgtemp.SetActive(true);
+            farBgtemp.transform.DOLocalMoveX(0, 0.6f);
 
-            ////保存属性
-            //attributeManager.setSceneArray(0, farBgIndex);
+            //保存属性
+            attributeManager.setSceneArray(0, farBgIndex);
         }
         else
         {
