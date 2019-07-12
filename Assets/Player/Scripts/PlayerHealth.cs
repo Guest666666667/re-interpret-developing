@@ -60,9 +60,11 @@ public class PlayerHealth : MonoBehaviour
 
             player1Health = max1; player2Health = max2;
 
-            UIManager.Instance.PushPanel(UIPanelType.fightFinal);
             Time.timeScale = 0;
 
+            time = 0;
+
+            UIManager.Instance.PushPanel(UIPanelType.fightFinal);
         }
 
         if(player1Health == 0 || player2Health == 0)
@@ -81,9 +83,9 @@ public class PlayerHealth : MonoBehaviour
             }
 
             player1Health = max1; player2Health = max2;
-
-            UIManager.Instance.PushPanel(UIPanelType.fightFinal);
             Time.timeScale = 0;
+            UIManager.Instance.PushPanel(UIPanelType.fightFinal);
+
         }
     }
 

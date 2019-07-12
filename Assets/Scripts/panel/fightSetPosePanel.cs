@@ -181,11 +181,11 @@ public class fightSetPosePanel : BasePanel
             //}
             //else
 
-            if (Input.GetKeyDown(KeyCode.Keypad2))
+            if (Input.GetKeyDown(KeyCode.Keypad7))
             {
                 buttonIndex2++;
             }
-            if (Input.GetKeyDown(KeyCode.Keypad3))
+            if (Input.GetKeyDown(KeyCode.Keypad9))
             {
                 buttonIndex2--;
             }

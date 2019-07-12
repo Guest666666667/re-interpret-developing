@@ -34,59 +34,76 @@ public class helpPanel : BasePanel
     // Update is called once per frame
     void Update()
     {
-        //h1退出
-        if (!h1.isActive)
+        if (onShow)
         {
-            h1.shouldActive = false;
-            h2.shouldActive = true;
-            help_1.SetActive(false);
-            help_2.SetActive(true);
-
-        }
-        if (!h2.isActive)
-        {
-            h2.shouldActive = false;
-            h3.shouldActive = true;
-            help_2.SetActive(false);
-            help_3.SetActive(true);
-        }
-        if (!h3.isActive)
-        {
-            h3.shouldActive = false;
-            h4.shouldActive = true;
-            help_3.SetActive(false);
-            help_4.SetActive(true);
-        }
-        if (!h4.isActive)
-        {
-            h4.shouldActive = false;
-            h5.shouldActive = true;
-            help_4.SetActive(false);
-            help_5.SetActive(true);
-        }
-        if (!h5.isActive ) 
-        {
-            h5.shouldActive = false;
-            help_5.SetActive(false);
-            h5.shouldActive = false;
-            //h2.shouldActive = true;
-            help = true;
-            help_6.SetActive(true);
-
-        }
-        if(help && onShow)
-        {
-            if(Input.GetKeyDown(KeyCode.J))
+            //h1退出
+            if (!h1.isActive)
             {
-                help_6.SetActive(false);
-                OnClose();
-                help = false;
+                h1.shouldActive = false;
+                h2.shouldActive = true;
+                help_2.SetActive(true);
 
+            }
+            if (!h2.isActive)
+            {
+                h2.shouldActive = false;
+                h3.shouldActive = true;
+                help_2.SetActive(false);
+                help_3.SetActive(true);
+            }
+            if (!h3.isActive)
+            {
+                h3.shouldActive = false;
+                h4.shouldActive = true;
+                help_3.SetActive(false);
+                help_4.SetActive(true);
+            }
+            if (!h4.isActive)
+            {
+                h4.shouldActive = false;
+                h5.shouldActive = true;
+                help_4.SetActive(false);
+                help_5.SetActive(true);
+            }
+            if (!h5.isActive)
+            {
+                h5.shouldActive = false;
+                help_5.SetActive(false);
+                h5.shouldActive = false;
+                //h2.shouldActive = true;
+                help = true;
+                help_6.SetActive(true);
+
+            }
+            if (help && onShow)
+            {
+                Debug.Log("help: " + help);
+                if (Input.GetKeyDown(KeyCode.J))
+                {
+                    help_6.SetActive(false);
+                    help = false;
+                    Debug.Log("you xiao shi l");
+                    OnClose();
+                }
             }
         }
     }
     public override void OnEnter()
     {
+        help_1.SetActive(true);
+        if (h1 == null) { h1 = transform.Find("help_1").GetComponent<help>(); }
+        if (h2 == null) { h2 = transform.Find("help_2").GetComponent<help_2>(); }
+        if (h3 == null) { h3 = transform.Find("help_3").GetComponent<help>(); }
+        if (h4 == null) { h4 = transform.Find("help_4").GetComponent<help>(); }
+        if (h5 == null) { h5 = transform.Find("help_5").GetComponent<help_2>(); }
+        h1.setBool(true);
+        h2.setBool(true);
+        h3.setBool(true);
+        h4.setBool(true);
+        h5.setBool(true);
+
+        help = false;
+
         base.OnEnter();
         Time.timeScale = 1;
         if (canvasGroup == null)
@@ -121,7 +138,6 @@ public class helpPanel : BasePanel
     {
         uiMng.PopPanel();
         Time.timeScale = 1;
-
         //AudioManager.Instance.Resume();
         //Debug.Log("pop already");
     }

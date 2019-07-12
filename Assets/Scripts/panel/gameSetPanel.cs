@@ -143,6 +143,7 @@ public class gameSetPanel : BasePanel {
     }
     public void OnAgain()
     {
+        AudioManager.Instance.Stop();
         Time.timeScale = 1;
         //进入下一个场景前将所有面板出栈
         int count = uiMng.getStackCount();

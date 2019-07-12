@@ -68,4 +68,9 @@ public class help : MonoBehaviour
             isActive = false;
         }
     }
+    public void setBool(bool a)
+    {
+        isActive = a;
+        number = 3;
+    }
 }
