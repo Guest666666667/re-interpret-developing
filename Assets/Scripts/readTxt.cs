@@ -134,7 +134,7 @@ public class readTxt : MonoBehaviour {
         {
             //Debug.Log("willianFenghe");
             //  AudioManager.Instance.PlayMusic("test");
-            AudioManager.Instance.changeMusicVolume(1f);//改变音量
+            //AudioManager.Instance.changeMusicVolume(1f);//改变音量
         }
     }
 
