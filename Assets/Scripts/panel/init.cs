@@ -14,6 +14,7 @@ public class init : MonoBehaviour
             Invoke("OnActive", 2.1f);
             //AudioManager.Instance.PlayMusic("test");
             AudioManager.Instance.PlayMusic("Music/mainScene");
+            AudioManager.Instance.changeMusicVolume(0.5f * settingMessage.Instance.getMusicVolume());
         }
         else if (gameObject.scene.name == "fightGame")
         {

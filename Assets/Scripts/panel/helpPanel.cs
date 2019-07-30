@@ -96,7 +96,7 @@ public class helpPanel : BasePanel
         if (h3 == null) { h3 = transform.Find("help_3").GetComponent<help>(); }
         if (h4 == null) { h4 = transform.Find("help_4").GetComponent<help>(); }
         if (h5 == null) { h5 = transform.Find("help_5").GetComponent<help_2>(); }
-        h1.setBool(true);
+        h1.setBool(true);h1.shouldActive = true;
         h2.setBool(true);
         h3.setBool(true);
         h4.setBool(true);

@@ -39,6 +39,7 @@ public class gameSetPanel : BasePanel {
         reBeginButton.onClick.AddListener(OnAgain);
         //统一变量
         musicImage.fillAmount = settingMessage.Instance.getMusicVolume();
+        //AudioManager.Instance.changeMusicVolume(0.5f * musicImage.fillAmount);
         soundImage.fillAmount = settingMessage.Instance.getSoundVolume();
         Debug.Log(settingMessage.Instance.getMusicVolume());
     }
