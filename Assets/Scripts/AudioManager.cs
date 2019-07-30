@@ -36,6 +36,7 @@ public class AudioManager : UnitySingleton<AudioManager>
             MusicPlayer.clip = clip;
             MusicPlayer.Play();
         }
+        changeMusicVolume(0.5f * settingMessage.Instance.getMusicVolume());
     }
     public void Pause()
     {

@@ -20,7 +20,6 @@ public class playMusic : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         GameObject.Find("AudioManager").GetComponent<AudioManager>().PlayMusic("test");
-        AudioManager.Instance.changeMusicVolume(0.5f * settingMessage.Instance.getMusicVolume());
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
