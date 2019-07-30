@@ -12,8 +12,8 @@ public class storyMainPanel : BasePanel {
     // Use this for initialization
     private void Start () {
         canvasGroup = GetComponent<CanvasGroup>();
-        stopButton = transform.Find("stopButton").GetComponent<Button>();
-        stopButton.onClick.AddListener(OnStopClick);
+        //stopButton = transform.Find("stopButton").GetComponent<Button>();
+        //stopButton.onClick.AddListener(OnStopClick);
     }
     void Update()
     {
@@ -51,7 +51,7 @@ public class storyMainPanel : BasePanel {
     public void OnStopClick()
     {
         //uiMng.PushPanel(UIPanelType.select);
-        UIManager.Instance.PushPanel(UIPanelType. gameSet);
+        uiMng.PushPanel(UIPanelType. gameSet);
         Time.timeScale = 0;
         //GameObject.Find("AudioManager").GetComponent<AudioManager>().Pause();
         AudioManager.Instance.Pause();
