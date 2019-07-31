@@ -14,8 +14,8 @@ public class settingMessage : UnitySingleton<settingMessage> {
     private settingMessage()
     {
         Debug.Log("new again!!!!");
-        musicVolume = 1f;
-        soundVolume = 1f;
+        //musicVolume = 1f;
+        //soundVolume = 1f;
     }
 	// Use this for initialization
 	void Start () {

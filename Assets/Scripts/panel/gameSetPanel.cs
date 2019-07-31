@@ -39,20 +39,13 @@ public class gameSetPanel : BasePanel {
         reBeginButton.onClick.AddListener(OnAgain);
         //统一变量
         musicImage.fillAmount = settingMessage.Instance.getMusicVolume();
+        //AudioManager.Instance.changeMusicVolume(0.5f * musicImage.fillAmount);
         soundImage.fillAmount = settingMessage.Instance.getSoundVolume();
         Debug.Log(settingMessage.Instance.getMusicVolume());
     }
     void Update()
     {
-        //if (onShow)
-        //{
-        //    settingMessage.Instance.setMusicVolume(musicSlider.value);
-        //    settingMessage.Instance.setSoundVolume(soundSlider.value);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    OnClose();
-        //}
+
     }
     void OnGUI()
     {
@@ -103,7 +96,7 @@ public class gameSetPanel : BasePanel {
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 1;
-        canvasGroup.blocksRaycasts = true;
+        canvasGroup.blocksRaycasts = true;//Debug.Log("OnEnter in!");
         //进入动画
         //Vector3 temp = transform.localPosition;
         //temp.x = 300;
@@ -133,13 +126,13 @@ public class gameSetPanel : BasePanel {
         base.OnExit();
         onShow = false;
     }
-    public void OnClose()
+    public void OnClose()//继续函数
     {
         uiMng.PopPanel();
         Time.timeScale = 1;
 
         AudioManager.Instance.Resume();
-        //Debug.Log("pop already");
+        //Debug.Log("why why onclose????");
     }
     public void OnAgain()
     {

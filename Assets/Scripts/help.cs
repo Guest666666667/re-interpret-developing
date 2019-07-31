@@ -64,7 +64,7 @@ public class help : MonoBehaviour
             
             component_3.SetActive(false);
 
-            //component_4.SetActive(false);
+            component_4.SetActive(false);
             isActive = false;
         }
     }
