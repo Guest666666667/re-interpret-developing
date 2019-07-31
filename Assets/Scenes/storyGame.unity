@@ -1224,6 +1224,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone/rightArm/rightArm2
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 1180636228}
 --- !u!95 &188762770
 Animator:
   serializedVersion: 3
@@ -1688,6 +1689,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/buttock/leftLeg
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 1427355485}
 --- !u!95 &226471584
 Animator:
   serializedVersion: 3
@@ -1772,6 +1774,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone/rightArm/rightArm2/rightHand
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 2106453943}
 --- !u!95 &230281646
 Animator:
   serializedVersion: 3
@@ -2062,6 +2065,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone/leftArm/leftArm2/leftHand
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 739806038}
 --- !u!95 &292473533
 Animator:
   serializedVersion: 3
@@ -5039,6 +5043,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/buttock
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 267804082}
 --- !u!95 &833451371
 Animator:
   serializedVersion: 3
@@ -5589,6 +5594,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 2021896993}
 --- !u!95 &942510278
 Animator:
   serializedVersion: 3
@@ -7949,6 +7955,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone/head
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 1755150259}
 --- !u!95 &1178708389
 Animator:
   serializedVersion: 3
@@ -8142,6 +8149,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone/leftArm
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 1612805355}
 --- !u!95 &1233208463
 Animator:
   serializedVersion: 3
@@ -8705,6 +8713,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone/rightArm
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 2115180013}
 --- !u!95 &1333384417
 Animator:
   serializedVersion: 3
@@ -9965,6 +9974,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/buttock/rightLeg
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 1972375161}
 --- !u!95 &1489024320
 Animator:
   serializedVersion: 3
@@ -11017,6 +11027,7 @@ MonoBehaviour:
   objectName: afterImage/Skeleton/rootBone/leftArm/leftArm2
   existTime: 1.2
   parent: {fileID: 2111559728}
+  model: {fileID: 1798207571}
 --- !u!95 &1667483450
 Animator:
   serializedVersion: 3

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Anima2D;
 
 public class frontBone : MonoBehaviour
 {
     public string objectName;//残影对应部位骨骼对象的路径
     public float existTime = 1.2f;//光圈缩小时间
     public GameObject parent;
+    public GameObject model;//对应人物模型部位
     private float transLast = 10000f;//按键失误时用来计算距离状态转换的剩余时间
     private float perfectLast = 10000f;//距离完美判定点剩余时间
     private bool hasAcc = true;//是否已加速
@@ -33,6 +35,7 @@ public class frontBone : MonoBehaviour
         buttons = new List<GameObject>();
         hasAcc = true;
         Keys = null;
+        model.GetComponent<SpriteMeshInstance>().sharedMaterial = new Material(Resources.Load<Material>("UI source/bodyHintMaterial"));
     }
 
     void Update()
@@ -66,6 +69,9 @@ public class frontBone : MonoBehaviour
                     t.GetComponent<hint>().complete(true, true);
                 });
                 buttons.Clear();
+                Sequence brighten = DOTween.Sequence();
+                brighten.Append(DOTween.To(() => model.GetComponent<SpriteMeshInstance>().sharedMaterial.GetFloat("_Brightness"), x => model.GetComponent<SpriteMeshInstance>().sharedMaterial.SetFloat("_Brightness", x), 0f, 0.2f));
+                brighten.onComplete = () => { model.GetComponent<SpriteMeshInstance>().sortingOrder -= 10; };//把变暗的人物部位置于最后方
                 Debug.Log("perfect!");
             }
             else if (perfectLast >= 0.1f && perfectLast < existTime)//完美范围外则判定为miss，动画停顿并计时
@@ -79,6 +85,9 @@ public class frontBone : MonoBehaviour
                 });
                 buttons.Clear();
                 GetComponent<Animator>().speed = 0f;
+                Sequence brighten = DOTween.Sequence();
+                brighten.Append(DOTween.To(() => model.GetComponent<SpriteMeshInstance>().sharedMaterial.GetFloat("_Brightness"), x => model.GetComponent<SpriteMeshInstance>().sharedMaterial.SetFloat("_Brightness", x), 0f, 0.2f));
+                brighten.onComplete = () => { model.GetComponent<SpriteMeshInstance>().sortingOrder -= 10; };//把变暗的人物部位置于最后方
                 Debug.Log("miss");
             }
             
@@ -96,6 +105,9 @@ public class frontBone : MonoBehaviour
                 t.GetComponent<hint>().complete(false, false);
             });
             buttons.Clear();
+            Sequence brighten = DOTween.Sequence();
+            brighten.Append(DOTween.To(() => model.GetComponent<SpriteMeshInstance>().sharedMaterial.GetFloat("_Brightness"), x => model.GetComponent<SpriteMeshInstance>().sharedMaterial.SetFloat("_Brightness", x), 0f, 0.2f));
+            brighten.onComplete = () => { model.GetComponent<SpriteMeshInstance>().sortingOrder -= 10; };//把变暗的人物部位置于最后方
             Debug.Log("miss");
         }
         if (transLast < 0f)//停顿时间结束之后开始加速到正常进度
@@ -132,6 +144,10 @@ public class frontBone : MonoBehaviour
 
     public void begin(int No, int seq)//判定起始点触发的事件，用于显示判定蓝圈并开始缩小
     {
+        Sequence brighten = DOTween.Sequence();
+        brighten.Append(DOTween.To(() => model.GetComponent<SpriteMeshInstance>().sharedMaterial.GetFloat("_Brightness"), x => model.GetComponent<SpriteMeshInstance>().sharedMaterial.SetFloat("_Brightness", x), 1f, existTime));
+        model.GetComponent<SpriteMeshInstance>().sortingOrder += 10;//把变亮的人物部位置于最前方
+
         //hasDel = false;
         //GameObject.Find("afterImage").GetComponent<timeScaleManagement>().addSlow();
         //bool needSlow = false;
@@ -160,15 +176,15 @@ public class frontBone : MonoBehaviour
         }
         else if (No >= 1 && No <= 3)
         {
-            gen.GetComponent<hint>().setUp("e",0,seq);
+            gen.GetComponent<hint>().setUp("q",0,seq);
             Keys = new string[1];
-            Keys[0] = "e";
+            Keys[0] = "q";
         }
         else if (No >= 4 && No <= 6)
         {
-            gen.GetComponent<hint>().setUp("q",0, seq);
+            gen.GetComponent<hint>().setUp("e",0, seq);
             Keys = new string[1];
-            Keys[0] = "q";
+            Keys[0] = "e";
         }
         else if (No == 8)
         {
@@ -187,15 +203,15 @@ public class frontBone : MonoBehaviour
         }
         else if (No == 9)
         {
-            gen.GetComponent<hint>().setUp("a",0, seq);
-            Keys = new string[1];
-            Keys[0] = "a";
-        }
-        else if (No == 10)
-        {
             gen.GetComponent<hint>().setUp("d",0, seq);
             Keys = new string[1];
             Keys[0] = "d";
+        }
+        else if (No == 10)
+        {
+            gen.GetComponent<hint>().setUp("a",0, seq);
+            Keys = new string[1];
+            Keys[0] = "a";
         }
 
         gen.transform.localPosition += new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta), 0f);//添加按钮随机位置

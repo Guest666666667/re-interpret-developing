@@ -125,7 +125,7 @@ public class afterBone : MonoBehaviour
         model.GetComponent<SpriteMeshInstance>().color = new Color(temp.r, temp.g, temp.b, 1f);
         foreach (SpriteMeshInstance tmp in model.GetComponentsInChildren<SpriteMeshInstance>())
         {
-            tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, 1f);
+            tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, 0f);//暂时禁用残影
         }
         this.needSlow = needSlow;
         if (needSlow)

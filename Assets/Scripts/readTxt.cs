@@ -167,7 +167,7 @@ public class readTxt : MonoBehaviour {
         {
             if (!needDouble)//是否需要生成双键
             {
-                while (tmp == 3 || tmp == 6 || tmp == 0 || tmp == 7 || tmp == 8 ||(temp[0] && (tmp >= 4 && tmp <= 6)) || (temp[1] && (tmp >= 1 && tmp <= 3)) || (temp[2] &&  tmp == 9) || (temp[3] && tmp == 10) /*|| (totalTime > 43f && tmp == 0 || tmp == 7 || tmp == 8)*/)
+                while (tmp == 3 || tmp == 6 || tmp == 0 || tmp == 7 || tmp == 8 ||(temp[1] && (tmp >= 4 && tmp <= 6)) || (temp[0] && (tmp >= 1 && tmp <= 3)) || (temp[3] &&  tmp == 9) || (temp[2] && tmp == 10) /*|| (totalTime > 43f && tmp == 0 || tmp == 7 || tmp == 8)*/)
                 {
                     tmp = Mathf.FloorToInt(Random.value * boneList.Length);
                 }
